@@ -19,21 +19,19 @@ class MyApp extends StatelessWidget {
     const isLoggedIn = false;
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'SkiResorts',
-        theme: ThemeData(
-          fontFamily: 'NotoSansKR',
-          scaffoldBackgroundColor: Colors.white,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        // ignore: dead_code
-        /*home: isLoggedIn
+      debugShowCheckedModeBanner: false,
+      title: 'SkiResorts',
+      theme: ThemeData(
+        fontFamily: 'NotoSansKR',
+        scaffoldBackgroundColor: Colors.white,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      // ignore: dead_code
+      home: isLoggedIn
           ? const Scaffold(
               body: NavigationDrawerMenu(),
             )
-          : OnboardingMenu(),*/
-        home: const Scaffold(
-          body: NavigationDrawerMenu(),
-        ));
+          : OnboardingMenu(),
+    );
   }
 }
