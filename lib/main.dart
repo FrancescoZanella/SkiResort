@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/onboardingmenu.dart';
 import 'package:flutter/services.dart';
 import 'package:ski_resorts_app/screens/navigation_drawer_menu.dart';
+// flutter read my files from top to bottom and executes what it finds
+// we don't have to worry about pixel disposition, flutter does it for us
 
 //edit
 void main() {
@@ -16,19 +18,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isLoggedIn = false;
+    const isLoggedIn = true;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SkiResorts',
       theme: ThemeData(
         fontFamily: 'NotoSansKR',
+        primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      //darkTheme: darkTheme,
+      //themeMode: ThemeMode.system,
       // ignore: dead_code
       home: isLoggedIn
           ? const Scaffold(
+              // core widget -> is the one that is displayed on the screen
               body: NavigationDrawerMenu(),
             )
           : OnboardingMenu(),
