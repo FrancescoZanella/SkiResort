@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/onboardingmenu.dart';
 import 'package:flutter/services.dart';
-
+//edit
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
