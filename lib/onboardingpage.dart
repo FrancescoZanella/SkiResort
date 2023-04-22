@@ -24,7 +24,7 @@ class OnboardingPage extends StatelessWidget {
               imagePath,
               scale: 0.60,
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             Text(
@@ -34,7 +34,7 @@ class OnboardingPage extends StatelessWidget {
                 fontSize: 24.0,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(

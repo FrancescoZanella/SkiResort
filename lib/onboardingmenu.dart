@@ -7,6 +7,7 @@ import 'package:ski_resorts_app/onboardingpageend.dart';
 class OnboardingMenu extends StatelessWidget {
   OnboardingMenu({super.key});
   final PageController controller = PageController();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,

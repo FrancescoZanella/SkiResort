@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPageEnd extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -25,7 +24,7 @@ class OnboardingPageEnd extends StatelessWidget {
               imagePath,
               scale: 0.60,
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             Text(
@@ -35,7 +34,7 @@ class OnboardingPageEnd extends StatelessWidget {
                 fontSize: 24.0,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -51,7 +50,7 @@ class OnboardingPageEnd extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
             Container(
               height: 80,
               width: 300,
@@ -59,7 +58,7 @@ class OnboardingPageEnd extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.lightBlueAccent,
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Let's Start",
                   style: TextStyle(
