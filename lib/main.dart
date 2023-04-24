@@ -13,24 +13,36 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isDarkModeEnabled = false;
+  static const isLoggedIn = true;
+
+  void _updateTheme(bool isDarkModeEnabled) {
+    setState(() {
+      _isDarkModeEnabled = isDarkModeEnabled;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    const isLoggedIn = true;
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SkiResorts',
-      theme: ThemeData(
-        fontFamily: 'NotoSansKR',
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      //darkTheme: darkTheme,
-      //themeMode: ThemeMode.system,
+      theme: _isDarkModeEnabled
+          ? ThemeData.dark()
+          : ThemeData(
+              fontFamily: 'NotoSansKR',
+              primarySwatch: Colors.blue,
+              scaffoldBackgroundColor: Colors.white,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
       // ignore: dead_code
       home: isLoggedIn
           ? const Scaffold(
