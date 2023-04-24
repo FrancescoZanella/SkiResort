@@ -29,9 +29,6 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      //darkTheme: darkTheme,
-      //themeMode: ThemeMode.system,
-      // ignore: dead_code
       home: isLoggedIn
           ? const Scaffold(
               // core widget -> is the one that is displayed on the screen
