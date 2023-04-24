@@ -93,7 +93,7 @@ class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
                   break;
               }
             },
-            icon: const Icon(Icons.account_circle_sharp),
+            icon: const Icon(Icons.downhill_skiing_sharp),
           ),
         ],
       ),
