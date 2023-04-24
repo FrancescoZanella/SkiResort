@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'user_statistic_screen.dart'; //package:DimaProject/screens/user_statistic_screen.dart';
 import '../settings_page_screen.dart';
 import 'home_app_screen.dart';
-import 'favorites_screen.dart';
+import '../bottom_navigation_menu.dart';
+import '../pop_up_menu.dart';
+import '../dummy_data.dart';
 
 enum Menu { itemOne, itemTwo, itemThree }
 
@@ -16,24 +17,6 @@ class NavigationDrawerMenu extends StatefulWidget {
 class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
   int _selectedNavigationDrawerMenuIndex = 0;
 
-  final List<Map<String, Object>> _pages = [
-    {
-      'page': const HomeScreen(),
-      'title': 'Home',
-    },
-    {
-      'page': const FavoritesScreen(),
-      'title': 'Favorites',
-    },
-    {
-      'page': const StatisticsScreen(),
-      'title': 'Statistics',
-    },
-    {
-      'page': const SettingsPage(),
-      'title': 'Settings',
-    },
-  ];
   int _selectedPageIndex = 0;
 
   void _selectPage(int index) {
@@ -57,23 +40,9 @@ class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
       // we have to return the widget that we want to build for the build method
       appBar: AppBar(
         // as title we insert the title of the page that we are currently on
-        title: Text(_pages[_selectedPageIndex]['title'] as String),
+        title: Text(pages[_selectedPageIndex]['title'] as String),
         actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'account',
-                child: Text('Account'),
-              ),
-              const PopupMenuItem(
-                value: 'settings',
-                child: Text('Settings'),
-              ),
-              const PopupMenuItem(
-                value: 'signOut',
-                child: Text('Sign out'),
-              ),
-            ],
+          MyPopupMenu(
             onSelected: (value) {
               // Handle menu item selection
               switch (value) {
@@ -93,7 +62,6 @@ class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
                   break;
               }
             },
-            icon: const Icon(Icons.downhill_skiing_sharp),
           ),
         ],
       ),
@@ -159,25 +127,10 @@ class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
           ],
         ),
       ),
-      body: _pages[_selectedPageIndex]['page'] as Widget,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_sharp),
-            label: 'Statistics',
-          ),
-        ],
-        currentIndex: _selectedPageIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _selectPage,
+      body: pages[_selectedPageIndex]['page'] as Widget,
+      bottomNavigationBar: BottomNavigationBarMenu(
+        onItemTapped: _selectPage,
+        selectedIndex: _selectedPageIndex,
       ),
     );
   }
