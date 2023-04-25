@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/onboardingmenu.dart';
 import 'package:flutter/services.dart';
-import 'package:ski_resorts_app/screens/navigation_drawer_menu.dart';
+import 'package:ski_resorts_app/navigation_drawer_menu/navigation_drawer_menu.dart';
 // flutter read my files from top to bottom and executes what it finds
 // we don't have to worry about pixel disposition, flutter does it for us
 

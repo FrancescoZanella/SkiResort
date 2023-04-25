@@ -56,7 +56,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             _isDark = value;
                           });
                           _saveDarkMode(value);
-                          // TODO: now i just set the dark mode into the setting page, i have to propagate the change to the whole app
                         },
                       ),
                     ),

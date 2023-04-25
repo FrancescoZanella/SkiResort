@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import '../dummy_data.dart';
+import './duration_and_calories.dart';
+import './statistic_widgets.dart';
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({Key? key}) : super(key: key);
@@ -12,26 +13,11 @@ class StatisticsScreen extends StatefulWidget {
 class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
-    final List<charts.Series<CaloriesData, String>> caloriesSeries = [
-      charts.Series(
-        id: 'Calories Burned',
-        data: caloriesData,
-        domainFn: (CaloriesData data, _) => data.day,
-        measureFn: (CaloriesData data, _) => data.caloriesBurned,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      )
-    ];
+    final List<charts.Series<CaloriesData, String>> caloriesSeries =
+        getCaloriesSeries();
 
-    final List<charts.Series<DurationData, String>> durationSeries = [
-      charts.Series(
-        id: 'Total Workout Duration',
-        data: durationData,
-        domainFn: (DurationData data, _) => data.day,
-        measureFn: (DurationData data, _) => data.totalDuration,
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-      )
-    ];
-
+    final List<charts.Series<DurationData, String>> durationSeries =
+        getDurationSeries();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),

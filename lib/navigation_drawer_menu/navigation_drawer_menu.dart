@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import '../settings_page_screen.dart';
-import 'home_app_screen.dart';
-import '../bottom_navigation_menu.dart';
-import '../pop_up_menu.dart';
-import '../dummy_data.dart';
-
-enum Menu { itemOne, itemTwo, itemThree }
+import '../settings_page_screen/settings_page_screen.dart';
+import '../home_app_screen.dart';
+import 'bottom_navigation_menu.dart';
+import 'pop_up_menu.dart';
+import './drawer_menu_dummy_data.dart';
 
 class NavigationDrawerMenu extends StatefulWidget {
   const NavigationDrawerMenu({Key? key}) : super(key: key);
