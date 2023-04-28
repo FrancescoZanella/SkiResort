@@ -1,11 +1,4 @@
-class Favorite {
-  final String name;
-  final String image;
-  final String location;
-  final int rating;
-
-  Favorite(this.name, this.image, this.location, this.rating);
-}
+import './favorite_elements.dart';
 
 final List<Favorite> favorites = [
   Favorite(

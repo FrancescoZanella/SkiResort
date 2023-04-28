@@ -8,6 +8,7 @@ class MyPopupMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      elevation: 8,
       itemBuilder: (context) => [
         const PopupMenuItem(
           value: 'start session',
@@ -17,7 +18,10 @@ class MyPopupMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text('Start session'),
-                Icon(Icons.play_arrow),
+                Icon(
+                  Icons.play_arrow,
+                  color: Colors.blue,
+                ),
               ],
             ),
           ),
@@ -30,7 +34,10 @@ class MyPopupMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text('Settings'),
-                Icon(Icons.settings),
+                Icon(
+                  Icons.settings,
+                  color: Colors.blue,
+                ),
               ],
             ),
           ),
@@ -43,7 +50,10 @@ class MyPopupMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text('My goals'),
-                Icon(Icons.flag),
+                Icon(
+                  Icons.flag,
+                  color: Colors.blue,
+                ),
               ],
             ),
           ),
