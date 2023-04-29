@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/onboardingmenu.dart';
 import 'package:flutter/services.dart';
 import 'package:ski_resorts_app/navigation_drawer_menu/navigation_drawer_menu.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 // flutter read my files from top to bottom and executes what it finds
 // we don't have to worry about pixel disposition, flutter does it for us
 
@@ -24,9 +26,24 @@ class _MyAppState extends State<MyApp> {
   bool _isDarkModeEnabled = false;
   static const isLoggedIn = true;
 
-  void _updateTheme(bool isDarkModeEnabled) {
+  @override
+  void initState() {
+    super.initState();
+    _loadDarkMode();
+  }
+
+  Future<void> _loadDarkMode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _isDarkModeEnabled = isDarkModeEnabled;
+      _isDarkModeEnabled = prefs.getBool('darkMode') ?? false;
+    });
+  }
+
+  Future<void> _saveDarkMode(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('darkMode', value);
+    setState(() {
+      _isDarkModeEnabled = value;
     });
   }
 

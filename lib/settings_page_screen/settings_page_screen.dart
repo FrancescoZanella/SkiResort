@@ -1,6 +1,9 @@
+// main page for settings page; this file represents the whole settings page screen
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './list_tiles_setting.dart';
+import './single_section_setting.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -43,10 +46,10 @@ class _SettingsPageState extends State<SettingsPage> {
             constraints: const BoxConstraints(maxWidth: 400),
             child: ListView(
               children: [
-                _SingleSection(
+                SingleSection(
                   title: "General",
                   children: [
-                    _CustomListTile(
+                    CustomListTile(
                       title: "Dark Mode",
                       icon: Icons.dark_mode_outlined,
                       trailing: Switch(
@@ -59,54 +62,54 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                     ),
-                    const _CustomListTile(
+                    const CustomListTile(
                       title: "Notifications",
                       icon: Icons.notifications_none_rounded,
                     ),
-                    const _CustomListTile(
+                    const CustomListTile(
                       title: "Security Status",
                       icon: CupertinoIcons.lock_shield,
                     ),
                   ],
                 ),
                 const Divider(),
-                const _SingleSection(
+                const SingleSection(
                   title: "Organization",
                   children: [
-                    _CustomListTile(
+                    CustomListTile(
                       title: "Profile",
                       icon: Icons.person_outline_rounded,
                     ),
-                    _CustomListTile(
+                    CustomListTile(
                       title: "Messaging",
                       icon: Icons.message_outlined,
                     ),
-                    _CustomListTile(
+                    CustomListTile(
                       title: "Calling",
                       icon: Icons.phone_outlined,
                     ),
-                    _CustomListTile(
+                    CustomListTile(
                       title: "People",
                       icon: Icons.contacts_outlined,
                     ),
-                    _CustomListTile(
+                    CustomListTile(
                       title: "Calendar",
                       icon: Icons.calendar_today_rounded,
                     ),
                   ],
                 ),
                 const Divider(),
-                const _SingleSection(
+                const SingleSection(
                   children: [
-                    _CustomListTile(
+                    CustomListTile(
                       title: "Help & Feedback",
                       icon: Icons.help_outline_rounded,
                     ),
-                    _CustomListTile(
+                    CustomListTile(
                       title: "About",
                       icon: Icons.info_outline_rounded,
                     ),
-                    _CustomListTile(
+                    CustomListTile(
                       title: "Sign out",
                       icon: Icons.exit_to_app_rounded,
                     ),
@@ -117,56 +120,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _CustomListTile extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final Widget? trailing;
-  const _CustomListTile(
-      {Key? key, required this.title, required this.icon, this.trailing})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      leading: Icon(icon),
-      trailing: trailing,
-      onTap: () {},
-    );
-  }
-}
-
-class _SingleSection extends StatelessWidget {
-  final String? title;
-  final List<Widget> children;
-  const _SingleSection({
-    Key? key,
-    this.title,
-    required this.children,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (title != null)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title!,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-        Column(
-          children: children,
-        ),
-      ],
     );
   }
 }
