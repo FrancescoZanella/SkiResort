@@ -1,3 +1,4 @@
+// data useful to rendert something on favorites_screen.dart
 import './favorite_elements.dart';
 
 final List<Favorite> favorites = [

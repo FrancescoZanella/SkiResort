@@ -1,5 +1,4 @@
 // main page for settings page; this file represents the whole settings page screen
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './list_tiles_setting.dart';
@@ -63,12 +62,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     const CustomListTile(
-                      title: "Notifications",
-                      icon: Icons.notifications_none_rounded,
+                      title: 'Notifications',
+                      icon: Icons.notifications,
+                      pageName: 'NotificationSettingScreen',
                     ),
                     const CustomListTile(
-                      title: "Security Status",
-                      icon: CupertinoIcons.lock_shield,
+                      title: "Position",
+                      icon: Icons.location_on_outlined,
+                      pageName: 'LocationSettingScreen',
                     ),
                   ],
                 ),
@@ -104,10 +105,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     CustomListTile(
                       title: "Help & Feedback",
                       icon: Icons.help_outline_rounded,
+                      pageName: 'HelpAndFeedbackPage',
                     ),
                     CustomListTile(
                       title: "About",
                       icon: Icons.info_outline_rounded,
+                      pageName: 'AboutUsPage',
                     ),
                     CustomListTile(
                       title: "Sign out",
