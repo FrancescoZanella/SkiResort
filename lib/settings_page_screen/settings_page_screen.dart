@@ -80,6 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     CustomListTile(
                       title: "Profile",
                       icon: Icons.person_outline_rounded,
+                      pageName: 'ProfilePageScreen',
                     ),
                     CustomListTile(
                       title: "Messaging",

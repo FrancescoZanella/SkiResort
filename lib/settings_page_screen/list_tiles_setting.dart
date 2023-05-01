@@ -3,6 +3,7 @@ import 'package:ski_resorts_app/settings_page_screen/about_us_screen/about_us_sc
 import 'package:ski_resorts_app/settings_page_screen/help_Feedback_Screen/help_feedback.dart';
 import 'package:ski_resorts_app/settings_page_screen/notification_handler_screen/notification_handler_screem.dart';
 import 'package:ski_resorts_app/settings_page_screen/position_handler_screen/position_handler_screen.dart';
+import 'package:ski_resorts_app/settings_page_screen/profile_screen/profile_screen.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -23,6 +24,7 @@ class CustomListTile extends StatelessWidget {
     'AboutUsPage': const AboutUsPage(),
     'HelpAndFeedbackPage': const HelpAndFeedbackPage(),
     'LocationSettingScreen': const LocationSettingScreen(),
+    'ProfilePageScreen': const ProfilePageScreen(),
     // add more pages here
   };
 
