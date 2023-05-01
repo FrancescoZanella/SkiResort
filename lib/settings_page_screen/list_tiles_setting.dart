@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/settings_page_screen/about_us_screen/about_us_screen.dart';
-import 'package:ski_resorts_app/settings_page_screen/help_Feedback_Screen/help_feedback.dart';
-import 'package:ski_resorts_app/settings_page_screen/notification_handler_screen/notification_handler_screem.dart';
-import 'package:ski_resorts_app/settings_page_screen/position_handler_screen/position_handler_screen.dart';
-import 'package:ski_resorts_app/settings_page_screen/profile_screen/profile_screen.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -19,22 +14,12 @@ class CustomListTile extends StatelessWidget {
     this.pageName,
   }) : super(key: key);
 
-  static final Map<String, Widget> _pageWidgets = {
-    'NotificationSettingScreen': const NotificationSettingScreen(),
-    'AboutUsPage': const AboutUsPage(),
-    'HelpAndFeedbackPage': const HelpAndFeedbackPage(),
-    'LocationSettingScreen': const LocationSettingScreen(),
-    'ProfilePageScreen': const ProfilePageScreen(),
-    // add more pages here
-  };
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(title),
       leading: Icon(icon),
-      trailing:
-          trailing, //see for example the one at the right of dark mode text
+      trailing: trailing, //for example the one at the right of darkMode text
       onTap: () {
         if (title == 'Sign out') {
           showDialog(
@@ -58,11 +43,7 @@ class CustomListTile extends StatelessWidget {
             ),
           );
         } else {
-          Widget pageWidget = _pageWidgets[pageName]!;
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => pageWidget),
-          );
+          Navigator.pushNamed(context, '/$pageName');
         }
       },
     );

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../settings_page_screen/settings_page_screen.dart';
-import '../home_app_screen.dart';
 import 'bottom_navigation_menu.dart';
 import 'pop_up_menu.dart';
 import './drawer_menu_dummy_data.dart';
@@ -49,11 +47,7 @@ class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
                   break;
                 case 'settings':
                   // Navigate to settings page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SettingsPage()),
-                  );
+                  Navigator.pushNamed(context, '/SettingsPage');
                   break;
                 case 'signOut':
                   // Do something
@@ -84,10 +78,7 @@ class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
               title: const Text('Home'),
               selected: _selectedNavigationDrawerMenuIndex == 0,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                Navigator.pushNamed(context, '/home');
               },
             ),
             ListTile(
@@ -104,10 +95,7 @@ class _NavigationDrawerMenuState extends State<NavigationDrawerMenu> {
               title: const Text('Settings'),
               selected: _selectedNavigationDrawerMenuIndex == 2,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SettingsPage()),
-                );
+                Navigator.pushNamed(context, '/SettingsPage');
               },
             ),
             const ListTile(

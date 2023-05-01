@@ -26,15 +26,18 @@ class _CustomTopNavigationBarState extends State<CustomTopNavigationBar> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: _buildNavigationItem(context, "Today", "/section1", 0),
+            child: _buildNavigationItem(
+                context, "Today", "/TodayStatisticSection", 0),
           ),
           const SizedBox(width: 0),
           Expanded(
-            child: _buildNavigationItem(context, "Season", "/section2", 1),
+            child: _buildNavigationItem(
+                context, "Season", "/SeasonStatisticSection", 1),
           ),
           const SizedBox(width: 0),
           Expanded(
-            child: _buildNavigationItem(context, "Lifetime", "/section3", 2),
+            child: _buildNavigationItem(
+                context, "Lifetime", "/LifetimeStatisticSection", 2),
           ),
         ],
       ),
