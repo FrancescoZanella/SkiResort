@@ -14,9 +14,9 @@ import 'package:ski_resorts_app/settings_page_screen/profile_screen/profile_scre
 
 final Map<String, WidgetBuilder> routes = {
   '/home': (BuildContext context) => const HomeScreen(),
-  '/TodayStatisticSection': (BuildContext context) => const TodayPage(),
-  '/SeasonStatisticSection': (BuildContext context) => const SeasonPage(),
-  '/LifetimeStatisticSection': (BuildContext context) => const LifetimePage(),
+  '/TodayStatisticSection': (BuildContext context) => TodayPage(),
+  '/SeasonStatisticSection': (BuildContext context) => SeasonPage(),
+  '/LifetimeStatisticSection': (BuildContext context) => LifetimePage(),
   '/NotificationSettingScreen': (BuildContext context) =>
       const NotificationSettingScreen(),
   '/AboutUsPage': (BuildContext context) => const AboutUsPage(),

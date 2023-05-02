@@ -1,4 +1,4 @@
-import 'package:ski_resorts_app/onboardingpage.dart';
+import 'package:ski_resorts_app/onboarding_screens/onboardingpage.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
 
