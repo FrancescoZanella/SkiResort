@@ -15,8 +15,8 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: Padding(
+    return Column(children: [
+      Padding(
         padding: const EdgeInsets.symmetric(horizontal: 34),
         child: Column(
           children: [
@@ -32,6 +32,7 @@ class OnboardingPage extends StatelessWidget {
               style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 24.0,
+                color: Colors.black,
               ),
             ),
             const SizedBox(
@@ -46,6 +47,7 @@ class OnboardingPage extends StatelessWidget {
                 mainText,
                 style: const TextStyle(
                   fontSize: 16.0,
+                  color: Colors.black,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -53,6 +55,6 @@ class OnboardingPage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ]);
   }
 }
