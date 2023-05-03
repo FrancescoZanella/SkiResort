@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import './duration_and_calories.dart';
-import './statistic_widgets.dart';
-import './statistic_screen_navigator.dart';
+import 'package:ski_resorts_app/statistic_screen/statistic_screen_navigator.dart';
+import 'package:ski_resorts_app/statistic_screen/custom_menu_page_list.dart';
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({Key? key}) : super(key: key);
@@ -12,44 +10,37 @@ class StatisticsScreen extends StatefulWidget {
 }
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
+  int _selectedPageIndex = 0;
+
+  void _selectPage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<charts.Series<CaloriesData, String>> caloriesSeries =
-        getCaloriesSeries();
-
-    final List<charts.Series<DurationData, String>> durationSeries =
-        getDurationSeries();
-
     return Scaffold(
       body: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: const CustomTopNavigationBar(),
+            margin: const EdgeInsets.only(
+                // used just to leave space between the top of the screen and the top of the app bar
+                top: 20),
+          ),
+          CustomTopNavigationBar(
+            selectedIndex: _selectedPageIndex,
+            onItemTapped: _selectPage,
+          ),
+          Container(
+            margin: const EdgeInsets.only(
+                // used just to leave space between the custom menu and the "body" of the page
+                top: 20),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Calories Burned:',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Expanded(
-                    child: charts.BarChart(caloriesSeries, animate: true),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Text(
-                    'Total Workout Duration:',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Expanded(
-                    child: charts.BarChart(durationSeries, animate: true),
-                  ),
-                ],
-              ),
+            child: IndexedStack(
+              index: _selectedPageIndex,
+              children: pages.map((page) => page['page'] as Widget).toList(),
             ),
           ),
         ],

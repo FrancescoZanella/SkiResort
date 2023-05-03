@@ -3,9 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/home_app_screen.dart';
 import 'package:ski_resorts_app/settings_page_screen/settings_page_screen.dart';
-import 'package:ski_resorts_app/statistic_screen/statistic_screen_navigator_pages/today_statistic_page.dart';
-import 'package:ski_resorts_app/statistic_screen/statistic_screen_navigator_pages/lifetime_statistic_page.dart';
-import 'package:ski_resorts_app/statistic_screen/statistic_screen_navigator_pages/season_statistic_page.dart';
 import 'package:ski_resorts_app/settings_page_screen/about_us_screen/about_us_screen.dart';
 import 'package:ski_resorts_app/settings_page_screen/help_Feedback_Screen/help_feedback.dart';
 import 'package:ski_resorts_app/settings_page_screen/notification_handler_screen/notification_handler_screem.dart';
@@ -14,9 +11,6 @@ import 'package:ski_resorts_app/settings_page_screen/profile_screen/profile_scre
 
 final Map<String, WidgetBuilder> routes = {
   '/home': (BuildContext context) => const HomeScreen(),
-  '/TodayStatisticSection': (BuildContext context) => const TodayPage(),
-  '/SeasonStatisticSection': (BuildContext context) => const SeasonPage(),
-  '/LifetimeStatisticSection': (BuildContext context) => const LifetimePage(),
   '/NotificationSettingScreen': (BuildContext context) =>
       const NotificationSettingScreen(),
   '/AboutUsPage': (BuildContext context) => const AboutUsPage(),
