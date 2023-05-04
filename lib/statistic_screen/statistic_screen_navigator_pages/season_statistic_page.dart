@@ -1,44 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:ski_resorts_app/statistic_screen/duration_and_calories.dart';
-import 'package:ski_resorts_app/statistic_screen/duration_and_calories.dart';
-import 'package:ski_resorts_app/statistic_screen/statistic_widgets.dart';
 
 class SeasonPage extends StatelessWidget {
-  SeasonPage({Key? key}) : super(key: key);
-
-  final List<charts.Series<CaloriesData, String>> caloriesSeries =
-      getCaloriesSeries();
-
-  final List<charts.Series<DurationData, String>> durationSeries =
-      getDurationSeries();
+  const SeasonPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Season'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Season Statistics',
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 24),
+          _StatisticCard(
+            label: 'Total distance skied',
+            value: '154 km',
+          ),
+          SizedBox(height: 16),
+          _StatisticCard(
+            label: 'Number of runs',
+            value: '12',
+          ),
+          SizedBox(height: 16),
+          _StatisticCard(
+            label: 'Total time on slopes',
+            value: '12 hours',
+          ),
+        ],
       ),
-      body: Center(
+    );
+  }
+}
+
+class _StatisticCard extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _StatisticCard({
+    Key? key,
+    required this.label,
+    required this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Calories Burned:',
-                style: Theme.of(context).textTheme.headlineSmall,
+                label,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              Expanded(
-                child: charts.BarChart(caloriesSeries, animate: true),
-              ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 8),
               Text(
-                'Total Workout Duration:',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              Expanded(
-                child: charts.BarChart(durationSeries, animate: true),
+                value,
+                style: const TextStyle(
+                  fontSize: 24,
+                ),
               ),
             ],
           ),
