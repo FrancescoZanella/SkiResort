@@ -24,7 +24,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isDarkModeEnabled = false;
-  static const isLoggedIn = true;
+  static const isLoggedIn = false;
 
   @override
   void initState() {

@@ -90,11 +90,11 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                   mainText: DataConstants.onboardingTiles[1].mainText,
                   title: DataConstants.onboardingTiles[1].title,
                 ),
-                OnboardingPageEnd(
-                  imagePath: DataConstants.onboardingTiles[2].imagePath,
-                  mainText: DataConstants.onboardingTiles[2].mainText,
-                  title: DataConstants.onboardingTiles[2].title,
-                ),
+                OnboardingPage(
+                    imagePath: DataConstants.onboardingTiles[2].imagePath,
+                    mainText: DataConstants.onboardingTiles[2].mainText,
+                    title: DataConstants.onboardingTiles[2].title,
+                    endButton: true),
               ],
             ),
           ),

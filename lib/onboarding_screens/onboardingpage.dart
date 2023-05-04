@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class OnboardingPage extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final title, imagePath, mainText;
+  bool endButton;
 
-  const OnboardingPage({
+  OnboardingPage({
     super.key,
-    this.imagePath,
-    this.mainText,
-    this.title,
+    required this.imagePath,
+    required this.mainText,
+    required this.title,
+    this.endButton = false,
     //required this.changepage
   });
   // con widget padding ho un widget orizzontale simmetrico, largo 24
@@ -52,6 +54,26 @@ class OnboardingPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
+            endButton
+                ? Container(
+                    height: 80,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.lightBlueAccent,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Let's Start",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(height: 0)
           ],
         ),
       ),
