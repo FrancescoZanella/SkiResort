@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ski_resorts_app/common_widgets/button.dart';
 
+import '../navigation_drawer_menu/navigation_drawer_menu.dart';
+
+// ignore: must_be_immutable
 class OnboardingPage extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final title, imagePath, mainText;
@@ -11,12 +15,14 @@ class OnboardingPage extends StatelessWidget {
     required this.mainText,
     required this.title,
     this.endButton = false,
+
     //required this.changepage
   });
   // con widget padding ho un widget orizzontale simmetrico, largo 24
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Column(children: [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 34),
@@ -36,6 +42,7 @@ class OnboardingPage extends StatelessWidget {
                 fontSize: 24.0,
                 color: Colors.black,
               ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(
               height: 20,
@@ -54,26 +61,39 @@ class OnboardingPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
+            // only for the last page insert the button to Login/Register
             endButton
-                ? Container(
-                    height: 80,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.lightBlueAccent,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Let's Start",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                ? Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
                       ),
-                    ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(310, 55),
+                            backgroundColor: Colors.blue,
+                            elevation: 5,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                              Radius.circular(40),
+                            ))),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NavigationDrawerMenu()),
+                          );
+                        },
+                        child: const InkWell(
+                          child: Text(
+                            'Explore now',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )
+                    ],
                   )
-                : SizedBox(height: 0)
+                : const SizedBox(height: 0)
           ],
         ),
       ),

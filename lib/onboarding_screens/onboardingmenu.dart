@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/constants/data_constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ski_resorts_app/onboarding_screens/onboardingpage.dart';
 import 'package:ski_resorts_app/navigation_drawer_menu/navigation_drawer_menu.dart';
+import 'package:ski_resorts_app/constants/text_constants.dart';
+import 'package:ski_resorts_app/constants/path_constants.dart';
 
 class OnboardingMenu extends StatefulWidget {
+  const OnboardingMenu({super.key});
+
   @override
   _OnboardingMenuState createState() => _OnboardingMenuState();
 }
@@ -12,13 +15,6 @@ class OnboardingMenu extends StatefulWidget {
 class _OnboardingMenuState extends State<OnboardingMenu> {
   bool _buttonPressed = false;
   final PageController controller = PageController();
-
-  void _skipToLogin() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NavigationDrawerMenu()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,47 +27,28 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(
-                onTapDown: (_) {
-                  setState(() {
-                    _buttonPressed = true;
-                  });
-                },
-                onTapUp: (_) {
-                  setState(() {
-                    _buttonPressed = false;
-                  });
-                  _skipToLogin();
-                },
-                onTapCancel: () {
-                  setState(() {
-                    _buttonPressed = false;
-                  });
-                },
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 0),
-                  curve: Curves.easeInOut,
-                  margin: EdgeInsets.only(right: 20.0, top: 15.0),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlueAccent,
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  width: _buttonPressed ? 80.0 : 100.0,
-                  height: 50.0,
-                  child: const Center(
-                    child: Text(
-                      'Skip',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              Padding(
+                  padding: const EdgeInsets.only(right: 2.0, top: 8.0),
+                  child: TextButton(
+                      style: TextButton.styleFrom(
+                          animationDuration: Duration(milliseconds: 200),
+                          minimumSize: Size(150, 50),
+                          foregroundColor: Colors.blue,
+                          elevation: 0,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                            Radius.circular(50),
+                          ))),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NavigationDrawerMenu()),
+                        );
+                      },
+                      child: Text('Skip',
+                          style:
+                              TextStyle(decoration: TextDecoration.underline))))
             ],
           ),
           SizedBox(
@@ -80,20 +57,21 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
               controller: controller,
               children: <Widget>[
                 OnboardingPage(
-                  imagePath: DataConstants.onboardingTiles[0].imagePath,
-                  mainText: DataConstants.onboardingTiles[0].mainText,
-                  title: DataConstants.onboardingTiles[0].title,
+                  title: TextConstants.onboarding1Title,
+                  mainText: TextConstants.onboarding1Description,
+                  imagePath: PathConstants.onboarding1,
                 ),
                 OnboardingPage(
-                  imagePath: DataConstants.onboardingTiles[1].imagePath,
-                  mainText: DataConstants.onboardingTiles[1].mainText,
-                  title: DataConstants.onboardingTiles[1].title,
+                  title: TextConstants.onboarding2Title,
+                  mainText: TextConstants.onboarding2Description,
+                  imagePath: PathConstants.onboarding2,
                 ),
                 OnboardingPage(
-                    imagePath: DataConstants.onboardingTiles[2].imagePath,
-                    mainText: DataConstants.onboardingTiles[2].mainText,
-                    title: DataConstants.onboardingTiles[2].title,
-                    endButton: true),
+                  title: TextConstants.onboarding3Title,
+                  mainText: TextConstants.onboarding3Description,
+                  imagePath: PathConstants.onboarding3,
+                  endButton: true,
+                ),
               ],
             ),
           ),
@@ -103,8 +81,8 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
             effect: JumpingDotEffect(
                 activeDotColor: Colors.lightBlueAccent,
                 dotColor: Colors.lightBlueAccent.withOpacity(0.5),
-                dotHeight: 30,
-                dotWidth: 30),
+                dotHeight: 25,
+                dotWidth: 25),
           ),
         ],
       ),
