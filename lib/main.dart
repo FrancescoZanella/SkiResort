@@ -56,6 +56,8 @@ class _MyAppState extends State<MyApp> {
       theme: _isDarkModeEnabled
           ? ThemeData.dark()
           : ThemeData(
+              textTheme:
+                  TextTheme(bodyLarge: TextStyle(color: Color(0xFF1F2022))),
               fontFamily: 'NotoSansKR',
               primarySwatch: Colors.blue,
               scaffoldBackgroundColor: Colors.white,
