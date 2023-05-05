@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:ski_resorts_app/onboarding_screens/onboardingpage.dart';
-import 'package:ski_resorts_app/navigation_drawer_menu/navigation_drawer_menu.dart';
+import 'package:ski_resorts_app/screens/onboarding/onboardingpage.dart';
+import 'package:ski_resorts_app/screens/navigation_drawer_menu/navigation_drawer_menu.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
 

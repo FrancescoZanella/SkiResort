@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/common_widgets/button.dart';
 
 import '../navigation_drawer_menu/navigation_drawer_menu.dart';
 

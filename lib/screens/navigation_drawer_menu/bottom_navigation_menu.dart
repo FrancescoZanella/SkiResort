@@ -20,7 +20,7 @@ class BottomNavigationBarMenu extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite),
-          label: 'Favorites',
+          label: 'Favourites',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.analytics_sharp),

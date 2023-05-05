@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/onboarding_screens/onboardingmenu.dart';
+import 'package:ski_resorts_app/screens/onboarding/onboardingmenu.dart';
 import 'package:flutter/services.dart';
-import 'package:ski_resorts_app/navigation_drawer_menu/navigation_drawer_menu.dart';
+import 'package:ski_resorts_app/screens/navigation_drawer_menu/navigation_drawer_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './app_routes.dart';
 // flutter read my files from top to bottom and executes what it finds
