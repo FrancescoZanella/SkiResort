@@ -9,11 +9,11 @@ class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
 
   @override
-  _OnboardingMenuState createState() => _OnboardingMenuState();
+  State<OnboardingMenu> createState() => _OnboardingMenuState();
 }
 
 class _OnboardingMenuState extends State<OnboardingMenu> {
-  bool _buttonPressed = false;
+  final bool _buttonPressed = false;
   final PageController controller = PageController();
 
   @override
@@ -31,8 +31,8 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                   padding: const EdgeInsets.only(right: 2.0, top: 8.0),
                   child: TextButton(
                       style: TextButton.styleFrom(
-                          animationDuration: Duration(milliseconds: 200),
-                          minimumSize: Size(150, 50),
+                          animationDuration: const Duration(milliseconds: 200),
+                          minimumSize: const Size(150, 50),
                           foregroundColor: Colors.blue,
                           elevation: 0,
                           shape: const RoundedRectangleBorder(
@@ -43,10 +43,11 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NavigationDrawerMenu()),
+                              builder: (context) =>
+                                  const NavigationDrawerMenu()),
                         );
                       },
-                      child: Text('Skip',
+                      child: const Text('Skip',
                           style:
                               TextStyle(decoration: TextDecoration.underline))))
             ],

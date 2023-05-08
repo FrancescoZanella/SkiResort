@@ -10,7 +10,7 @@ class MyPopupMenu extends StatelessWidget {
     return PopupMenuButton(
       elevation: 8,
       itemBuilder: (context) => [
-        PopupMenuItem(
+        const PopupMenuItem(
           value: 'start session',
           child: Align(
             alignment: Alignment.centerRight,
@@ -26,7 +26,7 @@ class MyPopupMenu extends StatelessWidget {
             ),
           ),
         ),
-        PopupMenuItem(
+        const PopupMenuItem(
           value: 'settings',
           child: Align(
             alignment: Alignment.centerRight,
@@ -42,7 +42,7 @@ class MyPopupMenu extends StatelessWidget {
             ),
           ),
         ),
-        PopupMenuItem(
+        const PopupMenuItem(
           value: 'my goals',
           child: Align(
             alignment: Alignment.centerRight,

@@ -56,8 +56,8 @@ class _MyAppState extends State<MyApp> {
       theme: _isDarkModeEnabled
           ? ThemeData.dark()
           : ThemeData(
-              textTheme:
-                  TextTheme(bodyLarge: TextStyle(color: Color(0xFF1F2022))),
+              textTheme: const TextTheme(
+                  bodyLarge: TextStyle(color: Color(0xFF1F2022))),
               fontFamily: 'NotoSansKR',
               primarySwatch: Colors.blue,
               scaffoldBackgroundColor: Colors.white,
@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
               // core widget -> is the one that is displayed on the screen
               body: NavigationDrawerMenu(),
             )
-          : OnboardingMenu(),
+          : const OnboardingMenu(),
     );
   }
 }

@@ -64,12 +64,12 @@ class OnboardingPage extends StatelessWidget {
             endButton
                 ? Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            minimumSize: Size(310, 55),
+                            minimumSize: const Size(310, 55),
                             backgroundColor: Colors.blue,
                             elevation: 5,
                             shape: const RoundedRectangleBorder(
@@ -80,7 +80,8 @@ class OnboardingPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NavigationDrawerMenu()),
+                                builder: (context) =>
+                                    const NavigationDrawerMenu()),
                           );
                         },
                         child: const InkWell(
