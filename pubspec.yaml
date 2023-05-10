@@ -70,6 +70,7 @@ flutter:
     - lib\assets\images\skiing_3.png
     - lib\assets\images\skiing_2.png
     - lib\assets\images\skiing_1.png
+    - lib\assets\images\sunnyDay.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
