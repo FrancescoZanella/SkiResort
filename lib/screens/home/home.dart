@@ -5,7 +5,10 @@ import 'package:ski_resorts_app/screens/home/widgets/best_time.dart';
 import 'package:ski_resorts_app/screens/home/widgets/custom_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -17,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      body: Padding(
+      body: const Padding(
         padding: EdgeInsets.only(top: 0.0 * 2),
         child: Column(
           children: [
@@ -37,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedIconIndex = index;
           });
         },
-        animationDuration: Duration(
+        animationDuration: const Duration(
           milliseconds: 200,
         ),
         items: <Widget>[

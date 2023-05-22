@@ -3,10 +3,13 @@ import 'package:ski_resorts_app/screens/home/widgets/card.dart';
 import 'package:ski_resorts_app/screens/home/widgets/weather.dart';
 
 class Services extends StatelessWidget {
+  const Services({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 100,
         ),
         const Row(

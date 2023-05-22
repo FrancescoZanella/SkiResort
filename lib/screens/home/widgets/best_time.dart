@@ -3,6 +3,8 @@ import 'package:ski_resorts_app/screens/home/widgets/bestresult.dart';
 import 'package:ski_resorts_app/screens/home/widgets/services.dart';
 
 class BestTime extends StatelessWidget {
+  const BestTime({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -16,10 +18,10 @@ class BestTime extends StatelessWidget {
               height: 110,
               color: const Color.fromRGBO(12, 56, 177, 1),
             ),
-            Services(),
+            const Services(),
           ],
         ),
-        Positioned(top: 50, left: 15, right: 15, child: BestResult())
+        const Positioned(top: 50, left: 15, right: 15, child: BestResult())
       ],
     );
   }

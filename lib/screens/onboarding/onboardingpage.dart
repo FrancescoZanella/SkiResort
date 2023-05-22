@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/home/home.dart';
 
-import '../navigation_drawer_menu/navigation_drawer_menu.dart';
-
 // ignore: must_be_immutable
 class OnboardingPage extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -81,7 +79,7 @@ class OnboardingPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
+                                builder: (context) => const HomeScreen()),
                           );
                         },
                         child: const InkWell(

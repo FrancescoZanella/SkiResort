@@ -13,7 +13,6 @@ class OnboardingMenu extends StatefulWidget {
 }
 
 class _OnboardingMenuState extends State<OnboardingMenu> {
-  final bool _buttonPressed = false;
   final PageController controller = PageController();
 
   @override
@@ -42,7 +41,8 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
                         );
                       },
                       child: const Text('Skip',

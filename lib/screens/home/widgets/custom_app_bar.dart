@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Color.fromRGBO(12, 56, 177, 1),
+        color: const Color.fromRGBO(12, 56, 177, 1),
         child: Padding(
-          padding: EdgeInsets.only(top: 40.0, left: 15.0, right: 10.0),
+          padding: const EdgeInsets.only(top: 40.0, left: 15.0, right: 10.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -17,14 +19,14 @@ class CustomAppBar extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(80.0 / 8),
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(80.0 / 20),
                         child: Container(
-                          decoration: new BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
@@ -33,7 +35,7 @@ class CustomAppBar extends StatelessWidget {
                             child: Center(
                                 child: Transform.scale(
                               scale: 1.5,
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 backgroundImage: AssetImage(
                                   'lib/assets/images/profile.jpg',
                                 ),
@@ -44,10 +46,10 @@ class CustomAppBar extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
-                  Text(
+                  const Text(
                     'Francesco Zanella',
                     style: TextStyle(
                         color: Colors.white,
@@ -60,7 +62,7 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   Stack(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.notifications_none_rounded,
                         color: Colors.white,
                         size: 30.0,
@@ -69,8 +71,8 @@ class CustomAppBar extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30.0)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
+                        child: const Padding(
+                          padding: EdgeInsets.all(4.0),
                           child: Text(
                             '5',
                             style: TextStyle(color: Colors.black, fontSize: 8),
@@ -82,7 +84,7 @@ class CustomAppBar extends StatelessWidget {
                   Transform(
                     transform: Matrix4.rotationY(math.pi),
                     alignment: Alignment.center,
-                    child: Icon(
+                    child: const Icon(
                       Icons.sort_rounded,
                       color: Colors.white,
                       size: 30.0,

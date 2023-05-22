@@ -39,14 +39,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> _saveDarkMode(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('darkMode', value);
-    setState(() {
-      _isDarkModeEnabled = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,7 +57,7 @@ class _MyAppState extends State<MyApp> {
             ),
       // ignore: dead_code
       home: isLoggedIn
-          ? Scaffold(
+          ? const Scaffold(
               // core widget -> is the one that is displayed on the screen
               body: HomeScreen(),
             )

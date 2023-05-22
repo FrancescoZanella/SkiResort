@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -20,13 +22,13 @@ class Weather extends StatelessWidget {
               width: width,
               height: height,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(7, 22, 66, 1), //Color(0x001e59),
+                color: const Color.fromRGBO(7, 22, 66, 1), //Color(0x001e59),
                 borderRadius: BorderRadius.circular(30.0),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.3),
                     blurRadius: 30.0,
-                    offset: Offset(10, 15),
+                    offset: const Offset(10, 15),
                   ),
                 ],
               ),
@@ -44,9 +46,9 @@ class Weather extends StatelessWidget {
             Positioned(
                 top: height * 0.15,
                 left: width * 0.10,
-                child: Text(
+                child: const Text(
                   'Milano',
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
                       fontSize: 17),
@@ -54,9 +56,9 @@ class Weather extends StatelessWidget {
             Positioned(
                 top: height * 0.35,
                 left: width * 0.10,
-                child: Text(
+                child: const Text(
                   '-10°',
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                       fontSize: 35),
@@ -64,7 +66,7 @@ class Weather extends StatelessWidget {
             Positioned(
                 top: height * 0.15,
                 right: width * 0.15,
-                child: Icon(
+                child: const Icon(
                   Icons.cloud,
                   color: Colors.white,
                 )),
