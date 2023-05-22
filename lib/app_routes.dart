@@ -2,6 +2,7 @@
 // The route of the page is defined here; so in every file i can call the route of the page i want to go to
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/home_app_screen.dart';
+import 'package:ski_resorts_app/screens/meteo/meteo_screen.dart';
 import 'package:ski_resorts_app/screens/settings/settings_page_screen.dart';
 // this filedefines all the routes in the app; when i click on a button, i want to go to a specific page.
 // The route of the page is defined here; so in every file i can call the route of the page i want to go to
@@ -21,4 +22,5 @@ final Map<String, WidgetBuilder> routes = {
       const LocationSettingScreen(),
   '/ProfilePageScreen': (BuildContext context) => const ProfilePageScreen(),
   '/SettingsPage': (BuildContext context) => const SettingsPage(),
+  '/MeteoPage': (BuildContext context) => const MeteoPageScreen(),
 };

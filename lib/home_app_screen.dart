@@ -40,7 +40,8 @@ class HomeScreen extends StatelessWidget {
                   icon: Icons.wb_sunny,
                   color: Colors.blue,
                   onTap: () {
-                    // Handle tap on Weather feature
+                    // goes to MeteoPageScreen
+                    Navigator.pushNamed(context, '/MeteoPage');
                   },
                 ),
                 _buildFeatureCard(
