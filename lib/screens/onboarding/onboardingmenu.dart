@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ski_resorts_app/screens/onboarding/onboardingpage.dart';
-import 'package:ski_resorts_app/screens/navigation_drawer_menu/navigation_drawer_menu.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
+import 'package:ski_resorts_app/screens/home/home.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
@@ -42,9 +42,7 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NavigationDrawerMenu()),
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
                         );
                       },
                       child: const Text('Skip',

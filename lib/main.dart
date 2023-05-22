@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/onboarding/onboardingmenu.dart';
 import 'package:flutter/services.dart';
-import 'package:ski_resorts_app/screens/navigation_drawer_menu/navigation_drawer_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './app_routes.dart';
+import 'package:ski_resorts_app/screens/home/home.dart';
 // flutter read my files from top to bottom and executes what it finds
 // we don't have to worry about pixel disposition, flutter does it for us
 
@@ -65,9 +65,9 @@ class _MyAppState extends State<MyApp> {
             ),
       // ignore: dead_code
       home: isLoggedIn
-          ? const Scaffold(
+          ? Scaffold(
               // core widget -> is the one that is displayed on the screen
-              body: NavigationDrawerMenu(),
+              body: HomeScreen(),
             )
           : const OnboardingMenu(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ski_resorts_app/screens/home/home.dart';
 
 import '../navigation_drawer_menu/navigation_drawer_menu.dart';
 
@@ -80,8 +81,7 @@ class OnboardingPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const NavigationDrawerMenu()),
+                                builder: (context) => HomeScreen()),
                           );
                         },
                         child: const InkWell(
