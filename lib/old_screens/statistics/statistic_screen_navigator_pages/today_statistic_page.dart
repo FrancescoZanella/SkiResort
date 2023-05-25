@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:ski_resorts_app/screens/statistics/duration_and_calories.dart';
-import 'package:ski_resorts_app/screens/statistics/statistic_widgets.dart';
+import 'package:ski_resorts_app/old_screens/statistics/duration_and_calories.dart';
+import 'package:ski_resorts_app/old_screens/statistics/statistic_widgets.dart';
 
 class TodayPage extends StatelessWidget {
   TodayPage({Key? key}) : super(key: key);

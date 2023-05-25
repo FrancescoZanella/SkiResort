@@ -1,34 +1,34 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:ski_resorts_app/old_screens/settings/settings_page_screen.dart';
+import 'package:ski_resorts_app/old_screens/statistics/user_statistic_screen.dart';
+import 'package:ski_resorts_app/screens/weather/meteo_screen.dart';
+import 'package:ski_resorts_app/screens/homepage/home.dart';
 
-import 'package:ski_resorts_app/screens/home/widgets/best_time.dart';
-import 'package:ski_resorts_app/screens/home/widgets/custom_app_bar.dart';
+import '../old_screens/favourites/favorites_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _HomeScreenState createState() => _HomeScreenState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainPageState extends State<MainPage> {
   int selectedIconIndex = 2;
+  List<Widget> pages = [
+    const StatisticsScreen(),
+    const MeteoPageScreen(),
+    const HomeScreen(),
+    const FavoritesScreen(),
+    const SettingsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      extendBody: true,
-      body: const Padding(
-        padding: EdgeInsets.only(top: 0.0 * 2),
-        child: Column(
-          children: [
-            CustomAppBar(),
-            BestTime(),
-          ],
-        ),
-      ),
+      appBar: null,
+      body: pages[selectedIconIndex],
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
         index: selectedIconIndex,
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: selectedIconIndex == 3 ? Colors.white : Colors.black,
           ),
           Icon(
-            Icons.person_outline,
+            Icons.settings,
             size: 30,
             color: selectedIconIndex == 4 ? Colors.white : Colors.black,
           ),

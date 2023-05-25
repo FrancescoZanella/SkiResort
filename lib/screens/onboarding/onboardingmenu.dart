@@ -3,7 +3,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ski_resorts_app/screens/onboarding/onboardingpage.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
-import 'package:ski_resorts_app/screens/home/home.dart';
+import 'package:ski_resorts_app/screens/builder.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
@@ -42,7 +42,7 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomeScreen()),
+                              builder: (context) => const MainPage()),
                         );
                       },
                       child: const Text('Skip',

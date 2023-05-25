@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/home/widgets/card.dart';
-import 'package:ski_resorts_app/screens/home/widgets/weather.dart';
+import 'package:ski_resorts_app/screens/homepage/card.dart';
+import 'package:ski_resorts_app/screens/homepage/weathercard.dart';
 
 class Services extends StatelessWidget {
   const Services({super.key});
@@ -40,6 +40,7 @@ class Services extends StatelessWidget {
                   width: 165.0,
                   height: 180.0,
                   image: 'lib/assets/images/Statistics.jpg',
+                  route: '',
                 )),
             Positioned(
                 top: 20,
@@ -49,6 +50,7 @@ class Services extends StatelessWidget {
                   width: 165.0,
                   height: 210.0,
                   image: 'lib/assets/images/favourites.jpg',
+                  route: '/FavoritesScreen',
                 )),
             Positioned(
                 top: 210,
@@ -58,6 +60,7 @@ class Services extends StatelessWidget {
                   width: 165.0,
                   height: 170.0,
                   image: 'lib/assets/images/ski_resorts.jpg',
+                  route: '/StatisticsScreen',
                 )),
             Positioned(
                 top: 244,
@@ -66,6 +69,7 @@ class Services extends StatelessWidget {
                   title: 'Weather',
                   width: 165.0,
                   height: 140.0,
+                  route: '/MeteoPage',
                 )),
           ],
         )

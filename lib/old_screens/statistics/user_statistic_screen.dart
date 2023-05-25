@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/statistics/statistic_screen_navigator.dart';
-import 'package:ski_resorts_app/screens/statistics/custom_menu_page_list.dart';
+import 'package:ski_resorts_app/old_screens/statistics/statistic_screen_navigator.dart';
+import 'package:ski_resorts_app/old_screens/statistics/custom_menu_page_list.dart';
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({Key? key}) : super(key: key);

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
 
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,27 +25,35 @@ class CustomAppBar extends StatelessWidget {
                     padding: const EdgeInsets.all(80.0 / 8),
                     child: Container(
                       decoration: const BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.black,
                         shape: BoxShape.circle,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(80.0 / 20),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(80.0 / 8),
-                            child: Center(
-                                child: Transform.scale(
-                              scale: 1.5,
-                              child: const CircleAvatar(
-                                backgroundImage: AssetImage(
-                                  'lib/assets/images/profile.jpg',
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/ProfilePageScreen',
+                            );
+                          },
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(80.0 / 8),
+                              child: Center(
+                                  child: Transform.scale(
+                                scale: 1.5,
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                    'lib/assets/images/profile.jpg',
+                                  ),
                                 ),
-                              ),
-                            )),
+                              )),
+                            ),
                           ),
                         ),
                       ),
