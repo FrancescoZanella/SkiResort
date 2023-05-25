@@ -59,7 +59,8 @@ class Services extends StatelessWidget {
                   title: 'Statistics',
                   width: 165.0,
                   height: 170.0,
-                  image: 'lib/assets/images/ski_resorts.jpg',
+                  image:
+                      'lib/assets/images/22702455-statistica-icona-con-colorato-piatto-stile-isolato-su-bianca-sfondo-vettoriale.jpg',
                   route: '/StatisticsScreen',
                 )),
             Positioned(
