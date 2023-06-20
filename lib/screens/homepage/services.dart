@@ -40,7 +40,7 @@ class Services extends StatelessWidget {
                   width: 165.0,
                   height: 180.0,
                   image: 'lib/assets/images/Statistics.jpg',
-                  route: '',
+                  route: '/SkiResortScreen',
                 )),
             Positioned(
                 top: 20,

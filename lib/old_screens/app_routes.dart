@@ -12,6 +12,8 @@ import 'package:ski_resorts_app/old_screens/settings/notification_handler_screen
 import 'package:ski_resorts_app/old_screens/settings/position_handler_screen/position_handler_screen.dart';
 import 'package:ski_resorts_app/old_screens/settings/profile_screen/profile_screen.dart';
 import 'package:ski_resorts_app/old_screens/favourites/favorites_screen.dart';
+import 'package:ski_resorts_app/screens/skiResort/ski_resort_screen.dart';
+import 'package:ski_resorts_app/screens/login/login_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/NotificationSettingScreen': (BuildContext context) =>
@@ -25,4 +27,6 @@ final Map<String, WidgetBuilder> routes = {
   '/SettingsPage': (BuildContext context) => const SettingsPage(),
   '/MeteoPage': (BuildContext context) => const MeteoPageScreen(),
   '/FavoritesScreen': (BuildContext context) => const FavoritesScreen(),
+  '/SkiResortScreen': (BuildContext context) => const SkiResortScreen(),
+  '/LoginPage': (BuildContext context) => const LoginPage(),
 };

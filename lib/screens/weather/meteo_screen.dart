@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
+import 'dart:ui';
 
 enum SearchMethod {
   manual,
@@ -18,10 +19,31 @@ class MeteoPageScreen extends StatefulWidget {
 class _MeteoPageScreenState extends State<MeteoPageScreen> {
   final TextEditingController _cityController = TextEditingController();
   SearchMethod _searchMethod = SearchMethod.manual;
+// Track if user is typing
+
+  String temperature = '';
+  String weatherCondition = '';
+  String windSpeed = '';
+  String humidity = '';
+  String skiResortName = '';
+  String skiResortElevation = '';
+  String skiResortTrailCount = '';
 
   void _submitCity(BuildContext context) {
     final enteredCity = _cityController.text;
     // TODO: Implement weather data fetching based on the entered city
+    // Here, you would fetch the weather data based on the entered city
+    // and update the weather information variables
+    temperature = '25°C';
+    weatherCondition = 'Sunny';
+    windSpeed = '10 km/h';
+    humidity = '70%';
+    skiResortName = 'Ski Resort';
+    skiResortElevation = '2000m';
+    skiResortTrailCount = '15';
+
+    setState(() {});
+
     print('Submitted city: $enteredCity');
   }
 
@@ -46,6 +68,8 @@ class _MeteoPageScreenState extends State<MeteoPageScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: null,
+      resizeToAvoidBottomInset:
+          false, // Prevents resizing when the keyboard appears
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -65,9 +89,9 @@ class _MeteoPageScreenState extends State<MeteoPageScreen> {
                 child: Stack(
                   children: [
                     Opacity(
-                      opacity: 0.7,
+                      opacity: _cityController.text.isEmpty ? 0.7 : 0.0,
                       child: Container(
-                        height: 40,
+                        height: 50,
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
@@ -121,10 +145,212 @@ class _MeteoPageScreenState extends State<MeteoPageScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () => _submitCity(context),
                 child: const Text('Search'),
+              ),
+              const SizedBox(height: 50),
+              Opacity(
+                opacity: 0.4,
+                child: Container(
+                  width: 380,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.transparent,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        color: Colors.white.withOpacity(0.2),
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text(
+                                  'Rozzano',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  temperature,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.thermostat_outlined),
+                                      const SizedBox(width: 5),
+                                      const Text(
+                                        '25°C',
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        temperature,
+                                        style: const TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Align(
+                                  alignment: Alignment.topRight,
+                                  child: Icon(
+                                    Icons.cloud,
+                                    size: 80,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                const Icon(Icons.thermostat_outlined),
+                                const SizedBox(width: 5),
+                                const Text(
+                                  'Perceived temperature: 20°C',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  temperature,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                const Icon(Icons.waves_outlined),
+                                const SizedBox(width: 5),
+                                const Text(
+                                  'Wind Speed: 10 km/h',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  windSpeed,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                const Icon(Icons.opacity_outlined),
+                                const SizedBox(width: 5),
+                                const Text(
+                                  'Humidity: 80%',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  humidity,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                const Icon(Icons.terrain_outlined),
+                                const SizedBox(width: 5),
+                                const Text(
+                                  'Rainfall: 5 cm',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  skiResortName,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                const Icon(Icons.height_outlined),
+                                const SizedBox(width: 5),
+                                const Text(
+                                  'Elevation: 1880m',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  skiResortElevation,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

@@ -35,6 +35,7 @@ dependencies:
   shared_preferences: ^2.0.6
   settings_ui: ^2.0.2 
   animated_size_and_fade: ^2.0.1
+  weather_icons: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -78,6 +79,7 @@ flutter:
     - lib\assets\images\favourites.jpg
     - lib\assets\images\sunnyDay.jpg
     - lib\assets\images\22702455-statistica-icona-con-colorato-piatto-stile-isolato-su-bianca-sfondo-vettoriale.jpg
+    - lib\assets\images\skiResortImage.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

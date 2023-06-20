@@ -34,8 +34,12 @@ class CustomListTile extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    // TODO: handle log out logic
-                    Navigator.pop(context);
+                    // Navigate to the login page
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/LoginPage',
+                      (Route<dynamic> route) => false,
+                    );
                   },
                   child: const Text('Log Out'),
                 ),
