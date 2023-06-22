@@ -3,7 +3,7 @@ import 'package:ski_resorts_app/screens/skiResort/resort_map.dart';
 
 final List<Map<String, Object>> pages = [
   {
-    'page': SkiResortMapPage(),
+    'page': const SkiResortMapPage(),
   },
   {
     'page': const MostPopularResortPage(),
