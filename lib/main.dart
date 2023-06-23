@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/onboarding/onboardingmenu.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
+import 'package:ski_resorts_app/old_screens/settings/theme_notifier.dart';
 
 import 'old_screens/app_routes.dart';
-// flutter read my files from top to bottom and executes what it finds
-// we don't have to worry about pixel disposition, flutter does it for us
 
-//edit
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -16,53 +14,39 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool _isDarkModeEnabled = false;
   static const isLoggedIn = false;
 
   @override
-  void initState() {
-    super.initState();
-    _loadDarkMode();
-  }
-
-  Future<void> _loadDarkMode() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isDarkModeEnabled = prefs.getBool('darkMode') ?? false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SkiResorts',
-      routes: routes,
-      theme: _isDarkModeEnabled
-          ? ThemeData.dark()
-          : ThemeData(
-              textTheme: const TextTheme(
-                  bodyLarge: TextStyle(color: Color(0xFF1F2022))),
-              fontFamily: 'NotoSansKR',
-              primarySwatch: Colors.blue,
-              scaffoldBackgroundColor: Colors.white,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-      // ignore: dead_code
-      home: isLoggedIn
-          ? const Scaffold(
-              // core widget -> is the one that is displayed on the screen
-              body: MainPage(),
-            )
-          : const OnboardingMenu(),
+    return ChangeNotifierProvider<ThemeNotifier>(
+      create: (_) => ThemeNotifier(),
+      child: Consumer<ThemeNotifier>(
+        builder: (context, ThemeNotifier notifier, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'SkiResorts',
+            routes: routes,
+            theme: notifier.darkTheme
+                ? ThemeData.dark()
+                : ThemeData(
+                    textTheme: const TextTheme(
+                        bodyLarge: TextStyle(color: Color(0xFF1F2022))),
+                    fontFamily: 'NotoSansKR',
+                    primarySwatch: Colors.blue,
+                    scaffoldBackgroundColor: Colors.white,
+                    visualDensity: VisualDensity.adaptivePlatformDensity,
+                  ),
+            home: isLoggedIn
+                ? const Scaffold(
+                    body: MainPage(),
+                  )
+                : const OnboardingMenu(),
+          );
+        },
+      ),
     );
   }
 }
