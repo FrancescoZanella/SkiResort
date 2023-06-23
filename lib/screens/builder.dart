@@ -32,9 +32,9 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
         index: selectedIconIndex,
-        buttonBackgroundColor: Colors.lightBlueAccent, //(0xFF4FC3F7),
+        buttonBackgroundColor: Colors.lightBlueAccent,
         height: 60.0,
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         onTap: (index) {
           setState(() {
             selectedIconIndex = index;
@@ -47,27 +47,47 @@ class _MainPageState extends State<MainPage> {
           Icon(
             Icons.map_outlined,
             size: 30,
-            color: selectedIconIndex == 0 ? Colors.white : Colors.black,
+            color: selectedIconIndex == 0
+                ? Colors.white
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
           ),
           Icon(
             Icons.sunny,
             size: 30,
-            color: selectedIconIndex == 1 ? Colors.white : Colors.black,
+            color: selectedIconIndex == 1
+                ? Colors.white
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
           ),
           Icon(
             Icons.home_outlined,
             size: 30,
-            color: selectedIconIndex == 2 ? Colors.white : Colors.black,
+            color: selectedIconIndex == 2
+                ? Colors.white
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
           ),
           Icon(
             Icons.favorite_border_outlined,
             size: 30,
-            color: selectedIconIndex == 3 ? Colors.white : Colors.black,
+            color: selectedIconIndex == 3
+                ? Colors.white
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
           ),
           Icon(
             Icons.settings,
             size: 30,
-            color: selectedIconIndex == 4 ? Colors.white : Colors.black,
+            color: selectedIconIndex == 4
+                ? Colors.white
+                : Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
           ),
         ],
       ),

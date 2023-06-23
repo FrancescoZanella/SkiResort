@@ -31,7 +31,9 @@ class ResortContainer extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Theme.of(context).colorScheme.background
+              : Colors.white,
           borderRadius: BorderRadius.circular(16),
         ),
         child: SingleChildScrollView(
@@ -56,9 +58,12 @@ class ResortContainer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Theme.of(context).textTheme.bodyLarge?.color
+                        : Colors.black,
                   ),
                 ),
               ),
@@ -69,7 +74,9 @@ class ResortContainer extends StatelessWidget {
                   location,
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey[600],
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Theme.of(context).textTheme.bodyLarge?.color
+                        : Colors.grey[600],
                   ),
                 ),
               ),
@@ -78,8 +85,11 @@ class ResortContainer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   description,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Theme.of(context).textTheme.bodyLarge?.color
+                        : Colors.black,
                   ),
                 ),
               ),
