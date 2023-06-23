@@ -31,7 +31,7 @@ class Services extends StatelessWidget {
             Container(
               height: 400,
               color: Theme.of(context).brightness == Brightness.dark
-                  ? Theme.of(context).colorScheme.background
+                  ? Theme.of(context).scaffoldBackgroundColor
                   : Colors.white,
             ),
             Positioned(

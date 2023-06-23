@@ -32,9 +32,13 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
         index: selectedIconIndex,
-        buttonBackgroundColor: Colors.lightBlueAccent,
+        buttonBackgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.lightBlueAccent
+            : Colors.blue, // consider choosing a different color in light mode
         height: 60.0,
-        color: Theme.of(context).cardColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).cardColor
+            : Colors.lightBlue[50]!, // change this to a lighter shade of blue
         onTap: (index) {
           setState(() {
             selectedIconIndex = index;
