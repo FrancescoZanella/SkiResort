@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
 import 'dart:ui';
@@ -19,7 +18,6 @@ class MeteoPageScreen extends StatefulWidget {
 class _MeteoPageScreenState extends State<MeteoPageScreen> {
   final TextEditingController _cityController = TextEditingController();
   SearchMethod _searchMethod = SearchMethod.manual;
-// Track if user is typing
 
   String temperature = '';
   String weatherCondition = '';
@@ -28,6 +26,17 @@ class _MeteoPageScreenState extends State<MeteoPageScreen> {
   String skiResortName = '';
   String skiResortElevation = '';
   String skiResortTrailCount = '';
+
+  // City list for autocomplete
+  final List<String> _cities = <String>[
+    'Miami',
+    'Milan',
+    'Minneapolis',
+    'Minsk',
+    'Mumbai',
+    'Munich',
+    'Moscow'
+  ];
 
   void _submitCity(BuildContext context) {
     final enteredCity = _cityController.text;
@@ -88,59 +97,104 @@ class _MeteoPageScreenState extends State<MeteoPageScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Stack(
                   children: [
-                    Opacity(
-                      opacity: _cityController.text.isEmpty ? 0.7 : 0.0,
-                      child: Container(
-                        height: 50,
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Text(
-                          'Enter a location',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                    Container(
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _cityController,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Autocomplete<String>(
+                              optionsBuilder:
+                                  (TextEditingValue textEditingValue) {
+                                if (textEditingValue.text == '') {
+                                  return const Iterable<String>.empty();
+                                }
+                                return _cities.where((String option) {
+                                  return option.toLowerCase().contains(
+                                      textEditingValue.text.toLowerCase());
+                                });
+                              },
+                              onSelected: (String selection) {
+                                _cityController.text = selection;
+                              },
+                              optionsViewBuilder: (BuildContext context,
+                                  AutocompleteOnSelected<String> onSelected,
+                                  Iterable<String> options) {
+                                return Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Material(
+                                    elevation: 4.0,
+                                    child: ConstrainedBox(
+                                      constraints:
+                                          BoxConstraints(maxHeight: 200.0),
+                                      child: ListView(
+                                        padding: EdgeInsets.zero,
+                                        children: options
+                                            .map((String option) =>
+                                                GestureDetector(
+                                                  onTap: () =>
+                                                      onSelected(option),
+                                                  child: ListTile(
+                                                    title: Text(option),
+                                                  ),
+                                                ))
+                                            .toList(),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              fieldViewBuilder: (BuildContext context,
+                                  TextEditingController
+                                      fieldTextEditingController,
+                                  FocusNode fieldFocusNode,
+                                  VoidCallback onFieldSubmitted) {
+                                return TextField(
+                                  controller: _cityController,
+                                  decoration: InputDecoration(
+                                    hintText: _cityController.text.isEmpty
+                                        ? 'Enter a location'
+                                        : '',
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade400,
+                                    ),
+                                    border: InputBorder.none,
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                        ),
-                        PopupMenuButton<SearchMethod>(
-                          initialValue: _searchMethod,
-                          onSelected: (SearchMethod method) {
-                            _selectSearchMethod(method);
-                          },
-                          itemBuilder: (BuildContext context) =>
-                              <PopupMenuEntry<SearchMethod>>[
-                            const PopupMenuItem<SearchMethod>(
-                              value: SearchMethod.manual,
-                              child: ListTile(
-                                leading: Icon(Icons.location_on),
-                                title: Text('Enter city manually'),
+                          PopupMenuButton<SearchMethod>(
+                            initialValue: _searchMethod,
+                            onSelected: (SearchMethod method) {
+                              _selectSearchMethod(method);
+                            },
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<SearchMethod>>[
+                              const PopupMenuItem<SearchMethod>(
+                                value: SearchMethod.manual,
+                                child: ListTile(
+                                  leading: Icon(Icons.location_on),
+                                  title: Text('Enter city manually'),
+                                ),
                               ),
-                            ),
-                            const PopupMenuItem<SearchMethod>(
-                              value: SearchMethod.automatic,
-                              child: ListTile(
-                                leading: Icon(Icons.my_location),
-                                title: Text('Use current location'),
+                              const PopupMenuItem<SearchMethod>(
+                                value: SearchMethod.automatic,
+                                child: ListTile(
+                                  leading: Icon(Icons.my_location),
+                                  title: Text('Use current location'),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
