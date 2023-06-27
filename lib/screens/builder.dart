@@ -2,7 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/old_screens/settings/settings_page_screen.dart';
 import 'package:ski_resorts_app/old_screens/statistics/user_statistic_screen.dart';
-import 'package:ski_resorts_app/screens/weather/meteo_screen.dart';
+import 'package:ski_resorts_app/screens/weather/weather_screen.dart';
 import 'package:ski_resorts_app/screens/homepage/home.dart';
 
 import '../old_screens/favourites/favorites_screen.dart';

@@ -2,7 +2,7 @@
 // The route of the page is defined here; so in every file i can call the route of the page i want to go to
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/old_screens/statistics/user_statistic_screen.dart';
-import 'package:ski_resorts_app/screens/weather/meteo_screen.dart';
+import 'package:ski_resorts_app/screens/weather/weather_screen.dart';
 import 'package:ski_resorts_app/old_screens/settings/settings_page_screen.dart';
 // this filedefines all the routes in the app; when i click on a button, i want to go to a specific page.
 // The route of the page is defined here; so in every file i can call the route of the page i want to go to
