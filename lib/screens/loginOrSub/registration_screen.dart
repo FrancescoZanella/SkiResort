@@ -1,4 +1,8 @@
+//TODO -> THE POST REQUEST FOR REGISTRATION WORKS-> IMPLEMENT THE LOGIC AFTER THE CLICK ON THE BUTTON
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -9,12 +13,42 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _passwordVisible = false;
+  bool _confirmPasswordVisible = false;
+
+  final url = Uri.https(
+    'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app/',
+    'user-table.json',
+  );
 
   @override
   void dispose() {
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _registerUser() async {
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(
+        {
+          'email': _emailController.text,
+          'password': _passwordController.text,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      if (kDebugMode) {
+        print('User registered successfully');
+      }
+    } else {
+      throw Exception('Failed to register user');
+    }
   }
 
   @override
@@ -38,11 +72,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 50,
                 ),
                 TextFormField(
+                  controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(color: Colors.black),
                     border: OutlineInputBorder(),
                   ),
+                  style: const TextStyle(color: Colors.black),
                   validator: (value) {
                     if (value == null ||
                         value.isEmpty ||
@@ -57,12 +93,26 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextFormField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+                  style: const TextStyle(color: Colors.black),
+                  obscureText: !_passwordVisible,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a password.';
@@ -74,12 +124,26 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 20,
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Confirm Password',
-                    labelStyle: TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _confirmPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _confirmPasswordVisible = !_confirmPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+                  style: const TextStyle(color: Colors.black),
+                  obscureText: !_confirmPasswordVisible,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a password.';
@@ -97,6 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Handle registration logic
+                      _registerUser();
                     }
                   },
                   child: const Text(

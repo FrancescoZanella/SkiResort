@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/builder.dart';
 import 'package:ski_resorts_app/screens/loginOrSub/login_screen.dart';
 
 // ignore: must_be_immutable

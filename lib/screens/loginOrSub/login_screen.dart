@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _passwordVisible = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final url = Uri.https(
+    'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app/',
+    'user-table.json',
+  );
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _checkCredentials() async {
+    final response = await http.get(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +53,12 @@ class LoginPage extends StatelessWidget {
               const SizedBox(
                 height: 48.0,
               ),
-              const TextField(
+              TextField(
+                controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   hintText: 'Enter your email',
                   hintStyle: TextStyle(color: Colors.white54),
                   contentPadding: EdgeInsets.symmetric(
@@ -60,33 +87,47 @@ class LoginPage extends StatelessWidget {
               const SizedBox(
                 height: 8.0,
               ),
-              const TextField(
-                obscureText: true,
+              TextField(
+                controller: _passwordController,
+                obscureText: !_passwordVisible,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Enter your password',
-                  hintStyle: TextStyle(color: Colors.white54),
-                  contentPadding: EdgeInsets.symmetric(
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  contentPadding: const EdgeInsets.symmetric(
                     vertical: 10.0,
                     horizontal: 20.0,
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(32.0),
                     ),
                   ),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white, width: 1.0),
                     borderRadius: BorderRadius.all(
                       Radius.circular(32.0),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white, width: 2.0),
                     borderRadius: BorderRadius.all(
                       Radius.circular(32.0),
                     ),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    },
                   ),
                 ),
               ),
@@ -96,6 +137,7 @@ class LoginPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // Perform login action
+                  _checkCredentials();
                 },
                 style: ButtonStyle(
                   backgroundColor:
