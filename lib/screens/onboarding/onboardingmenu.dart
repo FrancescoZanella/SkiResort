@@ -4,6 +4,7 @@ import 'package:ski_resorts_app/screens/onboarding/onboardingpage.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
+import 'package:ski_resorts_app/screens/loginOrSub/login_and_subscriprion_screen.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
@@ -27,27 +28,63 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                  padding: const EdgeInsets.only(right: 2.0, top: 8.0),
-                  child: TextButton(
-                      style: TextButton.styleFrom(
-                          animationDuration: const Duration(milliseconds: 200),
-                          minimumSize: const Size(150, 50),
-                          foregroundColor: Colors.blue,
-                          elevation: 0,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                            Radius.circular(50),
-                          ))),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MainPage()),
-                        );
-                      },
-                      child: const Text('Skip',
-                          style:
-                              TextStyle(decoration: TextDecoration.underline))))
+                padding: const EdgeInsets.only(right: 2.0, top: 8.0),
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      animationDuration: const Duration(milliseconds: 200),
+                      minimumSize: const Size(150, 50),
+                      foregroundColor: Colors.blue,
+                      elevation: 0,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      )),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const LoginAndSubscriptionPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 2.0, top: 8.0),
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      animationDuration: const Duration(milliseconds: 200),
+                      minimumSize: const Size(150, 50),
+                      foregroundColor: Colors.blue,
+                      elevation: 0,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      )),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const MainPage(), // Replace with the actual page
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Skip Login Screen',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                    )),
+              ),
             ],
           ),
           SizedBox(
