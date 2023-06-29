@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/loginOrSub/login_screen.dart';
-import 'package:ski_resorts_app/screens/loginOrSub/registration_screen.dart';
+import 'package:ski_resorts_app/screens/loginOrSub/registration_screen_1.dart';
 
 class LoginAndSubscriptionPage extends StatelessWidget {
   const LoginAndSubscriptionPage({super.key});
@@ -33,7 +33,7 @@ class LoginAndSubscriptionPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const RegisterPage(),
+                      builder: (context) => const RegistrationScreen1(),
                     ),
                   );
                 },

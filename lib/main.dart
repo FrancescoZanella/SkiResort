@@ -4,7 +4,8 @@ import 'package:ski_resorts_app/screens/onboarding/onboardingmenu.dart';
 import 'package:flutter/services.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
 import 'package:ski_resorts_app/old_screens/settings/theme_notifier.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'old_screens/app_routes.dart';
 
 void main() {
@@ -18,6 +19,8 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   static const isLoggedIn = false;
+
+  void _loadUserData() async {}
 
   @override
   Widget build(BuildContext context) {

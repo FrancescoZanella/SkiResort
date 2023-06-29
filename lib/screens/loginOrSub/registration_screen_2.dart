@@ -1,27 +1,28 @@
-//TODO -> THE POST REQUEST FOR REGISTRATION WORKS-> IMPLEMENT THE LOGIC AFTER THE CLICK ON THE BUTTON
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:ski_resorts_app/screens/loginOrSub/registration_screen_3.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class RegistrationScreen2 extends StatefulWidget {
+  final String name;
+  final String surname;
+  final String phoneNumber;
+
+  const RegistrationScreen2({
+    Key? key,
+    required this.name,
+    required this.surname,
+    required this.phoneNumber,
+  }) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegistrationScreen2> createState() => _RegistrationScreen2State();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegistrationScreen2State extends State<RegistrationScreen2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
-
-  final url = Uri.https(
-    'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app/',
-    'user-table.json',
-  );
 
   @override
   void dispose() {
@@ -30,30 +31,12 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  Future<void> _registerUser() async {
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(
-        {
-          'email': _emailController.text,
-          'password': _passwordController.text,
-        },
-      ),
-    );
-
-    if (response.statusCode == 200) {
-      if (kDebugMode) {
-        print('User registered successfully');
-      }
-    } else {
-      throw Exception('Failed to register user');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Your UI and Validation code for email and password...
+      resizeToAvoidBottomInset:
+          false, // Prevents resizing when the keyboard appears
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -157,20 +140,28 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
+                IconButton(
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 50,
+                    color: Colors.black,
+                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Handle registration logic
-                      _registerUser();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegistrationScreen3(
+                            name: widget.name,
+                            surname: widget.surname,
+                            phoneNumber: widget.phoneNumber,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          ),
+                        ),
+                      );
                     }
                   },
-                  child: const Text(
-                    'Register',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
                 ),
               ],
             ),

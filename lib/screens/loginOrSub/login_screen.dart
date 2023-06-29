@@ -9,25 +9,79 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
   bool _passwordVisible = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  bool _showError = false; // New variable for error color flash
+
   final url = Uri.https(
-    'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app/',
-    'user-table.json',
+    'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+    '/user-table.json',
   );
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _controller.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _controller.forward();
+        }
+      });
+
+    _animation = Tween<double>(begin: -20, end: 20).animate(_controller);
+  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   Future<void> _checkCredentials() async {
     final response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      for (var user in data.values) {
+        if (user['email'] == _emailController.text &&
+            user['password'] == _passwordController.text) {
+          if (mounted) {
+            Navigator.pushNamed(context, '/home'); // Redirect to home page
+          }
+          return;
+        }
+      }
+      // If credentials are not found in the database, run the animation
+      if (mounted) {
+        _controller.forward();
+        setState(() {
+          _showError = true;
+        });
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) {
+            setState(() {
+              _showError = false;
+            });
+          }
+        });
+      }
+    } else {
+      // If the server returns an error, handle it
+      throw Exception('Failed to load user credentials');
+    }
   }
 
   @override
@@ -41,6 +95,11 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              AnimatedContainer(
+                duration: const Duration(seconds: 1),
+                color: _showError ? Colors.red : Colors.transparent,
+                height: 5.0,
+              ),
               CircleAvatar(
                 radius: 60.0,
                 backgroundColor: Colors.white,
