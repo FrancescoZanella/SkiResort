@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:ski_resorts_app/screens/builder.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -59,7 +60,17 @@ class _LoginPageState extends State<LoginPage>
         if (user['email'] == _emailController.text &&
             user['password'] == _passwordController.text) {
           if (mounted) {
-            Navigator.pushNamed(context, '/home'); // Redirect to home page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MainPage(
+                  name: user['name'],
+                  surname: user['surname'],
+                  email: user['email'],
+                  phoneNumber: user['phoneNumber'],
+                ),
+              ),
+            ); // Redirect to home page
           }
           return;
         }

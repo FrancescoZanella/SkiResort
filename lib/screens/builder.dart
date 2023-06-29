@@ -8,7 +8,18 @@ import 'package:ski_resorts_app/screens/homepage/home.dart';
 import '../old_screens/favourites/favorites_screen.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final String name;
+  final String surname;
+  final String email;
+  final String phoneNumber;
+
+  const MainPage(
+      {Key? key,
+      required this.name,
+      required this.surname,
+      required this.email,
+      required this.phoneNumber})
+      : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -16,6 +27,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int selectedIconIndex = 2;
+
   List<Widget> pages = [
     const StatisticsScreen(),
     const MeteoPageScreen(),

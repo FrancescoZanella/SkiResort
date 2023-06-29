@@ -73,8 +73,12 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const MainPage(), // Replace with the actual page
+                          builder: (context) => const MainPage(
+                            name: 'pippo',
+                            surname: 'lacoca',
+                            email: 'pippo@lacoca.com',
+                            phoneNumber: '3203229036',
+                          ), // Replace with the actual page
                         ),
                       );
                     },
