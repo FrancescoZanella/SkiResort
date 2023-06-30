@@ -78,6 +78,7 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                             surname: 'lacoca',
                             email: 'pippo@lacoca.com',
                             phoneNumber: '3203229036',
+                            avatarPath: 'lib/assets/images/avatar9.jpg',
                           ), // Replace with the actual page
                         ),
                       );

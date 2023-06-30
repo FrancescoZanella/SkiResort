@@ -14,13 +14,15 @@ class MainPage extends StatefulWidget {
   final String surname;
   final String email;
   final String phoneNumber;
+  final String avatarPath;
 
   const MainPage(
       {Key? key,
       required this.name,
       required this.surname,
       required this.email,
-      required this.phoneNumber})
+      required this.phoneNumber,
+      required this.avatarPath})
       : super(key: key);
 
   @override
@@ -43,10 +45,12 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     final userModel = Provider.of<UserModel>(context, listen: false);
     userModel.updateUser(
-        name: widget.name,
-        surname: widget.surname,
-        email: widget.email,
-        phoneNumber: widget.phoneNumber);
+      name: widget.name,
+      surname: widget.surname,
+      email: widget.email,
+      phoneNumber: widget.phoneNumber,
+      avatarPath: widget.avatarPath,
+    );
   }
 
   @override

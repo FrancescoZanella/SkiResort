@@ -22,6 +22,26 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 20),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(80.0 / 8),
+                  child: Center(
+                      child: Transform.scale(
+                    scale: 2.5,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(
+                        userModel.avatarPath,
+                      ),
+                    ),
+                  )),
+                ),
+              ),
+              const SizedBox(height: 40),
               const Text(
                 'Personal Information',
                 style: TextStyle(

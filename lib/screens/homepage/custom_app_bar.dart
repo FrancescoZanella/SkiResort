@@ -51,9 +51,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                               child: Center(
                                   child: Transform.scale(
                                 scale: 1.5,
-                                child: const CircleAvatar(
+                                child: CircleAvatar(
                                   backgroundImage: AssetImage(
-                                    'lib/assets/images/Zlatan_Ibrahimovic_2.jpg',
+                                    userModel.avatarPath,
                                   ),
                                 ),
                               )),

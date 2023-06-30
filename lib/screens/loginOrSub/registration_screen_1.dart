@@ -30,7 +30,7 @@ class _RegistrationScreen1State extends State<RegistrationScreen1> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           child: Form(
             key: _formKey,
             child: Column(

@@ -65,6 +65,7 @@ class _LoginPageState extends State<LoginPage>
                   surname: user['surname'],
                   email: user['email'],
                   phoneNumber: user['phoneNumber'],
+                  avatarPath: user['avatar'],
                 ),
               ),
             ); // Redirect to home page

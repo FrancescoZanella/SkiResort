@@ -5,16 +5,19 @@ class UserModel extends ChangeNotifier {
   String surname = '';
   String email = '';
   String phoneNumber = '';
+  String avatarPath = '';
 
   void updateUser(
       {required String name,
       required String surname,
       required String email,
-      required String phoneNumber}) {
+      required String phoneNumber,
+      required String avatarPath}) {
     this.name = name;
     this.surname = surname;
     this.email = email;
     this.phoneNumber = phoneNumber;
+    this.avatarPath = avatarPath;
     notifyListeners();
   }
 }
