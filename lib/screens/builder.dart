@@ -4,6 +4,8 @@ import 'package:ski_resorts_app/old_screens/settings/settings_page_screen.dart';
 import 'package:ski_resorts_app/old_screens/statistics/user_statistic_screen.dart';
 import 'package:ski_resorts_app/screens/weather/weather_screen.dart';
 import 'package:ski_resorts_app/screens/homepage/home.dart';
+import 'package:provider/provider.dart';
+import 'package:ski_resorts_app/screens/user_data_model.dart';
 
 import '../old_screens/favourites/favorites_screen.dart';
 
@@ -35,6 +37,17 @@ class _MainPageState extends State<MainPage> {
     const FavoritesScreen(),
     const SettingsPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    final userModel = Provider.of<UserModel>(context, listen: false);
+    userModel.updateUser(
+        name: widget.name,
+        surname: widget.surname,
+        email: widget.email,
+        phoneNumber: widget.phoneNumber);
+  }
 
   @override
   Widget build(BuildContext context) {

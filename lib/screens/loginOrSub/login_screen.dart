@@ -17,7 +17,6 @@ class _LoginPageState extends State<LoginPage>
   final TextEditingController _passwordController = TextEditingController();
 
   late AnimationController _controller;
-  late Animation<double> _animation;
 
   bool _showError = false; // New variable for error color flash
 
@@ -40,8 +39,6 @@ class _LoginPageState extends State<LoginPage>
           _controller.forward();
         }
       });
-
-    _animation = Tween<double>(begin: -20, end: 20).animate(_controller);
   }
 
   @override

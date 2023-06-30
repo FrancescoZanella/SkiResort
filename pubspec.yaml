@@ -85,6 +85,15 @@ flutter:
     - lib\assets\images\sunnyDay.jpg
     - lib\assets\images\22702455-statistica-icona-con-colorato-piatto-stile-isolato-su-bianca-sfondo-vettoriale.jpg
     - lib\assets\images\skiResortImage.jpg
+    - lib\assets\images\avatar1.jpg
+    - lib\assets\images\avatar2.jpg
+    - lib\assets\images\avatar3.jpg
+    - lib\assets\images\avatar4.jpg
+    - lib\assets\images\avatar5.jpg
+    - lib\assets\images\avatar6.jpg
+    - lib\assets\images\avatar7.jpg
+    - lib\assets\images\avatar8.jpg
+    - lib\assets\images\avatar9.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

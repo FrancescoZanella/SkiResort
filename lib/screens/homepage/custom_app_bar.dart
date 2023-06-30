@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:provider/provider.dart';
+import 'package:ski_resorts_app/screens/user_data_model.dart';
 
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
@@ -11,6 +13,8 @@ class CustomAppBar extends StatefulWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
+    UserModel userModel = Provider.of<UserModel>(context); // Get UserModel
+
     return Container(
         color: const Color.fromRGBO(12, 56, 177, 1),
         child: Padding(
@@ -62,12 +66,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   const SizedBox(
                     width: 8,
                   ),
-                  const Text(
-                    'Francesco Zanella',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18),
+                  Text(
+                    '${userModel.name} ${userModel.surname}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
                   ),
                 ],
               ),
