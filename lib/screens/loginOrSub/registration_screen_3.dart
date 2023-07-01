@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:ski_resorts_app/screens/builder.dart';
 
 class RegistrationScreen3 extends StatefulWidget {
   final String name;
@@ -51,6 +52,20 @@ class _RegistrationScreen3State extends State<RegistrationScreen3> {
     if (response.statusCode == 200) {
       if (kDebugMode) {
         print('User registered successfully');
+      }
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainPage(
+              name: widget.name,
+              surname: widget.surname,
+              email: widget.email,
+              phoneNumber: widget.phoneNumber,
+              avatarPath: 'lib/assets/images/avatar${selectedAvatar + 1}.jpg',
+            ),
+          ),
+        ); // Redirect to home page
       }
     } else {
       throw Exception('Failed to register user');

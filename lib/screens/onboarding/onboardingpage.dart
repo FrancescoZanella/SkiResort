@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/loginOrSub/login_screen.dart';
+import 'package:ski_resorts_app/screens/loginOrSub/login_and_subscription_screen.dart';
 
 // ignore: must_be_immutable
 class OnboardingPage extends StatelessWidget {
@@ -79,7 +79,8 @@ class OnboardingPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginPage()),
+                                builder: (context) =>
+                                    const LoginAndSubscriptionPage()),
                           );
                         },
                         child: const InkWell(

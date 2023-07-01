@@ -4,7 +4,7 @@ import 'package:ski_resorts_app/screens/onboarding/onboardingpage.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
-import 'package:ski_resorts_app/screens/loginOrSub/login_and_subscriprion_screen.dart';
+import 'package:ski_resorts_app/screens/loginOrSub/login_and_subscription_screen.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
