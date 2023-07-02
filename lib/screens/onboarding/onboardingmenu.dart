@@ -5,6 +5,9 @@ import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
 import 'package:ski_resorts_app/screens/loginOrSub/login_and_subscription_screen.dart';
+import 'package:ski_resorts_app/screens/user_data_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
@@ -16,8 +19,21 @@ class OnboardingMenu extends StatefulWidget {
 class _OnboardingMenuState extends State<OnboardingMenu> {
   final PageController controller = PageController();
 
+  // A method to save hardcoded user details in shared preferences
+  Future<void> saveUserDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', true);
+    prefs.setString('name', 'pippo');
+    prefs.setString('surname', 'lacoca');
+    prefs.setString('email', 'pippo@lacoca.com');
+    prefs.setString('phoneNumber', '3203229036');
+    prefs.setString('avatarPath', 'lib/assets/images/avatar9.jpg');
+  }
+
   @override
   Widget build(BuildContext context) {
+    final userModel = Provider.of<UserModel>(context, listen: false);
+
     return Scaffold(
       appBar: null,
       backgroundColor: Colors.white,
@@ -69,19 +85,32 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                         Radius.circular(50),
                       )),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainPage(
-                            name: 'pippo',
-                            surname: 'lacoca',
-                            email: 'pippo@lacoca.com',
-                            phoneNumber: '3203229036',
-                            avatarPath: 'lib/assets/images/avatar9.jpg',
-                          ), // Replace with the actual page
-                        ),
+                    onPressed: () async {
+                      await saveUserDetails(); // Save the hardcoded details in shared preferences
+
+                      // Update the UserModel with the new details
+                      userModel.updateUser(
+                        name: 'pippo',
+                        surname: 'lacoca',
+                        email: 'pippo@lacoca.com',
+                        phoneNumber: '3203229036',
+                        avatarPath: 'lib/assets/images/avatar9.jpg',
                       );
+                      // Save the hardcoded details in shared preferences
+                      saveUserDetails().then((_) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainPage(
+                              name: 'pippo',
+                              surname: 'lacoca',
+                              email: 'pippo@lacoca.com',
+                              phoneNumber: '3203229036',
+                              avatarPath: 'lib/assets/images/avatar9.jpg',
+                            ), // Replace with the actual page
+                          ),
+                        );
+                      });
                     },
                     child: const Text(
                       'Skip Login Screen',
