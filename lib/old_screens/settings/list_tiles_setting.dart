@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -13,6 +14,12 @@ class CustomListTile extends StatelessWidget {
     this.trailing,
     this.pageName,
   }) : super(key: key);
+
+  Future<void> logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    prefs.setBool('isLoggedIn', false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +47,7 @@ class CustomListTile extends StatelessWidget {
                       '/OnboardingMenu',
                       (Route<dynamic> route) => false,
                     );
+                    await logoutUser();
                   },
                   child: const Text('Log Out'),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ski_resorts_app/screens/builder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -56,6 +57,15 @@ class _LoginPageState extends State<LoginPage>
       for (var user in data.values) {
         if (user['email'] == _emailController.text &&
             user['password'] == _passwordController.text) {
+          // If credentials are found in the database, save them to the device
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool('isLoggedIn', true);
+          prefs.setString('email', user['email']);
+          prefs.setString('name', user['name']);
+          prefs.setString('surname', user['surname']);
+          prefs.setString('phoneNumber', user['phoneNumber']);
+          prefs.setString('avatar', user['avatar']);
+
           if (mounted) {
             Navigator.push(
               context,

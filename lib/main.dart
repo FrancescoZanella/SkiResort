@@ -5,6 +5,27 @@ import 'package:flutter/services.dart';
 import 'package:ski_resorts_app/old_screens/settings/theme_notifier.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 import 'old_screens/app_routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ski_resorts_app/screens/builder.dart';
+
+Future<UserModel> checkUserLoginStatus() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  UserModel userModel = UserModel();
+
+  if (isLoggedIn) {
+    userModel.updateUser(
+      name: prefs.getString('name') ?? '',
+      surname: prefs.getString('surname') ?? '',
+      email: prefs.getString('email') ?? '',
+      phoneNumber: prefs.getString('phoneNumber') ?? '',
+      avatarPath: prefs.getString('avatarPath') ?? '',
+    );
+  }
+
+  return userModel;
+}
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -43,7 +64,27 @@ class MyApp extends StatelessWidget {
                     scaffoldBackgroundColor: Colors.white,
                     visualDensity: VisualDensity.adaptivePlatformDensity,
                   ),
-            home: const OnboardingMenu(),
+            home: FutureBuilder<UserModel>(
+              future: checkUserLoginStatus(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  UserModel userModel = snapshot.data!;
+                  return userModel.name.isEmpty
+                      ? const OnboardingMenu()
+                      : MainPage(
+                          name: userModel.name,
+                          surname: userModel.surname,
+                          email: userModel.email,
+                          phoneNumber: userModel.phoneNumber,
+                          avatarPath: userModel.avatarPath,
+                        );
+                }
+              },
+            ),
           );
         },
       ),
