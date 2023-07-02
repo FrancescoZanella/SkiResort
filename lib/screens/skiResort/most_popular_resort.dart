@@ -16,20 +16,22 @@ class MostPopularResortPage extends StatelessWidget {
               location: 'Location, Rozzano',
               description:
                   'Description of the ski resort. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              weather: 'Sunny',
-              snowConditions: 'Fresh Powder',
+              averageMarks: 4.2, // Here's the average marks value
+              skiSlopesLenght: '10km',
+              skiPassCost: '100€',
               elevation: '2000m',
-              trails: '50',
+              skiLifts: '50',
             ),
             Resort(
               title: 'Another Ski Resort',
               location: 'Location, Another',
               description:
                   'Description of another ski resort. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              weather: 'Cloudy',
-              snowConditions: 'Moderate Snow',
+              averageMarks: 3.8, // And here
+              skiSlopesLenght: '8km',
+              skiPassCost: '80€',
               elevation: '1500m',
-              trails: '30',
+              skiLifts: '30',
             ),
             // Add more resorts here...
           ],

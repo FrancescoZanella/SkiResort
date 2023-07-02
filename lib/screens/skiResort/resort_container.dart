@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ResortContainer extends StatelessWidget {
   final String title;
   final String location;
   final String description;
-  final String weather;
-  final String snowConditions;
+  final double averageMarks; // Change from String to double
+  final String skiSlopesLenght;
+  final String skiPassCost;
   final String elevation;
-  final String trails;
+  final String skiLifts;
   final VoidCallback onFavouriteButtonPressed;
 
   const ResortContainer({
@@ -15,10 +17,11 @@ class ResortContainer extends StatelessWidget {
     required this.title,
     required this.location,
     required this.description,
-    required this.weather,
-    required this.snowConditions,
+    required this.averageMarks, // Change from String to double
+    required this.skiSlopesLenght,
+    required this.skiPassCost,
     required this.elevation,
-    required this.trails,
+    required this.skiLifts,
     required this.onFavouriteButtonPressed,
   }) : super(key: key);
 
@@ -95,20 +98,33 @@ class ResortContainer extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ListTile(
-                leading: const Icon(Icons.wb_sunny),
-                title: Text('Weather: $weather'),
-              ),
-              ListTile(
-                leading: const Icon(Icons.snowing),
-                title: Text('Snow Conditions: $snowConditions'),
+                leading: const Icon(Icons.analytics_outlined),
+                title: RatingBarIndicator(
+                  rating: averageMarks,
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  itemCount: 5,
+                  itemSize: 20.0,
+                  direction: Axis.horizontal,
+                ),
               ),
               ListTile(
                 leading: const Icon(Icons.height),
                 title: Text('Elevation: $elevation'),
               ),
               ListTile(
-                leading: const Icon(Icons.directions),
-                title: Text('Trails: $trails'),
+                leading: const Icon(Icons.downhill_skiing),
+                title: Text('Ski slopes: $skiSlopesLenght'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.arrow_upward),
+                title: Text('Ski lifts: $skiLifts'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.euro_symbol_sharp),
+                title: Text('Ski Pass Cost: $skiPassCost'),
               ),
               Container(
                 decoration: BoxDecoration(

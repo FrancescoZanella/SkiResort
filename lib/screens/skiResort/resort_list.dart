@@ -5,19 +5,21 @@ class Resort {
   final String title;
   final String location;
   final String description;
-  final String weather;
-  final String snowConditions;
+  final double averageMarks; // Change from String to double
+  final String skiSlopesLenght;
+  final String skiPassCost;
   final String elevation;
-  final String trails;
+  final String skiLifts;
 
   Resort({
     required this.title,
     required this.location,
     required this.description,
-    required this.weather,
-    required this.snowConditions,
+    required this.averageMarks, // Change from String to double
+    required this.skiSlopesLenght,
+    required this.skiPassCost,
     required this.elevation,
-    required this.trails,
+    required this.skiLifts,
   });
 }
 
@@ -25,10 +27,11 @@ class ResortList extends StatelessWidget {
   final List<Resort> resorts;
   final VoidCallback onFavouriteButtonPressed;
 
-  const ResortList(
-      {super.key,
-      required this.resorts,
-      required this.onFavouriteButtonPressed});
+  const ResortList({
+    Key? key,
+    required this.resorts,
+    required this.onFavouriteButtonPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +39,17 @@ class ResortList extends StatelessWidget {
       itemCount: resorts.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.only(
-              bottom: 16.0), // Add some space at the bottom of each container
+          padding: const EdgeInsets.only(bottom: 16.0),
           child: ResortContainer(
             title: resorts[index].title,
             location: resorts[index].location,
             description: resorts[index].description,
-            weather: resorts[index].weather,
-            snowConditions: resorts[index].snowConditions,
+            averageMarks:
+                resorts[index].averageMarks, // Just pass the value here
+            skiSlopesLenght: resorts[index].skiSlopesLenght,
+            skiPassCost: resorts[index].skiPassCost,
             elevation: resorts[index].elevation,
-            trails: resorts[index].trails,
+            skiLifts: resorts[index].skiLifts,
             onFavouriteButtonPressed: onFavouriteButtonPressed,
           ),
         );

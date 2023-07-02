@@ -16,6 +16,7 @@ Future<UserModel> checkUserLoginStatus() async {
 
   if (isLoggedIn) {
     userModel.updateUser(
+      userId: prefs.getString('userId') ?? '',
       name: prefs.getString('name') ?? '',
       surname: prefs.getString('surname') ?? '',
       email: prefs.getString('email') ?? '',
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
                   return userModel.name.isEmpty
                       ? const OnboardingMenu()
                       : MainPage(
+                          userId: userModel.userId,
                           name: userModel.name,
                           surname: userModel.surname,
                           email: userModel.email,

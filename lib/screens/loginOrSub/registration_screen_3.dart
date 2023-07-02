@@ -58,6 +58,7 @@ class _RegistrationScreen3State extends State<RegistrationScreen3> {
           context,
           MaterialPageRoute(
             builder: (context) => MainPage(
+              userId: jsonDecode(response.body)['name'],
               name: widget.name,
               surname: widget.surname,
               email: widget.email,

@@ -90,6 +90,7 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
 
                       // Update the UserModel with the new details
                       userModel.updateUser(
+                        userId: 'NZD37OAtDRrIrv5HEFP',
                         name: 'pippo',
                         surname: 'lacoca',
                         email: 'pippo@lacoca.com',
@@ -102,6 +103,7 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => const MainPage(
+                              userId: 'NZD37OAtDRrIrv5HEFP',
                               name: 'pippo',
                               surname: 'lacoca',
                               email: 'pippo@lacoca.com',

@@ -15,9 +15,11 @@ class MainPage extends StatefulWidget {
   final String email;
   final String phoneNumber;
   final String avatarPath;
+  final String userId;
 
   const MainPage(
       {Key? key,
+      required this.userId,
       required this.name,
       required this.surname,
       required this.email,
@@ -45,6 +47,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     final userModel = Provider.of<UserModel>(context, listen: false);
     userModel.updateUser(
+      userId: widget.userId,
       name: widget.name,
       surname: widget.surname,
       email: widget.email,

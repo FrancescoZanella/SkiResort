@@ -54,12 +54,15 @@ class _LoginPageState extends State<LoginPage>
     final response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
-      for (var user in data.values) {
+      for (var entry in data.entries) {
+        var id = entry.key; // The unique Firebase ID
+        var user = entry.value;
         if (user['email'] == _emailController.text &&
             user['password'] == _passwordController.text) {
           // If credentials are found in the database, save them to the device
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setBool('isLoggedIn', true);
+          prefs.setString('userId', id); // Save the unique Firebase ID
           prefs.setString('email', user['email']);
           prefs.setString('name', user['name']);
           prefs.setString('surname', user['surname']);
@@ -71,6 +74,7 @@ class _LoginPageState extends State<LoginPage>
               context,
               MaterialPageRoute(
                 builder: (context) => MainPage(
+                  userId: id, // Pass the unique Firebase ID
                   name: user['name'],
                   surname: user['surname'],
                   email: user['email'],
