@@ -33,11 +33,11 @@ class CustomListTile extends StatelessWidget {
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Navigate to the login page
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      '/LoginPage',
+                      '/OnboardingMenu',
                       (Route<dynamic> route) => false,
                     );
                   },
