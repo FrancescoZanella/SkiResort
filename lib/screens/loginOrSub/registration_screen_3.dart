@@ -1,4 +1,3 @@
-//TODO -> THE POST REQUEST FOR REGISTRATION WORKS-> IMPLEMENT THE LOGIC AFTER THE CLICK ON THE BUTTON
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';

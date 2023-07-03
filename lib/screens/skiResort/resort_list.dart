@@ -5,7 +5,10 @@ class Resort {
   final String title;
   final String location;
   final String description;
-  final double averageMarks; // Change from String to double
+  final double averageMarks;
+  final String blueSkiSlopesLenght;
+  final String redSkiSlopesLenght;
+  final String blackSkiSlopesLenght;
   final String skiSlopesLenght;
   final String skiPassCost;
   final String elevation;
@@ -15,8 +18,11 @@ class Resort {
     required this.title,
     required this.location,
     required this.description,
-    required this.averageMarks, // Change from String to double
+    required this.averageMarks,
     required this.skiSlopesLenght,
+    required this.blueSkiSlopesLenght,
+    required this.redSkiSlopesLenght,
+    required this.blackSkiSlopesLenght,
     required this.skiPassCost,
     required this.elevation,
     required this.skiLifts,
@@ -44,9 +50,11 @@ class ResortList extends StatelessWidget {
             title: resorts[index].title,
             location: resorts[index].location,
             description: resorts[index].description,
-            averageMarks:
-                resorts[index].averageMarks, // Just pass the value here
+            averageMarks: resorts[index].averageMarks,
             skiSlopesLenght: resorts[index].skiSlopesLenght,
+            blueSkiSlopesLenght: resorts[index].blueSkiSlopesLenght,
+            redSkiSlopesLenght: resorts[index].redSkiSlopesLenght,
+            blackSkiSlopesLenght: resorts[index].blackSkiSlopesLenght,
             skiPassCost: resorts[index].skiPassCost,
             elevation: resorts[index].elevation,
             skiLifts: resorts[index].skiLifts,

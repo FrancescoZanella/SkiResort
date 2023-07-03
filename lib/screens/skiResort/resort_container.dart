@@ -5,8 +5,11 @@ class ResortContainer extends StatelessWidget {
   final String title;
   final String location;
   final String description;
-  final double averageMarks; // Change from String to double
+  final double averageMarks;
   final String skiSlopesLenght;
+  final String blueSkiSlopesLenght;
+  final String redSkiSlopesLenght;
+  final String blackSkiSlopesLenght;
   final String skiPassCost;
   final String elevation;
   final String skiLifts;
@@ -17,8 +20,11 @@ class ResortContainer extends StatelessWidget {
     required this.title,
     required this.location,
     required this.description,
-    required this.averageMarks, // Change from String to double
+    required this.averageMarks,
     required this.skiSlopesLenght,
+    required this.blueSkiSlopesLenght,
+    required this.redSkiSlopesLenght,
+    required this.blackSkiSlopesLenght,
     required this.skiPassCost,
     required this.elevation,
     required this.skiLifts,
@@ -83,6 +89,20 @@ class ResortContainer extends StatelessWidget {
                   ),
                 ),
               ),
+              Padding(
+                // Padding for RatingBarIndicator
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: RatingBarIndicator(
+                  rating: averageMarks,
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  itemCount: 5,
+                  itemSize: 20.0,
+                  direction: Axis.horizontal,
+                ),
+              ),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -98,25 +118,42 @@ class ResortContainer extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ListTile(
-                leading: const Icon(Icons.analytics_outlined),
-                title: RatingBarIndicator(
-                  rating: averageMarks,
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  itemCount: 5,
-                  itemSize: 20.0,
-                  direction: Axis.horizontal,
-                ),
-              ),
-              ListTile(
                 leading: const Icon(Icons.height),
                 title: Text('Elevation: $elevation'),
               ),
               ListTile(
                 leading: const Icon(Icons.downhill_skiing),
-                title: Text('Ski slopes: $skiSlopesLenght'),
+                title: Row(
+                  children: [
+                    Expanded(
+                      child: Text('Ski slopes: $skiSlopesLenght'),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.blue,
+                      child: Text(
+                        '$blueSkiSlopesLenght km',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.red,
+                      child: Text(
+                        '$redSkiSlopesLenght km',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.black,
+                      child: Text(
+                        '$blackSkiSlopesLenght km',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               ListTile(
                 leading: const Icon(Icons.arrow_upward),
