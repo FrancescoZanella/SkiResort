@@ -2,32 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ResortContainer extends StatelessWidget {
-  final String title;
-  final String location;
-  final String description;
-  final double averageMarks;
-  final String skiSlopesLenght;
-  final String blueSkiSlopesLenght;
-  final String redSkiSlopesLenght;
-  final String blackSkiSlopesLenght;
+  final String skiResortName;
+  final String skiResortDescription;
+  final String imageLink;
+  final double skiResortRating;
+  final String totalSkiSlopes;
+  final String blueSkiSlopes;
+  final String redSkiSlopes;
+  final String blackSkiSlopes;
   final String skiPassCost;
-  final String elevation;
-  final String skiLifts;
+  final String skiResortElevation;
+  final String skiLiftsNumber;
   final VoidCallback onFavouriteButtonPressed;
 
   const ResortContainer({
     Key? key,
-    required this.title,
-    required this.location,
-    required this.description,
-    required this.averageMarks,
-    required this.skiSlopesLenght,
-    required this.blueSkiSlopesLenght,
-    required this.redSkiSlopesLenght,
-    required this.blackSkiSlopesLenght,
+    required this.skiResortName,
+    required this.skiResortDescription,
+    required this.imageLink,
+    required this.skiResortRating,
+    required this.totalSkiSlopes,
+    required this.blueSkiSlopes,
+    required this.redSkiSlopes,
+    required this.blackSkiSlopes,
     required this.skiPassCost,
-    required this.elevation,
-    required this.skiLifts,
+    required this.skiResortElevation,
+    required this.skiLiftsNumber,
     required this.onFavouriteButtonPressed,
   }) : super(key: key);
 
@@ -51,12 +51,14 @@ class ResortContainer extends StatelessWidget {
             children: [
               Container(
                 height: 200,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('lib/assets/images/skiResortImage.jpg'),
+                    image: NetworkImage(
+                      imageLink,
+                    ), // Use NetworkImage to load image from URL
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16),
                   ),
@@ -66,7 +68,7 @@ class ResortContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  title,
+                  skiResortName,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -78,22 +80,10 @@ class ResortContainer extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  location,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Theme.of(context).textTheme.bodyLarge?.color
-                        : Colors.grey[600],
-                  ),
-                ),
-              ),
-              Padding(
                 // Padding for RatingBarIndicator
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: RatingBarIndicator(
-                  rating: averageMarks,
+                  rating: skiResortRating,
                   itemBuilder: (context, _) => const Icon(
                     Icons.star,
                     color: Colors.amber,
@@ -107,7 +97,7 @@ class ResortContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  description,
+                  skiResortDescription,
                   style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).brightness == Brightness.dark
@@ -119,20 +109,20 @@ class ResortContainer extends StatelessWidget {
               const SizedBox(height: 16),
               ListTile(
                 leading: const Icon(Icons.height),
-                title: Text('Elevation: $elevation'),
+                title: Text('Elevation: $skiResortElevation'),
               ),
               ListTile(
                 leading: const Icon(Icons.downhill_skiing),
                 title: Row(
                   children: [
                     Expanded(
-                      child: Text('Ski slopes: $skiSlopesLenght'),
+                      child: Text('Ski slopes: $totalSkiSlopes'),
                     ),
                     Container(
                       padding: const EdgeInsets.all(8),
                       color: Colors.blue,
                       child: Text(
-                        '$blueSkiSlopesLenght km',
+                        '$blueSkiSlopes km',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -140,7 +130,7 @@ class ResortContainer extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       color: Colors.red,
                       child: Text(
-                        '$redSkiSlopesLenght km',
+                        '$redSkiSlopes km',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -148,7 +138,7 @@ class ResortContainer extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       color: Colors.black,
                       child: Text(
-                        '$blackSkiSlopesLenght km',
+                        '$blackSkiSlopes km',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -157,7 +147,7 @@ class ResortContainer extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.arrow_upward),
-                title: Text('Ski lifts: $skiLifts'),
+                title: Text('Ski lifts: $skiLiftsNumber'),
               ),
               ListTile(
                 leading: const Icon(Icons.euro_symbol_sharp),

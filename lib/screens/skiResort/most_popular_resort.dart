@@ -1,16 +1,46 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 final url = Uri.https(
   'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
-  '/favorites-resort-table.json',
+  '/resorts-table.json',
 );
 
-class MostPopularResortPage extends StatelessWidget {
+class MostPopularResortPage extends StatefulWidget {
   const MostPopularResortPage({Key? key}) : super(key: key);
+
+  @override
+  State<MostPopularResortPage> createState() => _MostPopularResortPageState();
+}
+
+class _MostPopularResortPageState extends State<MostPopularResortPage> {
+  List<Resort> resorts = [];
+
+  void fetchResorts() async {
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      data.forEach((key, value) {
+        resorts.add(Resort.fromJson(value));
+        if (kDebugMode) {
+          print(resorts);
+        }
+      });
+      setState(() {}); // Update the UI
+    } else {
+      throw Exception('Failed to load resorts');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchResorts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,41 +48,12 @@ class MostPopularResortPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ResortList(
-          resorts: [
-            Resort(
-              title: 'Rozzano Ski Resort',
-              location: 'Location, Rozzano',
-              description:
-                  'Description of the ski resort. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              averageMarks: 4.2, // Here's the average marks value
-              skiSlopesLenght: '10km',
-              blueSkiSlopesLenght: '6',
-              redSkiSlopesLenght: '3',
-              blackSkiSlopesLenght: '1',
-              skiPassCost: '100€',
-              elevation: '2000m',
-              skiLifts: '50',
-            ),
-            Resort(
-              title: 'Another Ski Resort',
-              location: 'Location, Another',
-              description:
-                  'Description of another ski resort. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              averageMarks: 3.8, // And here
-              skiSlopesLenght: '8km',
-              blueSkiSlopesLenght: '5',
-              redSkiSlopesLenght: '2',
-              blackSkiSlopesLenght: '1',
-              skiPassCost: '80€',
-              elevation: '1500m',
-              skiLifts: '30',
-            ),
-          ],
+          resorts: resorts,
           onFavouriteButtonPressed: () async {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            String userId = prefs.getString('userId') ?? '';
-            String userName = prefs.getString('name') ?? '';
-            String userSurname = prefs.getString('surname') ?? '';
+            //SharedPreferences prefs = await SharedPreferences.getInstance();
+            //String userId = prefs.getString('userId') ?? '';
+            //String userName = prefs.getString('name') ?? '';
+            //String userSurname = prefs.getString('surname') ?? '';
             //TODO: BUILD THE BODY OF THE POST REQUEST
           },
         ),

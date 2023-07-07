@@ -2,31 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_container.dart';
 
 class Resort {
-  final String title;
-  final String location;
-  final String description;
-  final double averageMarks;
-  final String blueSkiSlopesLenght;
-  final String redSkiSlopesLenght;
-  final String blackSkiSlopesLenght;
-  final String skiSlopesLenght;
+  final String skiResortName;
+  final String skiResortDescription;
+  final String imageLink;
+  final double skiResortRating;
+  final String totalSkiSlopes;
+  final String blueSkiSlopes;
+  final String redSkiSlopes;
+  final String blackSkiSlopes;
   final String skiPassCost;
-  final String elevation;
-  final String skiLifts;
+  final String skiResortElevation;
+  final String skiLiftsNumber;
 
   Resort({
-    required this.title,
-    required this.location,
-    required this.description,
-    required this.averageMarks,
-    required this.skiSlopesLenght,
-    required this.blueSkiSlopesLenght,
-    required this.redSkiSlopesLenght,
-    required this.blackSkiSlopesLenght,
+    required this.skiResortName,
+    required this.skiResortDescription,
+    required this.imageLink,
+    required this.skiResortRating,
+    required this.totalSkiSlopes,
+    required this.blueSkiSlopes,
+    required this.redSkiSlopes,
+    required this.blackSkiSlopes,
     required this.skiPassCost,
-    required this.elevation,
-    required this.skiLifts,
+    required this.skiResortElevation,
+    required this.skiLiftsNumber,
   });
+
+  // Here's the fromJson method:
+  factory Resort.fromJson(Map<String, dynamic> json) {
+    return Resort(
+      skiResortName: json['skiResortName'],
+      skiResortDescription: json['skiResortDescription'],
+      imageLink: json['imageLink'],
+      skiResortRating: json['rating_title'].toDouble(),
+      totalSkiSlopes: json['totalSkiSlopes'],
+      blueSkiSlopes: json['blueSkiSlopes'],
+      redSkiSlopes: json['redSkiSlopes'],
+      blackSkiSlopes: json['blackSkiSlopes'],
+      skiPassCost: json['skiPassCost'],
+      skiResortElevation: json['skiResortElevation'],
+      skiLiftsNumber: json['skiLiftsNumber'],
+    );
+  }
 }
 
 class ResortList extends StatelessWidget {
@@ -47,17 +64,17 @@ class ResortList extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: ResortContainer(
-            title: resorts[index].title,
-            location: resorts[index].location,
-            description: resorts[index].description,
-            averageMarks: resorts[index].averageMarks,
-            skiSlopesLenght: resorts[index].skiSlopesLenght,
-            blueSkiSlopesLenght: resorts[index].blueSkiSlopesLenght,
-            redSkiSlopesLenght: resorts[index].redSkiSlopesLenght,
-            blackSkiSlopesLenght: resorts[index].blackSkiSlopesLenght,
+            skiResortName: resorts[index].skiResortName,
+            skiResortDescription: resorts[index].skiResortDescription,
+            imageLink: resorts[index].imageLink,
+            skiResortRating: resorts[index].skiResortRating,
+            totalSkiSlopes: resorts[index].totalSkiSlopes,
+            blueSkiSlopes: resorts[index].blueSkiSlopes,
+            redSkiSlopes: resorts[index].redSkiSlopes,
+            blackSkiSlopes: resorts[index].blackSkiSlopes,
             skiPassCost: resorts[index].skiPassCost,
-            elevation: resorts[index].elevation,
-            skiLifts: resorts[index].skiLifts,
+            skiResortElevation: resorts[index].skiResortElevation,
+            skiLiftsNumber: resorts[index].skiLiftsNumber,
             onFavouriteButtonPressed: onFavouriteButtonPressed,
           ),
         );

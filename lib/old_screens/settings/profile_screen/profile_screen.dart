@@ -31,14 +31,17 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(80.0 / 8),
                   child: Center(
-                      child: Transform.scale(
-                    scale: 2.5,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(
-                        userModel.avatarPath,
+                    child: Transform.scale(
+                      scale: 1.5,
+                      child: CircleAvatar(
+                        backgroundImage: userModel.avatarPath.startsWith('http')
+                            ? NetworkImage(userModel.avatarPath)
+                                as ImageProvider<Object>?
+                            : AssetImage(userModel.avatarPath)
+                                as ImageProvider<Object>?,
                       ),
                     ),
-                  )),
+                  ),
                 ),
               ),
               const SizedBox(height: 40),

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name = "facebook_app_id">1474359256733150</string>
+<string name = "fb_login_protocol_scheme">fb1474359256733150</string>
+<string name = "facebook_client_token">b3eeddc86a9e89f3a0e72b4bd5c65a88</string>
+<string name = "app_name">dimaProject2023</string>
+</resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "378447974013",
+    "firebase_url": "https://dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "dimaproject2023",
+    "storage_bucket": "dimaproject2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378447974013:android:251bed94a2f65f4333ab14",
+        "android_client_info": {
+          "package_name": "com.dimaProject2023.ski_resorts_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378447974013-ire7ophiihfsb0di32fp40lnhiv4uot7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU0vZRSP4huqwm_DUUeFsNODlTYc5DmwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378447974013-ire7ophiihfsb0di32fp40lnhiv4uot7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
