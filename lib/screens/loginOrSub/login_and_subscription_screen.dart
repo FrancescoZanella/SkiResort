@@ -1,12 +1,100 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ski_resorts_app/screens/loginOrSub/login_screen.dart';
 import 'package:ski_resorts_app/screens/loginOrSub/registration_screen_1.dart';
+import 'package:ski_resorts_app/screens/builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+// Firebase URL
+final url = Uri.https(
+  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+  '/user-table.json',
+);
 
 class LoginAndSubscriptionPage extends StatelessWidget {
   const LoginAndSubscriptionPage({super.key});
 
+  void _onFacebookLoginButtonPressed() {
+    // implement Facebook login functionality here
+  }
+
+  void _onGithubLoginButtonPressed() {
+    // implement Github login functionality here
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Google Sign-In instance
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    Future<void> signInWithGoogle() async {
+      try {
+        final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+        if (googleUser == null) {
+          throw Exception('Google Sign In was aborted');
+        }
+
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+
+        final response = await http.post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({
+            'name': userCredential.user!.displayName ??
+                'Signed up with Google account',
+            'surname': '',
+            'email':
+                userCredential.user!.email ?? 'Signed up with Google account',
+            'phoneNumber': 'Signed up with Google account',
+            'password': 'Signed up with Google account',
+            'avatar': userCredential.user!.photoURL ?? '',
+          }),
+        );
+
+        if (response.statusCode != 200) {
+          throw Exception('Failed to register user: ${response.body}');
+        }
+
+        if (kDebugMode) {
+          print('User registered successfully');
+        }
+
+        if (context.mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MainPage(
+                userId: jsonDecode(response.body)['name'],
+                name: userCredential.user!.displayName ??
+                    'Signed up with Google account',
+                surname: '',
+                email: userCredential.user!.email ??
+                    'Signed up with Google account',
+                phoneNumber: 'Signed up with Google account',
+                avatarPath: userCredential.user!.photoURL ?? '',
+              ),
+            ),
+          );
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print('Google Sign In error: $e');
+        } // Log the error
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -67,6 +155,59 @@ class LoginAndSubscriptionPage extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      height: 20,
+                      thickness: 1,
+                    ),
+                  ),
+                  Text(
+                    'or continue with',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      height: 20,
+                      thickness: 1,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  IconButton(
+                    icon: Image.network(
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png'),
+                    iconSize: 50,
+                    onPressed: signInWithGoogle,
+                  ),
+                  IconButton(
+                    icon: Image.network(
+                        'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png'),
+                    iconSize: 50,
+                    onPressed: _onFacebookLoginButtonPressed,
+                  ),
+                  IconButton(
+                    icon: Image.network(
+                        'https://cdn-icons-png.flaticon.com/512/25/25231.png'),
+                    iconSize: 50,
+                    onPressed: _onGithubLoginButtonPressed,
+                  ),
+                ],
               ),
             ],
           ),

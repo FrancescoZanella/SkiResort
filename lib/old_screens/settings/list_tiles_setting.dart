@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -19,6 +21,15 @@ class CustomListTile extends StatelessWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     prefs.setBool('isLoggedIn', false);
+  }
+
+  Future<void> logoutGoogleUser() async {
+    final googleSignIn = GoogleSignIn();
+    if (await googleSignIn.isSignedIn()) {
+      await googleSignIn.signOut();
+      FirebaseAuth.instance.signOut();
+    }
+    await logoutUser();
   }
 
   @override
@@ -41,13 +52,24 @@ class CustomListTile extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () async {
-                    // Navigate to the login page
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/OnboardingMenu',
-                      (Route<dynamic> route) => false,
-                    );
-                    await logoutUser();
+                    User? currentUser = FirebaseAuth.instance.currentUser;
+                    if (currentUser != null &&
+                        currentUser.providerData[0].providerId ==
+                            'google.com') {
+                      // The user signed in with Google
+                      await logoutGoogleUser();
+                    } else {
+                      // The user signed in with email and password
+                      await logoutUser();
+                    }
+                    if (context.mounted) {
+                      // Navigate to the login page
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/OnboardingMenu',
+                        (Route<dynamic> route) => false,
+                      );
+                    }
                   },
                   child: const Text('Log Out'),
                 ),

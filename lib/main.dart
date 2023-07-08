@@ -8,14 +8,29 @@ import 'package:ski_resorts_app/screens/user_data_model.dart';
 import 'old_screens/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<UserModel> checkUserLoginStatus() async {
+  UserModel userModel = UserModel();
+
+  User? firebaseUser = FirebaseAuth.instance.currentUser;
+
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-  UserModel userModel = UserModel();
-
-  if (isLoggedIn) {
+  if (firebaseUser != null) {
+    // User logged in with firebase (Google or Email/Password)
+    userModel.updateUser(
+      userId: firebaseUser.uid,
+      name: firebaseUser.displayName ?? '',
+      surname:
+          '', // surname is not available from FirebaseUser, you need to handle it separately
+      email: firebaseUser.email ?? '',
+      phoneNumber: firebaseUser.phoneNumber ?? '',
+      avatarPath: firebaseUser.photoURL ?? '',
+    );
+  } else if (isLoggedIn) {
+    // User logged in with shared preferences
     userModel.updateUser(
       userId: prefs.getString('userId') ?? '',
       name: prefs.getString('name') ?? '',
@@ -25,7 +40,6 @@ Future<UserModel> checkUserLoginStatus() async {
       avatarPath: prefs.getString('avatarPath') ?? '',
     );
   }
-
   return userModel;
 }
 
