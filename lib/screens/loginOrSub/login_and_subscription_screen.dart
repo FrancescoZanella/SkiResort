@@ -48,23 +48,59 @@ class LoginAndSubscriptionPage extends StatelessWidget {
         final UserCredential userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
 
-        final response = await http.post(
-          url,
-          headers: {'Content-Type': 'application/json'},
-          body: json.encode({
-            'name': userCredential.user!.displayName ??
-                'Signed up with Google account',
-            'surname': '',
-            'email':
-                userCredential.user!.email ?? 'Signed up with Google account',
-            'phoneNumber': 'Signed up with Google account',
-            'password': 'Signed up with Google account',
-            'avatar': userCredential.user!.photoURL ?? '',
-          }),
+        final name =
+            userCredential.user!.displayName ?? 'Signed up with Google account';
+        final email =
+            userCredential.user!.email ?? 'Signed up with Google account';
+        final avatar =
+            userCredential.user!.photoURL ?? 'lib/assets/images/avatar9.jpg';
+
+        final getResponse = await http.get(
+          Uri.https(
+            'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+            '/user-table.json',
+          ),
         );
 
-        if (response.statusCode != 200) {
-          throw Exception('Failed to register user: ${response.body}');
+        if (getResponse.statusCode != 200) {
+          throw Exception('Failed to retrieve users: ${getResponse.body}');
+        }
+
+        final users = Map<String, dynamic>.from(json.decode(getResponse.body));
+        bool userExists = false;
+        String? userId;
+
+        for (final entry in users.entries) {
+          if (entry.value['name'] + entry.value['surname'] == name &&
+              entry.value['email'] == email) {
+            userExists = true;
+            userId = entry.key; // save the Firebase ID
+            break;
+          }
+        }
+
+        if (!userExists) {
+          final postResponse = await http.post(
+            Uri.https(
+              'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+              '/user-table.json',
+            ),
+            headers: {'Content-Type': 'application/json'},
+            body: json.encode({
+              'name': name,
+              'surname': '',
+              'phoneNumber': 'Signed up with Google account',
+              'password': 'Signed up with Google account',
+              'avatar': avatar,
+            }),
+          );
+
+          if (postResponse.statusCode != 200) {
+            throw Exception('Failed to register user: ${postResponse.body}');
+          }
+
+          userId = jsonDecode(
+              postResponse.body)['name']; // use the returned Firebase ID
         }
 
         if (kDebugMode) {
@@ -76,14 +112,12 @@ class LoginAndSubscriptionPage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => MainPage(
-                userId: jsonDecode(response.body)['name'],
-                name: userCredential.user!.displayName ??
-                    'Signed up with Google account',
+                userId: userId ?? '',
+                name: name,
                 surname: '',
-                email: userCredential.user!.email ??
-                    'Signed up with Google account',
+                email: email,
                 phoneNumber: 'Signed up with Google account',
-                avatarPath: userCredential.user!.photoURL ?? '',
+                avatarPath: avatar,
               ),
             ),
           );
@@ -169,7 +203,7 @@ class LoginAndSubscriptionPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'or continue with',
+                    ' or continue with ',
                     style: TextStyle(
                       color: Colors.black,
                     ),
