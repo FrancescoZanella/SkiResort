@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/loginOrSub/registration_screen_2.dart';
+import 'package:ski_resorts_app/screens/loginOrRegistration/registrationScreens/registration_screen_2.dart';
 
 class RegistrationScreen1 extends StatefulWidget {
   const RegistrationScreen1({Key? key}) : super(key: key);

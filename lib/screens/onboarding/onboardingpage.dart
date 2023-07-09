@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/loginOrSub/login_and_subscription_screen.dart';
+import 'package:ski_resorts_app/screens/loginOrRegistration/login_and_registration_screen.dart';
 
 // ignore: must_be_immutable
 class OnboardingPage extends StatelessWidget {

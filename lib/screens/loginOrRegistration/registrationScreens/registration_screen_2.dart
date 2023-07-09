@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/loginOrSub/registration_screen_3.dart';
+import 'package:ski_resorts_app/screens/loginOrRegistration/registrationScreens/registration_screen_3.dart';
 
 class RegistrationScreen2 extends StatefulWidget {
   final String name;

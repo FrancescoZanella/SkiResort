@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -32,6 +33,16 @@ class CustomListTile extends StatelessWidget {
     await logoutUser();
   }
 
+  Future<void> logoutFacebookUser() async {
+    AccessToken? currentToken = await FacebookAuth.instance.accessToken;
+    if (currentToken != null) {
+      await FacebookAuth.instance.logOut();
+      FirebaseAuth.instance.signOut();
+      currentToken = null;
+    }
+    await logoutUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -53,14 +64,20 @@ class CustomListTile extends StatelessWidget {
                 TextButton(
                   onPressed: () async {
                     User? currentUser = FirebaseAuth.instance.currentUser;
-                    if (currentUser != null &&
-                        currentUser.providerData[0].providerId ==
-                            'google.com') {
-                      // The user signed in with Google
-                      await logoutGoogleUser();
-                    } else {
-                      // The user signed in with email and password
-                      await logoutUser();
+                    if (currentUser != null) {
+                      switch (currentUser.providerData[0].providerId) {
+                        case 'google.com':
+                          // The user signed in with Google
+                          await logoutGoogleUser();
+                          break;
+                        case 'facebook.com':
+                          // The user signed in with Facebook
+                          await logoutFacebookUser();
+                          break;
+                        default:
+                          // The user signed in with email and password
+                          await logoutUser();
+                      }
                     }
                     if (context.mounted) {
                       // Navigate to the login page
