@@ -10,43 +10,43 @@ final url = Uri.https(
 );
 
 void onFacebookLoginButtonPressed(BuildContext context) async {
-  final LoginResult result = await FacebookAuth.instance.login();
+  final LoginResult result = await FacebookAuth.instance.login(
+    permissions: const ['email', 'public_profile'],
+  );
 
-  if (result.status == LoginStatus.success) {
-    // you are logged
-    final AccessToken accessToken = result.accessToken!;
-    final OAuthCredential credential =
-        FacebookAuthProvider.credential(accessToken.token);
-    final UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
+  final AccessToken accessToken = result.accessToken!;
+  final OAuthCredential credential =
+      FacebookAuthProvider.credential(accessToken.token);
+  final UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithCredential(credential);
 
-    final name =
-        userCredential.user!.displayName ?? 'Signed up with Facebook account';
-    final email =
-        userCredential.user!.email ?? 'Signed up with Facebook account';
-    final avatar =
-        userCredential.user!.photoURL ?? 'lib/assets/images/avatar9.jpg';
-    const surname = '';
-    const password = 'Signed up with Facebook account';
-    const phone = 'Signed up with Facebook account';
+  final userData = await FacebookAuth.instance.getUserData();
 
-    final userId =
-        await registerUser(name, surname, email, password, phone, avatar);
+  final name =
+      userCredential.user!.displayName ?? 'Signed up with Facebook account';
+  final email = userData["email"] ?? 'Signed up with Facebook account';
+  final avatar =
+      userCredential.user!.photoURL ?? 'lib/assets/images/avatar9.jpg';
+  const surname = '';
+  const password = 'Signed up with Facebook account';
+  const phone = 'Signed up with Facebook account';
 
-    if (context.mounted) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MainPage(
-            userId: userId ?? '',
-            name: name,
-            surname: '',
-            email: email,
-            phoneNumber: 'Signed up with Facebook account',
-            avatarPath: avatar,
-          ),
+  final userId =
+      await registerUser(name, surname, email, password, phone, avatar);
+
+  if (context.mounted) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MainPage(
+          userId: userId ?? '',
+          name: name,
+          surname: '',
+          email: email,
+          phoneNumber: 'Signed up with Facebook account',
+          avatarPath: avatar,
         ),
-      );
-    }
+      ),
+    );
   }
 }

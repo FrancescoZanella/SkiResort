@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_container.dart';
 
@@ -30,19 +31,27 @@ class Resort {
 
   // Here's the fromJson method:
   factory Resort.fromJson(Map<String, dynamic> json) {
-    return Resort(
-      skiResortName: json['skiResortName'],
-      skiResortDescription: json['skiResortDescription'],
-      imageLink: json['imageLink'],
-      skiResortRating: json['rating_title'].toDouble(),
-      totalSkiSlopes: json['totalSkiSlopes'],
-      blueSkiSlopes: json['blueSkiSlopes'],
-      redSkiSlopes: json['redSkiSlopes'],
-      blackSkiSlopes: json['blackSkiSlopes'],
-      skiPassCost: json['skiPassCost'],
-      skiResortElevation: json['skiResortElevation'],
-      skiLiftsNumber: json['skiLiftsNumber'],
-    );
+    try {
+      return Resort(
+        skiResortName: json['skiResortName'],
+        skiResortDescription: json['skiResortDescription'],
+        imageLink: json['imageLink'],
+        skiResortRating: double.parse(json['rating_title']),
+        totalSkiSlopes: json['totalSkiSlopes'],
+        blueSkiSlopes: json['bluSkiSlopes'],
+        redSkiSlopes: json['redSkiSlopes'],
+        blackSkiSlopes: json['blackSkiSlopes'],
+        skiPassCost: json['skiPassCost'],
+        skiResortElevation: json['skiResortElevation'],
+        skiLiftsNumber: json['skiLiftsNumber'],
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error creating Resort from JSON: $e');
+        print('JSON object was: $json');
+      }
+      rethrow;
+    }
   }
 }
 

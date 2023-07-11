@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_list.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +7,11 @@ import 'package:http/http.dart' as http;
 final url = Uri.https(
   'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
   '/resorts-table.json',
+);
+
+final url2 = Uri.https(
+  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+  '/favorites-resort-table.json',
 );
 
 class MostPopularResortPage extends StatefulWidget {
@@ -20,15 +24,12 @@ class MostPopularResortPage extends StatefulWidget {
 class _MostPopularResortPageState extends State<MostPopularResortPage> {
   List<Resort> resorts = [];
 
-  void fetchResorts() async {
+  Future<void> fetchResorts() async {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       data.forEach((key, value) {
         resorts.add(Resort.fromJson(value));
-        if (kDebugMode) {
-          print(resorts);
-        }
       });
       setState(() {}); // Update the UI
     } else {

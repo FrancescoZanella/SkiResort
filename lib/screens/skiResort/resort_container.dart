@@ -122,7 +122,7 @@ class ResortContainer extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       color: Colors.blue,
                       child: Text(
-                        '$blueSkiSlopes km',
+                        blueSkiSlopes,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -130,7 +130,7 @@ class ResortContainer extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       color: Colors.red,
                       child: Text(
-                        '$redSkiSlopes km',
+                        redSkiSlopes,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -138,7 +138,7 @@ class ResortContainer extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       color: Colors.black,
                       child: Text(
-                        '$blackSkiSlopes km',
+                        blackSkiSlopes,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -166,7 +166,7 @@ class ResortContainer extends StatelessWidget {
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                   ),
-                  child: const Text('Add to Favourites'),
+                  child: const Text('Add to Favorites'),
                 ),
               ),
             ],

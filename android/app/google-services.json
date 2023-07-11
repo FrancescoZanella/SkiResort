@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:378447974013:android:251bed94a2f65f4333ab14",
+        "mobilesdk_app_id": "1:378447974013:android:eca4f0f7d4988bb933ab14",
         "android_client_info": {
-          "package_name": "com.dimaProject2023.ski_resorts_app"
+          "package_name": "com.example.ski_resorts_app"
         }
       },
       "oauth_client": [

@@ -7,7 +7,7 @@ import 'package:ski_resorts_app/screens/homepage/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 
-import '../old_screens/favourites/favorites_screen.dart';
+import '../old_screens/favorites/favorites_screen.dart';
 
 class MainPage extends StatefulWidget {
   final String name;

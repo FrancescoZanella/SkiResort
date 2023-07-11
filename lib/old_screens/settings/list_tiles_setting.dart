@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,6 +66,9 @@ class CustomListTile extends StatelessWidget {
                   onPressed: () async {
                     User? currentUser = FirebaseAuth.instance.currentUser;
                     if (currentUser != null) {
+                      if (kDebugMode) {
+                        print(currentUser.providerData[0].providerId);
+                      }
                       switch (currentUser.providerData[0].providerId) {
                         case 'google.com':
                           // The user signed in with Google
