@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_container.dart';
 
 class Resort {
+  final String skiResortLink;
   final String skiResortName;
   final String skiResortDescription;
   final String imageLink;
@@ -16,6 +17,7 @@ class Resort {
   final String skiLiftsNumber;
 
   Resort({
+    required this.skiResortLink,
     required this.skiResortName,
     required this.skiResortDescription,
     required this.imageLink,
@@ -33,12 +35,13 @@ class Resort {
   factory Resort.fromJson(Map<String, dynamic> json) {
     try {
       return Resort(
+        skiResortLink: json['skiResortLink'],
         skiResortName: json['skiResortName'],
         skiResortDescription: json['skiResortDescription'],
         imageLink: json['imageLink'],
-        skiResortRating: double.parse(json['rating_title']),
+        skiResortRating: double.parse(json['skiResortRating']),
         totalSkiSlopes: json['totalSkiSlopes'],
-        blueSkiSlopes: json['bluSkiSlopes'],
+        blueSkiSlopes: json['blueSkiSlopes'],
         redSkiSlopes: json['redSkiSlopes'],
         blackSkiSlopes: json['blackSkiSlopes'],
         skiPassCost: json['skiPassCost'],
@@ -73,6 +76,7 @@ class ResortList extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: ResortContainer(
+            skiResortLink: resorts[index].skiResortLink,
             skiResortName: resorts[index].skiResortName,
             skiResortDescription: resorts[index].skiResortDescription,
             imageLink: resorts[index].imageLink,

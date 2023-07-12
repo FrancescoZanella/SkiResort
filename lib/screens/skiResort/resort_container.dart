@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ResortContainer extends StatelessWidget {
+  final String skiResortLink;
   final String skiResortName;
   final String skiResortDescription;
   final String imageLink;
@@ -17,6 +18,7 @@ class ResortContainer extends StatelessWidget {
 
   const ResortContainer({
     Key? key,
+    required this.skiResortLink,
     required this.skiResortName,
     required this.skiResortDescription,
     required this.imageLink,

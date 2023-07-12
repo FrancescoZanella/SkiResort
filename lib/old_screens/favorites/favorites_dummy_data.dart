@@ -3,6 +3,7 @@ import './favorite_elements.dart';
 
 final List<Favorite> favorites = [
   Favorite(
+      skiResortUrl: 'https://www.aspensnowmass.com/',
       skiResortName: 'Aspen Mountain',
       skiResortDescription: 'One of the most known ski resorts in the USA',
       imageLink:
@@ -16,6 +17,7 @@ final List<Favorite> favorites = [
       skiResortElevation: '2,400 m - 3,300 m',
       skiLiftsNumber: '7'),
   Favorite(
+      skiResortUrl: 'https://www.whistlerblackcomb.com/',
       skiResortName: 'Whistler Blackcomb',
       skiResortDescription: 'Famous ski resort located in Canada',
       imageLink:
@@ -29,6 +31,7 @@ final List<Favorite> favorites = [
       skiResortElevation: '2,100 m - 3,200 m',
       skiLiftsNumber: '10'),
   Favorite(
+      skiResortUrl: 'https://www.courchevel.com/',
       skiResortName: 'Courchevel',
       skiResortDescription: 'One of the most luxurious ski resorts in France',
       imageLink:
@@ -42,6 +45,7 @@ final List<Favorite> favorites = [
       skiResortElevation: '1,800 m - 3,300 m',
       skiLiftsNumber: '8'),
   Favorite(
+      skiResortUrl: 'https://www.niseko.ne.jp/en/',
       skiResortName: 'Niseko',
       skiResortDescription: 'Known for its amazing snow quality in Japan',
       imageLink:
