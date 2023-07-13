@@ -1,7 +1,7 @@
 // main page for settings page; this file represents the whole settings page screen
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './list_tiles_setting.dart';
+import 'logout_logic/list_tiles_setting.dart';
 import './single_section_setting.dart';
 import 'package:ski_resorts_app/old_screens/settings/theme_notifier.dart';
 
@@ -55,35 +55,31 @@ class SettingsPage extends StatelessWidget {
                     pageName: 'ProfilePageScreen',
                   ),
                   CustomListTile(
-                    title: "Messaging",
-                    icon: Icons.message_outlined,
-                  ),
-                  CustomListTile(
-                    title: "Calling",
-                    icon: Icons.phone_outlined,
-                  ),
-                  CustomListTile(
                     title: "People",
                     icon: Icons.contacts_outlined,
-                  ),
-                  CustomListTile(
-                    title: "Calendar",
-                    icon: Icons.calendar_today_rounded,
                   ),
                 ],
               ),
               const Divider(),
               const SingleSection(
+                title: "Support",
                 children: [
                   CustomListTile(
-                    title: "Help & Feedback",
-                    icon: Icons.help_outline_rounded,
-                    pageName: 'HelpAndFeedbackPage',
-                  ),
-                  CustomListTile(
-                    title: "About",
+                    title: "About Us",
                     icon: Icons.info_outline_rounded,
                     pageName: 'AboutUsPage',
+                  ),
+                  CustomListTile(
+                    title: "Rate Our App",
+                    icon: Icons.star_rate_rounded,
+                    pageName:
+                        'RateOurAppScreen', // Remember to link this to your actual rate app page
+                  ),
+                  CustomListTile(
+                    title: "Report Bug",
+                    icon: Icons.bug_report_rounded,
+                    pageName:
+                        'ReportBugScreen', // Remember to link this to your actual report bug page
                   ),
                   CustomListTile(
                     title: "Sign out",

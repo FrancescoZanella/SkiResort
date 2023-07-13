@@ -23,4 +23,22 @@ class UserModel extends ChangeNotifier {
     this.avatarPath = avatarPath;
     notifyListeners();
   }
+
+  void updateField(String field, String newValue) {
+    switch (field) {
+      case 'Name':
+        name = newValue;
+        break;
+      case 'Surname':
+        surname = newValue;
+        break;
+      case 'Email':
+        email = newValue;
+        break;
+      case 'Phone Number':
+        phoneNumber = newValue;
+        break;
+    }
+    notifyListeners();
+  }
 }

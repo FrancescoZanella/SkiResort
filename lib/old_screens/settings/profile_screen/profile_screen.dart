@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
+import 'package:ski_resorts_app/old_screens/settings/profile_screen/edit_user_data_functions.dart';
 
 class ProfilePageScreen extends StatefulWidget {
   const ProfilePageScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               Container(
                 decoration: const BoxDecoration(
                   color: Colors.black,
@@ -32,7 +33,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   padding: const EdgeInsets.all(80.0 / 8),
                   child: Center(
                     child: Transform.scale(
-                      scale: 1.5,
+                      scale: 2.5,
                       child: CircleAvatar(
                         backgroundImage: userModel.avatarPath.startsWith('http')
                             ? NetworkImage(userModel.avatarPath)
@@ -44,7 +45,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 45),
               const Text(
                 'Personal Information',
                 style: TextStyle(
@@ -55,26 +56,34 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
               const SizedBox(height: 8),
               ListTile(
                 leading: const Icon(Icons.person_outline_rounded),
-                title: Text('Name: ${userModel.name} ${userModel.surname}'),
+                title: Text('Name: ${userModel.name}'),
                 onTap: () {
-                  // TODO: Implement name editing
+                  editInformation(context, 'Name', userModel.name, userModel);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.person_outline_rounded),
+                title: Text('Surname: ${userModel.surname}'),
+                onTap: () {
+                  editInformation(
+                      context, 'Surname', userModel.surname, userModel);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.email_outlined),
                 title: Text('Email: ${userModel.email}'),
                 onTap: () {
-                  // TODO: Implement email editing
+                  editInformation(context, 'Email', userModel.email, userModel);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.phone_outlined),
                 title: Text('Phone Number: ${userModel.phoneNumber}'),
                 onTap: () {
-                  // TODO: Implement phone number editing
+                  editInformation(context, 'Phone Number',
+                      userModel.phoneNumber, userModel);
                 },
               ),
-              const SizedBox(height: 16),
             ],
           ),
         ),
