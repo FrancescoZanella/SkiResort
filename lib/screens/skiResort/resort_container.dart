@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class ResortContainer extends StatelessWidget {
+class ResortContainer extends StatefulWidget {
   final String skiResortLink;
   final String skiResortName;
   final String skiResortDescription;
@@ -34,6 +34,36 @@ class ResortContainer extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ResortContainer> createState() => _ResortContainerState();
+}
+
+class _ResortContainerState extends State<ResortContainer>
+    with SingleTickerProviderStateMixin {
+  bool isFavorite = false;
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..addListener(() {
+        setState(() {});
+      });
+
+    _animation = Tween<double>(begin: 1, end: 1.4).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -56,7 +86,7 @@ class ResortContainer extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                      imageLink,
+                      widget.imageLink,
                     ), // Use NetworkImage to load image from URL
                     fit: BoxFit.cover,
                   ),
@@ -70,7 +100,7 @@ class ResortContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  skiResortName,
+                  widget.skiResortName,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -85,7 +115,7 @@ class ResortContainer extends StatelessWidget {
                 // Padding for RatingBarIndicator
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: RatingBarIndicator(
-                  rating: skiResortRating,
+                  rating: widget.skiResortRating,
                   itemBuilder: (context, _) => const Icon(
                     Icons.star,
                     color: Colors.amber,
@@ -99,7 +129,7 @@ class ResortContainer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  skiResortDescription,
+                  widget.skiResortDescription,
                   style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).brightness == Brightness.dark
@@ -111,20 +141,20 @@ class ResortContainer extends StatelessWidget {
               const SizedBox(height: 16),
               ListTile(
                 leading: const Icon(Icons.height),
-                title: Text('Elevation: $skiResortElevation'),
+                title: Text('Elevation: ${widget.skiResortElevation}'),
               ),
               ListTile(
                 leading: const Icon(Icons.downhill_skiing),
                 title: Row(
                   children: [
                     Expanded(
-                      child: Text('Ski slopes: $totalSkiSlopes'),
+                      child: Text('Ski slopes: ${widget.totalSkiSlopes}'),
                     ),
                     Container(
                       padding: const EdgeInsets.all(8),
                       color: Colors.blue,
                       child: Text(
-                        blueSkiSlopes,
+                        widget.blueSkiSlopes,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -132,7 +162,7 @@ class ResortContainer extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       color: Colors.red,
                       child: Text(
-                        redSkiSlopes,
+                        widget.redSkiSlopes,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -140,7 +170,7 @@ class ResortContainer extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       color: Colors.black,
                       child: Text(
-                        blackSkiSlopes,
+                        widget.blackSkiSlopes,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -149,11 +179,11 @@ class ResortContainer extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.arrow_upward),
-                title: Text('Ski lifts: $skiLiftsNumber'),
+                title: Text('Ski lifts: ${widget.skiLiftsNumber}'),
               ),
               ListTile(
                 leading: const Icon(Icons.euro_symbol_sharp),
-                title: Text('Ski Pass Cost: $skiPassCost'),
+                title: Text('Ski Pass Cost: ${widget.skiPassCost}'),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -164,11 +194,23 @@ class ResortContainer extends StatelessWidget {
                   ),
                 ),
                 child: ElevatedButton(
-                  onPressed: onFavouriteButtonPressed,
+                  onPressed: () {
+                    setState(() {
+                      isFavorite = !isFavorite;
+                    });
+                    widget.onFavouriteButtonPressed;
+                    _controller.forward();
+                  },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                   ),
-                  child: const Text('Add to Favorites'),
+                  child: Text(
+                    isFavorite ? 'Added to favorites ✅' : 'Add to favorites',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: _animation.value * 18,
+                    ),
+                  ),
                 ),
               ),
             ],

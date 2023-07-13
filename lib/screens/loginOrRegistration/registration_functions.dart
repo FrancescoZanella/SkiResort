@@ -8,7 +8,10 @@ final url = Uri.https(
 );
 
 Future<String?> registerUser(String name, String surname, String email,
-    String password, String phoneNumber, String avatar) async {
+    String password, String phoneNumber, String avatar,
+    {http.Client? client}) async {
+  client ??= http.Client();
+
   final getResponse = await http.get(url);
 
   if (getResponse.statusCode != 200) {

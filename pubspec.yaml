@@ -61,10 +61,14 @@ dependencies:
   firebase_database: ^10.2.3
   flutter_facebook_auth: ^5.0.11
   path_provider: ^2.0.15
+  android_intent: ^2.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: any
+  mockito: any
+  network_image_mock: ^2.1.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

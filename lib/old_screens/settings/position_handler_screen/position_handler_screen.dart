@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:android_intent/android_intent.dart';
 
 class LocationSettingScreen extends StatefulWidget {
   const LocationSettingScreen({Key? key}) : super(key: key);
@@ -15,7 +17,35 @@ class _LocationSettingScreenState extends State<LocationSettingScreen> {
       _isLocationEnabled = value;
     });
 
-    // TODO: Implement logic to enable or disable location services.
+    showGeneralDialog(
+      context: context,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 1), // Starting position
+            end: Offset.zero, // Final position
+          ).animate(animation),
+          child: AlertDialog(
+            title: const Text('Location Services'),
+            content: Text(_isLocationEnabled
+                ? 'Location services enabled.'
+                : 'Location services disabled.'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+      barrierDismissible: true,
+      barrierLabel: 'Dismiss',
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: const Duration(milliseconds: 500),
+    );
   }
 
   @override
