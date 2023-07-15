@@ -32,30 +32,30 @@ void onFacebookLoginButtonPressed(BuildContext context) async {
   const password = 'Signed up with Facebook account';
   const phoneNumber = 'Signed up with Facebook account';
 
-  final userId =
+  final user =
       await registerUser(name, surname, email, password, phoneNumber, avatar);
 
   // Save the user's data to shared preferences
   final prefs = await SharedPreferences.getInstance();
   prefs.setBool('isLoggedIn', true);
-  await prefs.setString('userId', userId ?? '');
-  await prefs.setString('name', name);
-  await prefs.setString('surname', surname);
-  await prefs.setString('email', email);
-  await prefs.setString('phoneNumber', phoneNumber);
-  await prefs.setString('avatarPath', avatar);
+  await prefs.setString('userId', user?['userId'] ?? '');
+  await prefs.setString('name', user?['name'] ?? '');
+  await prefs.setString('surname', user?['surname'] ?? '');
+  await prefs.setString('email', user?['email'] ?? '');
+  await prefs.setString('phoneNumber', user?['phoneNumber'] ?? '');
+  await prefs.setString('avatarPath', user?['avatar'] ?? '');
 
   if (context.mounted) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => MainPage(
-          userId: userId ?? '',
-          name: name,
-          surname: '',
-          email: email,
-          phoneNumber: 'Signed up with Facebook account',
-          avatarPath: avatar,
+          userId: user?['userId'] ?? '',
+          name: user?['name'] ?? '',
+          surname: user?['surname'] ?? '',
+          email: user?['email'] ?? '',
+          phoneNumber: user?['phoneNumber'] ?? '',
+          avatarPath: user?['avatar'] ?? '',
         ),
       ),
     );

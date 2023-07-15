@@ -56,7 +56,7 @@ class _RegistrationScreen3State extends State<RegistrationScreen3> {
 
       // Save the user's data to shared preferences
       final prefs = await SharedPreferences.getInstance();
-      prefs.setBool('isLoggedIn', true);
+      await prefs.setBool('isLoggedIn', true);
       await prefs.setString('userId', jsonDecode(response.body)['name']);
       await prefs.setString('name', widget.name);
       await prefs.setString('surname', widget.surname);
