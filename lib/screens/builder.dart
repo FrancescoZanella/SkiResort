@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    final userModel = Provider.of<UserModel>(context, listen: true);
+    final userModel = Provider.of<UserModel>(context, listen: false);
     userModel.updateUser(
       userId: widget.userId,
       name: widget.name,
