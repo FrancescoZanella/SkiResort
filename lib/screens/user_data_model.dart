@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserModel extends ChangeNotifier {
   String name = '';
@@ -24,21 +25,30 @@ class UserModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateField(String field, String newValue) {
+  void updateField(String field, String newValue) async {
     switch (field) {
-      case 'Name':
+      case 'name':
         name = newValue;
+        await _updateSharedPrefs('name', newValue);
         break;
-      case 'Surname':
+      case 'surname':
         surname = newValue;
+        await _updateSharedPrefs('surname', newValue);
         break;
-      case 'Email':
+      case 'email':
         email = newValue;
+        await _updateSharedPrefs('email', newValue);
         break;
-      case 'Phone Number':
+      case 'phoneNumber':
         phoneNumber = newValue;
+        await _updateSharedPrefs('phoneNumber', newValue);
         break;
     }
     notifyListeners();
+  }
+
+  Future<void> _updateSharedPrefs(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, value);
   }
 }

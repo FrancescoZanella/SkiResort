@@ -1,7 +1,10 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 import 'package:ski_resorts_app/old_screens/settings/profile_screen/edit_user_data_functions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePageScreen extends StatefulWidget {
   const ProfilePageScreen({Key? key}) : super(key: key);
@@ -11,6 +14,23 @@ class ProfilePageScreen extends StatefulWidget {
 }
 
 class _ProfilePageScreenState extends State<ProfilePageScreen> {
+  //here i take the user id from shared preferences so i can use it to update the user data on firebase
+
+  String? userId;
+
+  void getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserId();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UserModel>(
@@ -36,6 +56,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       scale: 2.5,
                       child: CircleAvatar(
                         backgroundImage: userModel.avatarPath.startsWith('http')
+                            // ignore: unnecessary_cast
                             ? NetworkImage(userModel.avatarPath)
                                 as ImageProvider<Object>?
                             : AssetImage(userModel.avatarPath)
@@ -58,30 +79,32 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 leading: const Icon(Icons.person_outline_rounded),
                 title: Text('Name: ${userModel.name}'),
                 onTap: () {
-                  editInformation(context, 'Name', userModel.name, userModel);
+                  editInformation(
+                      context, 'name', userModel.name, userModel, userId!);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.person_outline_rounded),
                 title: Text('Surname: ${userModel.surname}'),
                 onTap: () {
-                  editInformation(
-                      context, 'Surname', userModel.surname, userModel);
+                  editInformation(context, 'surname', userModel.surname,
+                      userModel, userId!);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.email_outlined),
                 title: Text('Email: ${userModel.email}'),
                 onTap: () {
-                  editInformation(context, 'Email', userModel.email, userModel);
+                  editInformation(
+                      context, 'email', userModel.email, userModel, userId!);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.phone_outlined),
                 title: Text('Phone Number: ${userModel.phoneNumber}'),
                 onTap: () {
-                  editInformation(context, 'Phone Number',
-                      userModel.phoneNumber, userModel);
+                  editInformation(context, 'phoneNumber', userModel.phoneNumber,
+                      userModel, userId!);
                 },
               ),
             ],

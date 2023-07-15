@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:provider/provider.dart';
@@ -54,6 +56,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                   child: CircleAvatar(
                                     backgroundImage:
                                         userModel.avatarPath.startsWith('http')
+                                            // ignore: unnecessary_cast
                                             ? NetworkImage(userModel.avatarPath)
                                                 as ImageProvider<Object>?
                                             : AssetImage(userModel.avatarPath)

@@ -71,6 +71,7 @@ class FavoriteWidget {
                               File imgFile = File('$directory/screenshot.png');
                               await imgFile.writeAsBytes(bytes);
 
+                              // ignore: deprecated_member_use
                               await Share.shareFiles(
                                 [imgFile.path],
                                 text:

@@ -62,6 +62,7 @@ dependencies:
   flutter_facebook_auth: ^5.0.11
   path_provider: ^2.0.15
   android_intent: ^2.0.2
+  cloud_firestore: ^4.8.3
 
 dev_dependencies:
   flutter_test:

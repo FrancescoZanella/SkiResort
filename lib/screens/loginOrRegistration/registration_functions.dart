@@ -23,10 +23,13 @@ Future<String?> registerUser(String name, String surname, String email,
   String? userId;
 
   for (final entry in users.entries) {
-    if (entry.value['name'] + entry.value['surname'] == name &&
-        entry.value['email'] == email) {
+    if (entry.value['email'] == email) {
       userExists = true;
       userId = entry.key; // save the Firebase ID
+      name = entry.value['name'];
+      surname = entry.value['surname'];
+      phoneNumber = entry.value['phoneNumber'];
+      avatar = entry.value['avatar'];
       break;
     }
   }

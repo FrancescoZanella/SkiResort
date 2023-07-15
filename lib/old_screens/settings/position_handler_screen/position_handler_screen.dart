@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:android_intent/android_intent.dart';
 
 class LocationSettingScreen extends StatefulWidget {
   const LocationSettingScreen({Key? key}) : super(key: key);

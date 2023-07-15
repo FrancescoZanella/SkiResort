@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
 import 'package:ski_resorts_app/screens/loginOrRegistration/registration_functions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final url = Uri.https(
   'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
@@ -29,10 +30,20 @@ void onFacebookLoginButtonPressed(BuildContext context) async {
       userCredential.user!.photoURL ?? 'lib/assets/images/avatar9.jpg';
   const surname = '';
   const password = 'Signed up with Facebook account';
-  const phone = 'Signed up with Facebook account';
+  const phoneNumber = 'Signed up with Facebook account';
 
   final userId =
-      await registerUser(name, surname, email, password, phone, avatar);
+      await registerUser(name, surname, email, password, phoneNumber, avatar);
+
+  // Save the user's data to shared preferences
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setBool('isLoggedIn', true);
+  await prefs.setString('userId', userId ?? '');
+  await prefs.setString('name', name);
+  await prefs.setString('surname', surname);
+  await prefs.setString('email', email);
+  await prefs.setString('phoneNumber', phoneNumber);
+  await prefs.setString('avatarPath', avatar);
 
   if (context.mounted) {
     Navigator.push(
