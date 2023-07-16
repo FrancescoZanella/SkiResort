@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:firebase_database/firebase_database.dart';
 
 final firebaseUrl = Uri.https(
   'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
   '/user-table.json',
 );
-
-Future<void> updateUserInFirebase(
-    String userId, Map<String, dynamic> updates) async {
-  final url =
-      Uri.parse(firebaseUrl.toString().replaceFirst('.json', '/$userId.json'));
-  final response = await http.patch(url, body: jsonEncode(updates));
-
-  if (response.statusCode != 200) {
-    throw Exception('Failed to update user in Firebase: ${response.body}');
-  }
-}
 
 void editInformation(BuildContext context, String field, String currentValue,
     UserModel userModel, String userId) {
@@ -40,8 +28,39 @@ void editInformation(BuildContext context, String field, String currentValue,
             onPressed: () async {
               // update the userModel and the shared preferences
               userModel.updateField(field, newValue);
-              // now update firebase
-              await updateUserInFirebase(userId, {field: newValue});
+              // update the user entries in the firebase realtime database
+
+              // Create a reference to the specific user entry
+              final DatabaseReference userRef = FirebaseDatabase.instance
+                  .ref()
+                  .child('user-table')
+                  .child(userId);
+
+              // update the user entries in the firebase realtime database
+              await userRef.update({field: newValue}).then((_) {
+                // update was successful
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Information updated successfully!'),
+                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                }
+              }).catchError((error) {
+                // update failed
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                          'Failed to update information. Please try again.'),
+                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              });
               if (context.mounted) {
                 Navigator.pop(context);
               }

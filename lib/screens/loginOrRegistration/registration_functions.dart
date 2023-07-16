@@ -20,21 +20,24 @@ Future<Map<String, dynamic>?> registerUser(String name, String surname,
     throw Exception('Failed to retrieve users: ${getResponse.body}');
   }
 
-  final users = Map<String, dynamic>.from(json.decode(getResponse.body));
   bool userExists = false;
   Map<String, dynamic>? user;
-
-  for (final entry in users.entries) {
-    if (entry.value['email'] == email) {
-      userExists = true;
-      user = {
-        'userId': entry.key,
-        'name': entry.value['name'],
-        'surname': entry.value['surname'],
-        'phoneNumber': entry.value['phoneNumber'],
-        'avatar': entry.value['avatar'],
-      };
-      break;
+  final responseBody = json.decode(getResponse.body);
+  if (responseBody != null) {
+    final users = Map<String, dynamic>.from(responseBody);
+    for (final entry in users.entries) {
+      if (entry.value['email'] == email) {
+        userExists = true;
+        user = {
+          'userId': entry.key,
+          'name': entry.value['name'],
+          'surname': entry.value['surname'],
+          'email': entry.value['email'],
+          'phoneNumber': entry.value['phoneNumber'],
+          'avatar': entry.value['avatar'],
+        };
+        break;
+      }
     }
   }
 
@@ -60,6 +63,7 @@ Future<Map<String, dynamic>?> registerUser(String name, String surname,
       'userId': jsonDecode(postResponse.body)['name'],
       'name': name,
       'surname': surname,
+      'email': email,
       'phoneNumber': phoneNumber,
       'avatar': avatar,
     };
