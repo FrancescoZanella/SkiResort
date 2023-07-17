@@ -15,30 +15,23 @@ class AboutUsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Our Company',
+              'Who We Are',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.0),
             Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit tincidunt condimentum. Nulla quis tellus metus. In egestas quam vel velit pellentesque tincidunt. Sed finibus, quam eget maximus fermentum, nunc sapien faucibus ex, sit amet gravida lacus mi sed nibh. Donec sem ipsum, tristique quis massa in, consequat laoreet magna. Nam bibendum ultricies velit, nec consectetur neque imperdiet at. Curabitur tincidunt nunc orci, quis euismod metus pretium ac. Fusce eget arcu ut sapien sodales blandit.',
+              "We are Stefano Chiodini and Francesco Zanella, two ambitious students from the Politecnico di Milano. Our passion for innovation, problem-solving and technology drives us to continuously challenge ourselves in our academic and personal projects.",
+              style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 16.0),
             Text(
-              'Our Mission',
+              'Our Project',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.0),
             Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit tincidunt condimentum. Nulla quis tellus metus. In egestas quam vel velit pellentesque tincidunt. Sed finibus, quam eget maximus fermentum, nunc sapien faucibus ex, sit amet gravida lacus mi sed nibh. Donec sem ipsum, tristique quis massa in, consequat laoreet magna. Nam bibendum ultricies velit, nec consectetur neque imperdiet at. Curabitur tincidunt nunc orci, quis euismod metus pretium ac. Fusce eget arcu ut sapien sodales blandit.',
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              'Our Team',
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit tincidunt condimentum. Nulla quis tellus metus. In egestas quam vel velit pellentesque tincidunt. Sed finibus, quam eget maximus fermentum, nunc sapien faucibus ex, sit amet gravida lacus mi sed nibh. Donec sem ipsum, tristique quis massa in, consequat laoreet magna. Nam bibendum ultricies velit, nec consectetur neque imperdiet at. Curabitur tincidunt nunc orci, quis euismod metus pretium ac. Fusce eget arcu ut sapien sodales blandit.',
+              "This application is a result of our dedication and hard work as part of a university project. Our main objective was to design and develop an app that provides real value to its users. This application aims to bridge the gap between skiing enthusiasts and the resources they need to enhance their skiing experience. Whether you're looking for the perfect ski resort, tracking your performance, or just want to stay updated on skiing conditions, we've got you covered!",
+              style: TextStyle(fontSize: 16),
             ),
           ],
         ),

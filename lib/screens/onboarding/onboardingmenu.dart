@@ -23,12 +23,13 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
   // A method to save hardcoded user details in shared preferences
   Future<void> saveUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLoggedIn', true);
-    prefs.setString('name', 'pippo');
-    prefs.setString('surname', 'lacoca');
-    prefs.setString('email', 'pippo@lacoca.com');
-    prefs.setString('phoneNumber', '3203229036');
-    prefs.setString('avatarPath', 'lib/assets/images/avatar9.jpg');
+    await prefs.setBool('isLoggedIn', true);
+    await prefs.setString('userId', 'NZD37OAtDRrIrv5HEFP');
+    await prefs.setString('name', 'pippo');
+    await prefs.setString('surname', 'lacoca');
+    await prefs.setString('email', 'pippo@lacoca.com');
+    await prefs.setString('phoneNumber', '3203229036');
+    await prefs.setString('avatarPath', 'lib/assets/images/avatar9.jpg');
   }
 
   @override
@@ -88,8 +89,6 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                       )),
                     ),
                     onPressed: () async {
-                      await saveUserDetails(); // Save the hardcoded details in shared preferences
-
                       // Update the UserModel with the new details
                       userModel.updateUser(
                         userId: 'NZD37OAtDRrIrv5HEFP',

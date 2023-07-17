@@ -5,7 +5,9 @@
    <application
         android:label="ski_resorts_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true">
+        
         <meta-data android:name = "com.facebook.sdk.ApplicationId" android:value = "@string/facebook_app_id" /> 
         <meta-data android:name = "com.facebook.sdk.ClientToken" android:value = "@string/facebook_client_token" />  
         <activity android:name = "com.facebook.FacebookActivity" 

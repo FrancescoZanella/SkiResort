@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ski_resorts_app/screens/builder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationScreen3 extends StatefulWidget {
   final String name;
@@ -52,6 +53,18 @@ class _RegistrationScreen3State extends State<RegistrationScreen3> {
       if (kDebugMode) {
         print('User registered successfully');
       }
+
+      // Save the user's data to shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('userId', jsonDecode(response.body)['name']);
+      await prefs.setString('name', widget.name);
+      await prefs.setString('surname', widget.surname);
+      await prefs.setString('email', widget.email);
+      await prefs.setString('phoneNumber', widget.phoneNumber);
+      await prefs.setString(
+          'avatarPath', 'lib/assets/images/avatar${selectedAvatar + 1}.jpg');
+
       if (mounted) {
         Navigator.push(
           context,

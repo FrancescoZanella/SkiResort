@@ -42,7 +42,11 @@ dependencies:
   geocoding: ^2.1.0
   http: ^0.13.3
   share_plus: ^7.0.2
-
+  image_picker: ^1.0.1
+  file_picker: ^5.3.2
+  permission_handler: ^10.4.2
+  widgets_to_image: ^0.0.2
+  flutter_form_builder: ^8.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,12 +60,16 @@ dependencies:
   google_sign_in: ^6.1.4
   firebase_database: ^10.2.3
   flutter_facebook_auth: ^5.0.11
-  google_fonts: ^4.0.4
-  flutter_svg: ^2.0.7
+  path_provider: ^2.0.15
+  android_intent: ^2.0.2
+  cloud_firestore: ^4.8.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: any
+  mockito: any
+  network_image_mock: ^2.1.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

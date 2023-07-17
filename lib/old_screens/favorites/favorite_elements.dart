@@ -1,4 +1,5 @@
 class Favorite {
+  final String skiResortUrl;
   final String skiResortName;
   final String skiResortDescription;
   final String imageLink;
@@ -12,7 +13,8 @@ class Favorite {
   final String skiLiftsNumber;
 
   Favorite(
-      {required this.skiResortName,
+      {required this.skiResortUrl,
+      required this.skiResortName,
       required this.skiResortDescription,
       required this.imageLink,
       required this.skiResortRating,

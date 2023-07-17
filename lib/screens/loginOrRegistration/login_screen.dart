@@ -61,13 +61,13 @@ class _LoginPageState extends State<LoginPage>
             user['password'] == _passwordController.text) {
           // If credentials are found in the database, save them to the device
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setBool('isLoggedIn', true);
-          prefs.setString('userId', id); // Save the unique Firebase ID
-          prefs.setString('email', user['email']);
-          prefs.setString('name', user['name']);
-          prefs.setString('surname', user['surname']);
-          prefs.setString('phoneNumber', user['phoneNumber']);
-          prefs.setString('avatar', user['avatar']);
+          await prefs.setBool('isLoggedIn', true);
+          await prefs.setString('userId', id); // Save the unique Firebase ID
+          await prefs.setString('email', user['email']);
+          await prefs.setString('name', user['name']);
+          await prefs.setString('surname', user['surname']);
+          await prefs.setString('phoneNumber', user['phoneNumber']);
+          await prefs.setString('avatar', user['avatar']);
 
           if (mounted) {
             Navigator.push(
