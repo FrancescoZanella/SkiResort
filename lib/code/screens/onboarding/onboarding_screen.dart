@@ -1,7 +1,3 @@
-import 'dart:async';
-import 'dart:collection';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/loginOrRegistration/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -21,8 +17,6 @@ class OnboardingMenu extends StatefulWidget {
 
 class _OnboardingMenuState extends State<OnboardingMenu> {
   final PageController controller = PageController();
-  bool isPressed = false;
-  late Timer splashTimeout = Timer(const Duration(milliseconds: 5000), () {});
 
   @override
   Widget build(BuildContext context) {
@@ -68,27 +62,18 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                       context: context,
                       imagePath: PathConstants.onboarding1,
                       mainText: TextConstants.onboarding1Description,
-                      title: TextConstants.onboarding1Title,
-                      callback: setState,
-                      isPressed: isPressed,
-                      splashTimeout: splashTimeout),
+                      title: TextConstants.onboarding1Title),
                   centralBlock(
                       context: context,
                       imagePath: PathConstants.onboarding2,
                       mainText: TextConstants.onboarding2Description,
-                      title: TextConstants.onboarding2Title,
-                      callback: setState,
-                      isPressed: isPressed,
-                      splashTimeout: splashTimeout),
+                      title: TextConstants.onboarding2Title),
                   centralBlock(
                       context: context,
                       imagePath: PathConstants.onboarding3,
                       mainText: TextConstants.onboarding3Description,
                       title: TextConstants.onboarding3Title,
-                      endbutton: true,
-                      callback: setState,
-                      isPressed: isPressed,
-                      splashTimeout: splashTimeout),
+                      endbutton: true),
                 ],
               )),
           smoothindicator(
@@ -198,10 +183,7 @@ Widget centralBlock(
     required String imagePath,
     required String title,
     required String mainText,
-    bool endbutton = false,
-    required var callback,
-    required bool isPressed,
-    required var splashTimeout}) {
+    bool endbutton = false}) {
   final screenWidth = MediaQuery.of(context).size.width;
   return Column(children: [
     Padding(
