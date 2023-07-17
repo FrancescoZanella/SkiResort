@@ -26,7 +26,7 @@ class BestTime extends StatelessWidget {
             const Services(),
           ],
         ),
-        const Positioned(top: 30, left: 15, right: 15, child: BestResult())
+        const Positioned(top: 20, left: 15, right: 15, child: BestResult())
       ],
     );
   }

@@ -59,6 +59,7 @@ class _MyCardState extends State<MyCard> {
           });
 
           // Apri una nuova pagina
+
           Navigator.pushNamed(context, widget.route);
         },
         onTapCancel: () {

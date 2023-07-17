@@ -56,6 +56,8 @@ dependencies:
   google_sign_in: ^6.1.4
   firebase_database: ^10.2.3
   flutter_facebook_auth: ^5.0.11
+  google_fonts: ^4.0.4
+  flutter_svg: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -101,6 +103,7 @@ flutter:
     - lib\assets\images\avatar7.jpg
     - lib\assets\images\avatar8.jpg
     - lib\assets\images\avatar9.jpg
+    - lib\assets\logo\logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

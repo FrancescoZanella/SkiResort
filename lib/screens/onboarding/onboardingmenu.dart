@@ -8,6 +8,7 @@ import 'package:ski_resorts_app/screens/loginOrRegistration/login_and_registrati
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:ski_resorts_app/screens/logintry.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
@@ -61,7 +62,8 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const LoginAndSubscriptionPage(),
+                              //const LoginAndSubscriptionPage(),
+                              const SignInFour(),
                         ),
                       );
                     },
