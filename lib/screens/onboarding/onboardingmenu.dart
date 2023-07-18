@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:collection';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/loginOrRegistration/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

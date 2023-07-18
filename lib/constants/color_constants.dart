@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
-  static const orange = const Color.fromRGBO(255, 121, 93, 1);
+  static const orange = Color.fromRGBO(255, 121, 93, 1);
   static const textColor = Color(0xFF1F2022);
   static const primaryColor = Color(0xFF6358E1);
 

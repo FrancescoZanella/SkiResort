@@ -39,7 +39,7 @@ Future<void> setPreferences(String id, Map<String, String> user) async {
   await prefs.setString('name', user['name']!);
   await prefs.setString('surname', user['surname']!);
   await prefs.setString('phoneNumber', user['phoneNumber']!);
-  await prefs.setString('avatar', user['avatar']!);
+  await prefs.setString('avatarPath', user['avatar']!);
   return;
 }
 

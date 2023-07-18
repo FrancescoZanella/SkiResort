@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'package:ski_resorts_app/code/screens/onboarding/onboarding_screen.dart';
 import 'package:ski_resorts_app/old_screens/statistics/user_statistic_screen.dart';
 import 'package:ski_resorts_app/screens/loginOrRegistration/data_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../builder.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -380,12 +377,14 @@ Widget signInButton(BuildContext context, size, bool isPressed,
           // setto le preferences all'utente loggato
           //TODO
           //setPreferences(id, user);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StatisticsScreen(),
-            ),
-          );
+          if (context.mounted) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const StatisticsScreen(),
+              ),
+            );
+          }
         }
       },
       onTapCancel: () {
