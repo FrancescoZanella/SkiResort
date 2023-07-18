@@ -20,7 +20,7 @@ class _RateOurAppScreenState extends State<RateOurAppScreen> {
 
       // Send the data to Firestore or your server
       if (kDebugMode) {
-        print('Rating: $_rating'); //TODO: Send to FIREBASE
+        print('Rating: $_rating');
         print('Feedback: $_feedback');
       }
 

@@ -55,7 +55,7 @@ class _MostPopularResortPageState extends State<MostPopularResortPage> {
             //String userId = prefs.getString('userId') ?? '';
             //String userName = prefs.getString('name') ?? '';
             //String userSurname = prefs.getString('surname') ?? '';
-            //TODO: BUILD THE BODY OF THE POST REQUEST
+            //TODo: BUILD THE BODY OF THE POST REQUEST
           },
         ),
       ),

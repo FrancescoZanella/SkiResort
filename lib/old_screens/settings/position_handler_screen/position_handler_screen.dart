@@ -91,28 +91,22 @@ class _LocationSettingScreenState extends State<LocationSettingScreen> {
               title: const Text('High accuracy'),
               subtitle: const Text('Use GPS, Wi-Fi, and mobile networks'),
               value: 0,
-              groupValue: 0, // TODO: Replace with current value
-              onChanged: (value) {
-                // TODO: Implement logic to set location accuracy
-              },
+              groupValue: 0,
+              onChanged: (value) {},
             ),
             RadioListTile<int>(
               title: const Text('Medium accuracy'),
               subtitle: const Text('Use Wi-Fi and mobile networks'),
               value: 1,
-              groupValue: 0, // TODO: Replace with current value
-              onChanged: (value) {
-                // TODO: Implement logic to set location accuracy
-              },
+              groupValue: 0,
+              onChanged: (value) {},
             ),
             RadioListTile<int>(
               title: const Text('Low accuracy'),
               subtitle: const Text('Use mobile networks'),
               value: 2,
-              groupValue: 0, // TODO: Replace with current value
-              onChanged: (value) {
-                // TODO: Implement logic to set location accuracy
-              },
+              groupValue: 0,
+              onChanged: (value) {},
             ),
           ],
         ),

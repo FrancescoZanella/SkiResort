@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:flutter/gestures.dart';
 import 'package:ski_resorts_app/screens/loginOrRegistration/data_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ski_resorts_app/screens/loginOrRegistration/registrationScreens/registration_screen.dart';
 
 import 'APIloginAndSignin/facebook_auth.dart';
 import 'APIloginAndSignin/google_auth.dart';
@@ -399,36 +401,51 @@ Widget buildFooter(Size size, BuildContext context) {
             children: <Widget>[
               //google logo here
               Container(
-                alignment: Alignment.center,
-                width: 44.0,
-                height: 44.0,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
                     color: const Color.fromRGBO(246, 246, 246, 1)),
-                child: IconButton(
-                  icon: Image.asset(
-                    'lib/assets/logo/google_logo.svg.png',
-                  ),
-                  iconSize: 23,
-                  onPressed: () => {signInWithGoogle(context)},
-                ),
+                child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () async {},
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 44.0,
+                        height: 44.0,
+                        child: IconButton(
+                          icon: Image.asset(
+                            'lib/assets/logo/google_logo.svg.png',
+                          ),
+                          iconSize: 23,
+                          onPressed: () => {signInWithGoogle(context)},
+                        ),
+                      ),
+                    )),
               ),
               const SizedBox(width: 16),
               //facebook logo here
               Container(
-                alignment: Alignment.center,
-                width: 44.0,
-                height: 44.0,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
                     color: const Color.fromRGBO(246, 246, 246, 1)),
-                child: IconButton(
-                  icon: Image.asset(
-                    'lib/assets/logo/facebook_logo.png',
-                  ),
-                  iconSize: 23,
-                  onPressed: () => {onFacebookLoginButtonPressed(context)},
-                ),
+                child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () async {},
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 44.0,
+                        height: 44.0,
+                        child: IconButton(
+                          icon: Image.asset(
+                            'lib/assets/logo/facebook_logo.png',
+                          ),
+                          iconSize: 23,
+                          onPressed: () =>
+                              {onFacebookLoginButtonPressed(context)},
+                        ),
+                      ),
+                    )),
               ),
             ],
           ),
@@ -444,20 +461,27 @@ Widget buildFooter(Size size, BuildContext context) {
               fontSize: 12.0,
               color: Colors.black,
             ),
-            children: const [
-              TextSpan(
+            children: [
+              const TextSpan(
                 text: 'Don’t have an account? ',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),
               ),
               TextSpan(
-                text: 'Sign Up here',
-                style: TextStyle(
-                  color: Color(0xFFFF7248),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+                  text: 'Sign Up here',
+                  style: const TextStyle(
+                    color: Color(0xFFFF7248),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegistrationPage(),
+                          ));
+                    }),
             ],
           ),
           textAlign: TextAlign.center,

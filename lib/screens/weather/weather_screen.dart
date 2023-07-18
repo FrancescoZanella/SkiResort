@@ -41,7 +41,7 @@ class _MeteoPageScreenState extends State<MeteoPageScreen> {
 
   void _submitCity(BuildContext context) {
     final enteredCity = _cityController.text;
-    // TODO: Implement weather data fetching based on the entered city
+    // TODo: Implement weather data fetching based on the entered city
     // Here, you would fetch the weather data based on the entered city
     // and update the weather information variables
     temperature = '25°C';
@@ -60,7 +60,7 @@ class _MeteoPageScreenState extends State<MeteoPageScreen> {
     setState(() {
       _searchMethod = method;
       if (method == SearchMethod.automatic) {
-        // TODO: Implement automatic location detection
+        // TODo: Implement automatic location detection
         print('Using current location');
       }
     });

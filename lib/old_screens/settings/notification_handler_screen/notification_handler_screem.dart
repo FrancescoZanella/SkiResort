@@ -10,9 +10,7 @@ class NotificationSettingScreen extends StatefulWidget {
 class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
   bool _isNotificationOn = true;
 
-  void _saveNotificationStatus(bool value) {
-    // TODO: Implement saving notification status logic
-  }
+  void _saveNotificationStatus(bool value) {}
 
   @override
   Widget build(BuildContext context) {

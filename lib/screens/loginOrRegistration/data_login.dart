@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +13,7 @@ final url = Uri.https(
   'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
   '/user-table.json',
 );
-
+/* QUESTA FUNZIONA MA VA MODIFICATA*/
 Future<void> checkCredentials(
     BuildContext context, String email, String password) async {
   final response = await http.get(url);
@@ -34,6 +33,7 @@ Future<void> checkCredentials(
         await prefs.setString('phoneNumber', user['phoneNumber']);
         await prefs.setString('avatar', user['avatar']);
 
+        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -58,6 +58,7 @@ Future<void> checkCredentials(
 }
 
 // funzione che dato una mail e una password ritorna vero o falso se l'utente esiste e ha pw corretta
+// ignore: non_constant_identifier_names
 Future<bool> checkCredentials_TODO(String email, String password) async {
   final response = await http.get(url);
   if (response.statusCode == 200) {

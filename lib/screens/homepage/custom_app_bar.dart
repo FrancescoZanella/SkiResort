@@ -55,8 +55,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                   scale: 1.5,
                                   child: CircleAvatar(
                                     backgroundImage:
+                                        // ignore: duplicate_ignore
                                         userModel.avatarPath.startsWith('http')
-                                            // ignore: unnecessary_cast
                                             ? NetworkImage(userModel.avatarPath)
                                                 as ImageProvider<Object>?
                                             : AssetImage(userModel.avatarPath)

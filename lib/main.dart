@@ -39,15 +39,15 @@ class MyApp extends StatelessWidget {
             title: 'SkiResorts',
             routes: routes,
             theme: themeNotifier.darkTheme
-                ? ThemeData.dark()
-                : ThemeData(
+                ? ThemeData(
                     textTheme: const TextTheme(
                         bodyLarge: TextStyle(color: Color(0xFF1F2022))),
                     fontFamily: 'NotoSansKR',
                     primarySwatch: Colors.blue,
                     scaffoldBackgroundColor: Colors.white,
                     visualDensity: VisualDensity.adaptivePlatformDensity,
-                  ),
+                  )
+                : ThemeData.dark(),
             home: FutureBuilder<UserModel>(
               future: checkUserLoginStatus(),
               builder: (context, snapshot) {
