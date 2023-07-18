@@ -7,7 +7,7 @@ final url = Uri.https(
 );
 
 // this functions checks if the user exists in the database, if not, it registers the user if the user exists, it returns the user's data
-// this function is used just for google and facebook sign in
+// this function is used only for google and facebook sign in
 Future<Map<String, dynamic>?> registerUser(String name, String surname,
     String email, String password, String phoneNumber, String avatar,
     {http.Client? client}) async {
