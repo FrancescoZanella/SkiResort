@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_cast
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:provider/provider.dart';
@@ -13,6 +13,16 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+  ImageProvider<Object> getTypeOfImageProvider(String path) {
+    if (path.startsWith('http')) {
+      return NetworkImage(path);
+    } else if (path.startsWith('/')) {
+      return FileImage(File(path));
+    } else {
+      return AssetImage(path);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     UserModel userModel = Provider.of<UserModel>(context); // Get UserModel
@@ -54,13 +64,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                 child: Transform.scale(
                                   scale: 1.5,
                                   child: CircleAvatar(
-                                    backgroundImage:
-                                        userModel.avatarPath.startsWith('http')
-                                            // ignore: unnecessary_cast
-                                            ? NetworkImage(userModel.avatarPath)
-                                                as ImageProvider<Object>?
-                                            : AssetImage(userModel.avatarPath)
-                                                as ImageProvider<Object>?,
+                                    backgroundImage: getTypeOfImageProvider(
+                                        userModel.avatarPath),
                                   ),
                                 ),
                               ),

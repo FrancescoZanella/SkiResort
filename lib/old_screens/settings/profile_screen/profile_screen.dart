@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/old_screens/settings/profile_screen/edit_user_data_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+import 'package:ski_resorts_app/old_screens/settings/profile_screen/image_profile_handler_function.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class ProfilePageScreen extends StatefulWidget {
   const ProfilePageScreen({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   //here i take the user id from shared preferences so i can use it to update the user data on firebase
 
   String? userId;
+  String? avatarPath;
 
   void getUserId() async {
     final prefs = await SharedPreferences.getInstance();
@@ -30,34 +31,6 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   void initState() {
     super.initState();
     getUserId();
-  }
-
-  ImageProvider<Object> getImageProvider(String path) {
-    if (path.startsWith('http')) {
-      return NetworkImage(path) as ImageProvider<Object>;
-    } else {
-      return AssetImage(path) as ImageProvider<Object>;
-    }
-  }
-
-  Future<String?> getImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      return pickedFile.path;
-    } else {
-      return null;
-    }
-  }
-
-  ImageProvider<Object> getTypeOfImageProvider(String path) {
-    if (path.startsWith('http')) {
-      return NetworkImage(path);
-    } else if (path.startsWith('/')) {
-      return FileImage(File(path));
-    } else {
-      return AssetImage(path);
-    }
   }
 
   @override
@@ -82,54 +55,9 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   padding: const EdgeInsets.all(80.0 / 8),
                   child: Center(
                     child: InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Dialog(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisSize:
-                                      MainAxisSize.min, // Make dialog smaller
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.7,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.4,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: getImageProvider(
-                                              userModel.avatarPath),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: ElevatedButton(
-                                        child: const Text(
-                                            'Upload an image from gallery'),
-                                        onPressed: () async {
-                                          final newPathImage = await getImage();
-                                          if (newPathImage != null) {
-                                            userModel.updateField(
-                                                'avatar', newPathImage);
-                                          }
-                                          if (mounted) {
-                                            Navigator.pop(context);
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
+                      onTap: () async {
+                        showImageDialog(context, userModel);
+                        // TODO: Update the user avatarpath on firebase
                       },
                       child: Transform.scale(
                         scale: 2.5,

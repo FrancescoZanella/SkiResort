@@ -69,9 +69,5 @@ Future<Map<String, dynamic>?> registerUser(String name, String surname,
     };
   }
 
-  if (kDebugMode) {
-    print('User registered successfully');
-  }
-
   return user;
 }

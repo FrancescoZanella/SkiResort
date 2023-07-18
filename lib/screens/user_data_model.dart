@@ -43,9 +43,9 @@ class UserModel extends ChangeNotifier {
         phoneNumber = newValue;
         await _updateSharedPrefs('phoneNumber', newValue);
         break;
-      case 'avatar':
+      case 'avatarPath':
         avatarPath = newValue;
-        await _updateSharedPrefs('avatar', newValue);
+        await _updateSharedPrefs('avatarPath', newValue);
         break;
     }
     notifyListeners();

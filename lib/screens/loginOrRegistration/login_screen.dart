@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage>
           await prefs.setString('name', user['name']);
           await prefs.setString('surname', user['surname']);
           await prefs.setString('phoneNumber', user['phoneNumber']);
-          await prefs.setString('avatar', user['avatar']);
+          await prefs.setString('avatarPath', user['avatar']);
 
           if (mounted) {
             Navigator.push(
