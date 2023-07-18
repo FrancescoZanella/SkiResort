@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/screens/homepage/card.dart';
-import 'package:ski_resorts_app/screens/homepage/weathercard.dart';
+import 'package:ski_resorts_app/constants/color_constants.dart';
+import 'package:ski_resorts_app/widgets/button.dart';
+import 'package:ski_resorts_app/widgets/card.dart';
+import 'package:ski_resorts_app/widgets/weathercard.dart';
 
 class Services extends StatelessWidget {
   const Services({super.key});
@@ -10,19 +12,34 @@ class Services extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 100,
+          height: 80,
         ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        Stack(
           children: [
-            // scritta services
-            Text(
-              '    Services',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.5,
+            Container(
+              alignment: Alignment.bottomLeft,
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+            ),
+            const Positioned(
+              top: 25,
+              left: 15,
+              child: Text(
+                '    Services',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.5,
+                ),
               ),
+            ),
+            Positioned(
+              right: 35,
+              bottom: 2,
+              child: Button(
+                  color: ColorConstants.orange,
+                  icon: Icons.play_arrow,
+                  key: key),
             ),
           ],
         ),

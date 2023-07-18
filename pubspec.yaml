@@ -63,6 +63,8 @@ dependencies:
   path_provider: ^2.0.15
   android_intent: ^2.0.2
   cloud_firestore: ^4.8.3
+  flutter_svg: ^2.0.7
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:
@@ -111,6 +113,7 @@ flutter:
     - lib\assets\images\avatar7.jpg
     - lib\assets\images\avatar8.jpg
     - lib\assets\images\avatar9.jpg
+    - lib\assets\logo\logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
