@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-final firebaseUrl = Uri.https(
-  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
-  '/user-table.json',
-);
-
 void editInformation(BuildContext context, String field, String currentValue,
     UserModel userModel, String userId) {
   showDialog(

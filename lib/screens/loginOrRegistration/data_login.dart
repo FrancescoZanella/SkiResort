@@ -31,7 +31,7 @@ Future<void> checkCredentials(
         await prefs.setString('name', user['name']);
         await prefs.setString('surname', user['surname']);
         await prefs.setString('phoneNumber', user['phoneNumber']);
-        await prefs.setString('avatar', user['avatar']);
+        await prefs.setString('avatarPath', user['avatar']);
 
         // ignore: use_build_context_synchronously
         Navigator.push(
@@ -45,9 +45,8 @@ Future<void> checkCredentials(
               phoneNumber: user['phoneNumber'],
               avatarPath: user['avatar'],
             ),
-          ),
-        ); // Redirect to home page
-
+          ), // Redirect to home page
+        );
         return;
       }
     }
@@ -104,7 +103,7 @@ Future<void> setPreferences(String id, Map<String, String> user) async {
   await prefs.setString('name', user['name']!);
   await prefs.setString('surname', user['surname']!);
   await prefs.setString('phoneNumber', user['phoneNumber']!);
-  await prefs.setString('avatar', user['avatar']!);
+  await prefs.setString('avatarPath', user['avatar']!);
   return;
 }
 
