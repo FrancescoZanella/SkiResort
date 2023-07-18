@@ -32,22 +32,23 @@ Future<void> checkCredentials(
         await prefs.setString('name', user['name']);
         await prefs.setString('surname', user['surname']);
         await prefs.setString('phoneNumber', user['phoneNumber']);
-        await prefs.setString('avatar', user['avatar']);
+        await prefs.setString('avatarPath', user['avatar']);
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainPage(
-              userId: id, // Pass the unique Firebase ID
-              name: user['name'],
-              surname: user['surname'],
-              email: user['email'],
-              phoneNumber: user['phoneNumber'],
-              avatarPath: user['avatar'],
+        if (context.mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MainPage(
+                userId: id, // Pass the unique Firebase ID
+                name: user['name'],
+                surname: user['surname'],
+                email: user['email'],
+                phoneNumber: user['phoneNumber'],
+                avatarPath: user['avatar'],
+              ),
             ),
-          ),
-        ); // Redirect to home page
-
+          ); // Redirect to home page
+        }
         return;
       }
     }
