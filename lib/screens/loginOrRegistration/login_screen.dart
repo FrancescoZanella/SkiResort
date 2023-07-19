@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:ski_resorts_app/screens/loginOrRegistration/data_login.dart';
 import 'package:flutter/material.dart';
@@ -37,13 +36,12 @@ class _LoginPageState extends State<LoginPage>
   Widget build(BuildContext context) {
     bool isPressed = false;
 
-    late Timer splashTimeout = Timer(const Duration(milliseconds: 5000), () {});
     final size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: buildCard(context, size, _emailController, _passwordController,
-          isPressed, splashTimeout, _viewPassword, obscure),
+          isPressed, _viewPassword, obscure),
     );
   }
 }
@@ -54,7 +52,6 @@ Widget buildCard(
     TextEditingController emailController,
     TextEditingController passwordController,
     bool isPressed,
-    Timer splashTimeout,
     var callback,
     bool obscure) {
   return Container(
@@ -142,8 +139,8 @@ Widget buildCard(
           ),
 
           //sign in button
-          signInButton(context, size, isPressed, splashTimeout, callback,
-              emailController.text, passwordController.text),
+          signInButton(context, size, isPressed, callback, emailController.text,
+              passwordController.text),
           SizedBox(
             height: size.height * 0.03,
           ),
@@ -347,8 +344,8 @@ Widget passwordTextField(Size size, TextEditingController passController,
   );
 }
 
-Widget signInButton(BuildContext context, size, bool isPressed,
-    Timer splashTimeout, var callback, String email, String password) {
+Widget signInButton(BuildContext context, size, bool isPressed, var callback,
+    String email, String password) {
   return Container(
       decoration: BoxDecoration(
         color: Colors.blue,

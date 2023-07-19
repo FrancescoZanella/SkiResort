@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/loginOrRegistration/login_screen.dart';
+import 'package:ski_resorts_app/screens/loginOrRegistration/registrationScreens/registration_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
@@ -38,7 +39,7 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 2.0, top: 8.0),
-                child: skipbutton(context, 'Skip', const LoginPage()),
+                child: skipbutton(context, 'Skip', const RegistrationPage()),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 2.0, top: 8.0),
