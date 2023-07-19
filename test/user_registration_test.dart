@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:ski_resorts_app/screens/loginOrRegistration/registration_functions.dart';
+import 'package:ski_resorts_app/screens/loginOrRegistration/registration/registration_functions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';

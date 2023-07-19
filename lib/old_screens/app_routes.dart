@@ -10,7 +10,7 @@ import 'package:ski_resorts_app/old_screens/settings/position_handler_screen/pos
 import 'package:ski_resorts_app/old_screens/settings/profile_screen/profile_screen.dart';
 import 'package:ski_resorts_app/old_screens/favorites/favorites_screen.dart';
 import 'package:ski_resorts_app/screens/skiResort/ski_resort_screen.dart';
-import 'package:ski_resorts_app/screens/loginOrRegistration/login_screen.dart';
+import 'package:ski_resorts_app/screens/loginOrRegistration/login/login_screen.dart';
 import 'package:ski_resorts_app/screens/onboarding/onboardingmenu.dart';
 import 'package:ski_resorts_app/old_screens/settings/report_bug_screen/report_bug_screen.dart';
 import 'package:ski_resorts_app/old_screens/settings/rate_our_app_screen/rate_our_app_screen.dart';
