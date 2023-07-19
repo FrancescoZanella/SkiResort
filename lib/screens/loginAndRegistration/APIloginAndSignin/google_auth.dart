@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
-import 'package:ski_resorts_app/screens/loginOrRegistration/registration/registration_functions.dart';
+import 'package:ski_resorts_app/screens/loginAndRegistration/registration/data_registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final url = Uri.https(

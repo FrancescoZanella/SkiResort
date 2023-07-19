@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
-import 'package:ski_resorts_app/screens/loginOrRegistration/registration/registration_functions.dart';
+import 'package:ski_resorts_app/screens/loginAndRegistration/registration/data_registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final url = Uri.https(

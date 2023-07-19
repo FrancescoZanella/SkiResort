@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ski_resorts_app/screens/loginOrRegistration/login/login_screen.dart';
+import 'package:ski_resorts_app/screens/loginAndRegistration/login/login_screen.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
-import 'package:ski_resorts_app/screens/loginOrRegistration/login/data_login.dart';
+import 'package:ski_resorts_app/screens/loginAndRegistration/login/data_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ski_resorts_app/screens/loginOrRegistration/registration/registration_screen.dart';
+import 'package:ski_resorts_app/screens/loginAndRegistration/registration/registration_screen.dart';
 
 import '../APIloginAndSignin/facebook_auth.dart';
 import '../APIloginAndSignin/google_auth.dart';
