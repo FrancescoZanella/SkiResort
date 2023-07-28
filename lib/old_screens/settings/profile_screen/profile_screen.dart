@@ -55,8 +55,8 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   child: Center(
                     child: InkWell(
                       onTap: () async {
-                        showImageDialog(context, userModel);
-                        // TODo: Update the user avatarpath on firebase
+                        showImageDialog(context, userModel,
+                            userId!); // in this function i update the user avatarPath locally and on firebase
                       },
                       child: Transform.scale(
                         scale: 2.5,

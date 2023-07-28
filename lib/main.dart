@@ -8,6 +8,9 @@ import 'package:ski_resorts_app/screens/user_data_model.dart';
 import 'old_screens/app_routes.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
 import 'package:ski_resorts_app/screens/check_user_login_status.dart';
+import 'package:ski_resorts_app/screens/weather/provider/weatherProvider.dart';
+import 'package:ski_resorts_app/screens/weather/Screens/hourlyWeatherScreen.dart';
+import 'package:ski_resorts_app/screens/weather/Screens/weeklyWeatherScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,13 +34,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<UserModel>(
           create: (_) => UserModel(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => WeatherProvider(),
+        ),
       ],
-      child: Consumer2<ThemeNotifier, UserModel>(
-        builder: (context, themeNotifier, userModel, child) {
+      child: Consumer3<ThemeNotifier, UserModel, WeatherProvider>(
+        builder: (context, themeNotifier, userModel, weatherProvider, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'SkiResorts',
-            routes: routes,
+            routes: {
+              ...routes,
+              WeeklyScreen.routeName: (myCtx) => const WeeklyScreen(),
+              HourlyScreen.routeName: (myCtx) => const HourlyScreen(),
+            },
             theme: themeNotifier.darkTheme
                 ? ThemeData(
                     textTheme: const TextTheme(

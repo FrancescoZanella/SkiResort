@@ -34,19 +34,23 @@ dependencies:
   provider: ^6.0.1
   shared_preferences: ^2.0.6
   settings_ui: ^2.0.2 
-  animated_size_and_fade: ^2.0.1
+  animated_size_and_fade: ^3.0.1
   weather_icons: ^3.0.0
-  flutter_map: ^0.14.0
-  geolocator: ^8.0.2
-  flutter_typeahead: ^3.2.1
+  flutter_map: ^5.0.0
+  geolocator: ^9.0.2
+  flutter_typeahead: ^4.6.2
   geocoding: ^2.1.0
-  http: ^0.13.3
+  http: ^1.1.0
   share_plus: ^7.0.2
   image_picker: ^1.0.1
   file_picker: ^5.3.2
   permission_handler: ^10.4.2
   widgets_to_image: ^0.0.2
   flutter_form_builder: ^8.0.0
+  latlng: ^1.0.0
+  latlong2: ^0.9.0
+  flutter_osm_plugin: ^0.53.2
+  url_launcher: ^6.1.12
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -59,12 +63,18 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   google_sign_in: ^6.1.4
   firebase_database: ^10.2.3
-  flutter_facebook_auth: ^5.0.11
+  flutter_facebook_auth: ^6.0.0
+  facebook_auth_desktop: ^1.0.0
   path_provider: ^2.0.15
   android_intent: ^2.0.2
   cloud_firestore: ^4.8.3
   flutter_svg: ^2.0.7
-  google_fonts: ^4.0.4
+  google_fonts: ^5.1.0
+  simple_animations: ^5.0.0+3
+  material_design_icons_flutter: ^6.0.7096
+  supercharged: ^2.1.1
+  intl: ^0.17.0
+
 
 dev_dependencies:
   flutter_test:
@@ -113,6 +123,7 @@ flutter:
     - lib\assets\images\avatar7.jpg
     - lib\assets\images\avatar8.jpg
     - lib\assets\images\avatar9.jpg
+    - lib\assets\images\smartWatchImage.png
     - lib\assets\logo\logo.png
     - lib\assets\logo\facebook_logo.png
     - lib\assets\logo\google_logo.svg.png

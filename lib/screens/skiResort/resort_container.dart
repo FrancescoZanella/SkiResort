@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ResortContainer extends StatefulWidget {
+  final String skiResortId;
   final String skiResortLink;
   final String skiResortName;
   final String skiResortDescription;
@@ -14,10 +18,13 @@ class ResortContainer extends StatefulWidget {
   final String skiPassCost;
   final String skiResortElevation;
   final String skiLiftsNumber;
+  final double skiResortLatitude;
+  final double skiResortLongitude;
   final VoidCallback onFavouriteButtonPressed;
 
   const ResortContainer({
     Key? key,
+    required this.skiResortId,
     required this.skiResortLink,
     required this.skiResortName,
     required this.skiResortDescription,
@@ -30,6 +37,8 @@ class ResortContainer extends StatefulWidget {
     required this.skiPassCost,
     required this.skiResortElevation,
     required this.skiLiftsNumber,
+    required this.skiResortLatitude,
+    required this.skiResortLongitude,
     required this.onFavouriteButtonPressed,
   }) : super(key: key);
 
@@ -37,15 +46,29 @@ class ResortContainer extends StatefulWidget {
   State<ResortContainer> createState() => _ResortContainerState();
 }
 
+final url = Uri.https(
+  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+  '/favorites-resort-table.json',
+);
+
 class _ResortContainerState extends State<ResortContainer>
     with SingleTickerProviderStateMixin {
   bool isFavorite = false;
   late AnimationController _controller;
   late Animation<double> _animation;
+  String? userId;
+
+  void getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('userId');
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    getUserId();
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
@@ -194,12 +217,38 @@ class _ResortContainerState extends State<ResortContainer>
                   ),
                 ),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       isFavorite = !isFavorite;
                     });
                     widget.onFavouriteButtonPressed;
                     _controller.forward();
+                    // post request to insert the resort into the favorites table
+                    final postResponse = await http.post(
+                      url,
+                      body: json.encode({
+                        'userId': userId,
+                        'skiResortId': widget.skiResortId,
+                        'skiResortLink': widget.skiResortLink,
+                        'skiResortName': widget.skiResortName,
+                        'skiResortDescription': widget.skiResortDescription,
+                        'imageLink': widget.imageLink,
+                        'skiResortRating': widget.skiResortRating,
+                        'totalSkiSlopes': widget.totalSkiSlopes,
+                        'blueSkiSlopes': widget.blueSkiSlopes,
+                        'redSkiSlopes': widget.redSkiSlopes,
+                        'blackSkiSlopes': widget.blackSkiSlopes,
+                        'skiPassCost': widget.skiPassCost,
+                        'skiResortElevation': widget.skiResortElevation,
+                        'skiLiftsNumber': widget.skiLiftsNumber,
+                        'skiResortLatitude': widget.skiResortLatitude,
+                        'skiResortLongitude': widget.skiResortLongitude,
+                      }),
+                    );
+                    if (postResponse.statusCode != 200) {
+                      throw Exception(
+                          'Failed to register user: ${postResponse.body}');
+                    }
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),

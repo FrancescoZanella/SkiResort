@@ -2,12 +2,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/old_screens/settings/settings_page_screen.dart';
 import 'package:ski_resorts_app/old_screens/statistics/user_statistic_screen.dart';
-import 'package:ski_resorts_app/screens/weather/weather_screen.dart';
 import 'package:ski_resorts_app/screens/homepage/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
-
 import '../old_screens/favorites/favorites_screen.dart';
+import 'package:ski_resorts_app/screens/weather/Screens/weatherScreen.dart';
 
 class MainPage extends StatefulWidget {
   final String name;
@@ -36,7 +35,7 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> pages = [
     const StatisticsScreen(),
-    const MeteoPageScreen(),
+    const WeatherScreen(),
     const HomeScreen(),
     const FavoritesScreen(),
     const SettingsPage(),

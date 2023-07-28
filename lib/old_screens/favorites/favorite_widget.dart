@@ -4,7 +4,7 @@ import 'package:widgets_to_image/widgets_to_image.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import './favorite_elements.dart';
+import 'package:ski_resorts_app/old_screens/favorites/favorite_elements.dart';
 import 'dart:io';
 import 'dart:math';
 

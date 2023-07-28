@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
+import 'package:ski_resorts_app/old_screens/settings/profile_screen/functions_for_firebase.dart';
 import 'dart:io';
 
 Future<String?> getImage() async {
@@ -23,7 +24,7 @@ ImageProvider<Object> getTypeOfImageProvider(String path) {
   }
 }
 
-void showImageDialog(BuildContext context, UserModel userModel) {
+void showImageDialog(BuildContext context, UserModel userModel, String userId) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -49,9 +50,12 @@ void showImageDialog(BuildContext context, UserModel userModel) {
                   child: const Text('Upload an image from gallery'),
                   onPressed: () async {
                     final newPathImage = await getImage();
-                    if (newPathImage != null) {
-                      userModel.updateField('avatarPath', newPathImage);
-                    }
+                    updateDataOnFirebase(
+                      userModel,
+                      userId,
+                      'avatar',
+                      newPathImage,
+                    );
                     if (context.mounted) {
                       Navigator.pop(context);
                     }

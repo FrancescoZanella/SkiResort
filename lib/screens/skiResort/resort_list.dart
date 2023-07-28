@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_container.dart';
 
 class Resort {
+  String? skiResortId;
   final String skiResortLink;
   final String skiResortName;
   final String skiResortDescription;
@@ -15,8 +16,11 @@ class Resort {
   final String skiPassCost;
   final String skiResortElevation;
   final String skiLiftsNumber;
+  final double skiResortLatitude;
+  final double skiResortLongitude;
 
   Resort({
+    required this.skiResortId,
     required this.skiResortLink,
     required this.skiResortName,
     required this.skiResortDescription,
@@ -29,12 +33,15 @@ class Resort {
     required this.skiPassCost,
     required this.skiResortElevation,
     required this.skiLiftsNumber,
+    required this.skiResortLatitude,
+    required this.skiResortLongitude,
   });
 
   // Here's the fromJson method:
   factory Resort.fromJson(Map<String, dynamic> json) {
     try {
       return Resort(
+        skiResortId: json['skiResortId'],
         skiResortLink: json['skiResortLink'],
         skiResortName: json['skiResortName'],
         skiResortDescription: json['skiResortDescription'],
@@ -47,6 +54,8 @@ class Resort {
         skiPassCost: json['skiPassCost'],
         skiResortElevation: json['skiResortElevation'],
         skiLiftsNumber: json['skiLiftsNumber'],
+        skiResortLatitude: double.parse(json['skiResortLatitude']),
+        skiResortLongitude: double.parse(json['skiResortLongitude']),
       );
     } catch (e) {
       if (kDebugMode) {
@@ -76,6 +85,7 @@ class ResortList extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: ResortContainer(
+            skiResortId: resorts[index].skiResortId ?? '',
             skiResortLink: resorts[index].skiResortLink,
             skiResortName: resorts[index].skiResortName,
             skiResortDescription: resorts[index].skiResortDescription,
@@ -88,6 +98,8 @@ class ResortList extends StatelessWidget {
             skiPassCost: resorts[index].skiPassCost,
             skiResortElevation: resorts[index].skiResortElevation,
             skiLiftsNumber: resorts[index].skiLiftsNumber,
+            skiResortLatitude: resorts[index].skiResortLatitude,
+            skiResortLongitude: resorts[index].skiResortLongitude,
             onFavouriteButtonPressed: onFavouriteButtonPressed,
           ),
         );

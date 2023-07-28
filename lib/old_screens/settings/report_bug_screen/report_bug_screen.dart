@@ -1,5 +1,14 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+String encodeQueryParameters(Map<String, String> params) {
+  return params.entries
+      .map((e) =>
+          '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+      .join('&');
+}
 
 class ReportBugScreen extends StatefulWidget {
   const ReportBugScreen({super.key});
@@ -47,12 +56,37 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                   'Send Report',
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    // Here we're just printing the bug report to the console.
-                    // In your app, you'd probably want to send it somewhere more useful!
-                    if (kDebugMode) {
-                      print('Bug Report: ${_controller.text}');
+                    final Uri emailLaunchUri = Uri(
+                        scheme: 'mailto',
+                        path: 'dimaflutter2022@gmail.com',
+                        query: encodeQueryParameters(<String, String>{
+                          'subject': 'Bug Report',
+                          'body': _controller.text
+                        }));
+
+                    await launch(emailLaunchUri.toString());
+
+                    if (context.mounted) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Thank You!'),
+                            content:
+                                const Text('Thank you for your bug report.'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     }
                   }
                 },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:ski_resorts_app/old_screens/settings/profile_screen/functions_for_firebase.dart';
 
 void editInformation(BuildContext context, String field, String currentValue,
     UserModel userModel, String userId) {
@@ -21,18 +21,8 @@ void editInformation(BuildContext context, String field, String currentValue,
           ),
           TextButton(
             onPressed: () async {
-              // update the userModel and the shared preferences
-              userModel.updateField(field, newValue);
-              // update the user entries in the firebase realtime database
-
-              // Create a reference to the specific user entry
-              final DatabaseReference userRef = FirebaseDatabase.instance
-                  .ref()
-                  .child('user-table')
-                  .child(userId);
-
-              // update the user entries in the firebase realtime database
-              await userRef.update({field: newValue}).then((_) {
+              updateDataOnFirebase(userModel, userId, field, newValue)
+                  .then((_) {
                 // update was successful
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(

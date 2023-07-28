@@ -43,20 +43,20 @@ class SettingsPage extends StatelessWidget {
                     icon: Icons.location_on_outlined,
                     pageName: 'LocationSettingScreen',
                   ),
-                ],
-              ),
-              const Divider(),
-              const SingleSection(
-                title: "Organization",
-                children: [
-                  CustomListTile(
+                  const CustomListTile(
                     title: "Profile",
                     icon: Icons.person_outline_rounded,
                     pageName: 'ProfilePageScreen',
                   ),
+                ],
+              ),
+              const SingleSection(
+                title: "Devices",
+                children: [
                   CustomListTile(
-                    title: "People",
-                    icon: Icons.contacts_outlined,
+                    title: "Connect Smartwatch",
+                    icon: Icons.watch,
+                    pageName: 'ConnectSmartwatchScreen',
                   ),
                 ],
               ),
