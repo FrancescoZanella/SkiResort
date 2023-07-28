@@ -1,12 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/statistics/main_stats.dart';
-import 'package:ski_resorts_app/screens/weather/weather_screen.dart';
+import 'package:ski_resorts_app/screens/weather/Screens/weatherScreen.dart';
 import 'package:ski_resorts_app/screens/homepage/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 import '../old_screens/favorites/favorites_screen.dart';
-import 'package:ski_resorts_app/screens/weather/Screens/weatherScreen.dart';
 import 'map/mappage.dart';
 
 // ignore: must_be_immutable
@@ -39,7 +38,7 @@ class _MainPageState extends State<MainPage> {
     const MapPage(),
     const MainStats(),
     HomeScreen(callback: changepage),
-    const MeteoPageScreen(),
+    const WeatherScreen(),
     const FavoritesScreen(),
   ];
   void changepage(int index) {

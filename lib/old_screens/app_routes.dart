@@ -36,6 +36,6 @@ final Map<String, WidgetBuilder> routes = {
   '/ConnectSmartwatchScreen': (BuildContext context) =>
       const ConnectSmartwatchScreen(),
   '/WeatherScreen': (BuildContext context) => const WeatherScreen(),
-  //'/WeeklyScreen': (BuildContext context) => const WeeklyScreen(),
-  //'/HourlyScreen': (BuildContext context) => const HourlyScreen(),
+  '/WeeklyScreen': (BuildContext context) => const WeeklyScreen(),
+  '/HourlyScreen': (BuildContext context) => const HourlyScreen(),
 };

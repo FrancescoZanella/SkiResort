@@ -24,7 +24,7 @@ class StopwatchPage extends StatefulWidget {
   const StopwatchPage({super.key});
 
   @override
-  _StopwatchPageState createState() => _StopwatchPageState();
+  State<StopwatchPage> createState() => _StopwatchPageState();
 }
 
 class _StopwatchPageState extends State<StopwatchPage> {
@@ -124,7 +124,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
 
   Future<double> _calculateDistance(
       LocationData start, LocationData end) async {
-    double distanceInMeters = await Geolocator.distanceBetween(
+    double distanceInMeters = Geolocator.distanceBetween(
       start.latitude!,
       start.longitude!,
       end.latitude!,
@@ -174,12 +174,12 @@ class _StopwatchPageState extends State<StopwatchPage> {
               children: [
                 ElevatedButton(
                   onPressed: _isRunning ? null : _startStopwatch,
-                  style: ElevatedButton.styleFrom(primary: Colors.blue),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   child: const Text('Start', style: TextStyle(fontSize: 18)),
                 ),
                 ElevatedButton(
                   onPressed: _stopStopwatch,
-                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                   child: Text(_isRunning ? 'Stop' : 'Reset',
                       style: const TextStyle(fontSize: 18)),
                 ),
@@ -216,8 +216,8 @@ class _StopwatchPageState extends State<StopwatchPage> {
                               height: 180,
                               child: LineChart(
                                 LineChartData(
-                                  gridData: FlGridData(show: false),
-                                  titlesData: FlTitlesData(show: false),
+                                  gridData: const FlGridData(show: false),
+                                  titlesData: const FlTitlesData(show: false),
                                   borderData: FlBorderData(show: true),
                                   minX: 0,
                                   maxX: data.speedDataPoints.length.toDouble() -
@@ -235,8 +235,8 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                         return FlSpot(index.toDouble(), speed);
                                       }).toList(),
                                       isCurved: true,
-                                      colors: [Colors.blue],
-                                      dotData: FlDotData(show: false),
+                                      color: Colors.blue,
+                                      dotData: const FlDotData(show: false),
                                       belowBarData: BarAreaData(show: false),
                                     ),
                                   ],

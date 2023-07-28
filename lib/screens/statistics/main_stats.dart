@@ -16,7 +16,7 @@ class MainStatsState extends State<MainStats> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: StopwatchPage(),
     );
   }

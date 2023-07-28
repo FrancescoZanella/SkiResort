@@ -96,7 +96,6 @@ class Services extends StatelessWidget {
                   height: 140.0,
                   index: 2,
                   callback: callback,
-                  route: '/WeatherScreen',
                 )),
           ],
         )
