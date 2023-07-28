@@ -9,7 +9,8 @@ class MyCard extends StatefulWidget {
   var height;
   var width;
   var title;
-  var route;
+  var index;
+  var callback;
 
   MyCard({
     Key? key,
@@ -17,7 +18,8 @@ class MyCard extends StatefulWidget {
     required this.width,
     required this.image,
     required this.title,
-    required this.route,
+    required this.index,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -59,8 +61,7 @@ class _MyCardState extends State<MyCard> {
           });
 
           // Apri una nuova pagina
-
-          Navigator.pushNamed(context, widget.route);
+          widget.callback(widget.index);
         },
         onTapCancel: () {
           // Funzione chiamata se l'utente annulla la pressione (ad esempio, scorrendo il dito via dal widget)

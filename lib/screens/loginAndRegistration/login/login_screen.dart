@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+// ignore: unused_import
 import 'package:ski_resorts_app/screens/loginAndRegistration/login/data_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,7 +71,6 @@ Widget buildCard(
           SizedBox(
             height: size.height * 0.1,
           ),
-
           //welcome text
           Text(
             'Welcome Back!',
@@ -363,7 +363,7 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
           child: InkWell(
               onTap: () async {
                 /* QUELLO CHE FA QUANDO VIENE SCHIACCIATO IL LOGIN*/
-                checkCredentials(context, email, password);
+                // TODO
                 /*QUESTA PARTE VA CORRETTA*/
               },
               child: Container(

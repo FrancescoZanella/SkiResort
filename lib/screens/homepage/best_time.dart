@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/homepage/bestresult.dart';
 import 'package:ski_resorts_app/screens/homepage/services.dart';
 
+// ignore: must_be_immutable
 class BestTime extends StatelessWidget {
-  const BestTime({super.key});
+  Function callback;
+  BestTime({required this.callback, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class BestTime extends StatelessWidget {
                 color: Color.fromRGBO(12, 56, 177, 1),
               ),
             ),
-            const Services(),
+            Services(callback: callback),
           ],
         ),
         const Positioned(top: 20, left: 15, right: 15, child: BestResult())
