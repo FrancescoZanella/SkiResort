@@ -41,20 +41,20 @@ class _RegistrationPageState extends State<RegistrationPage>
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black,
-      body: buildCard(
-          context,
-          size,
-          _emailController,
-          _passwordController,
-          _nameController,
-          _surnameController,
-          _phoneNumberController,
-          isPressed,
-          _viewPassword,
-          obscure),
-    );
+        backgroundColor: Colors.black,
+        body: SingleChildScrollView(
+          child: buildCard(
+              context,
+              size,
+              _emailController,
+              _passwordController,
+              _nameController,
+              _surnameController,
+              _phoneNumberController,
+              isPressed,
+              _viewPassword,
+              obscure),
+        ));
   }
 }
 
@@ -584,13 +584,8 @@ Widget signUpButton(BuildContext context, size, bool isPressed, var callback,
           child: InkWell(
               onTap: () async {
                 /* QUELLO CHE FA QUANDO VIENE SCHIACCIATO IL SIGN UP*/
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginPage(),
-                  ), // Redirect to home page
-                );
-                /*QUESTA PARTE VA CORRETTA*/
+                // TODO
+                /*QUESTA PARTE VA AGGIUNTA*/
               },
               child: Container(
                 alignment: Alignment.center,

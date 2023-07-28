@@ -1,13 +1,15 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:ski_resorts_app/old_screens/settings/settings_page_screen.dart';
-import 'package:ski_resorts_app/old_screens/statistics/user_statistic_screen.dart';
+import 'package:ski_resorts_app/screens/statistics/main_stats.dart';
+import 'package:ski_resorts_app/screens/weather/weather_screen.dart';
 import 'package:ski_resorts_app/screens/homepage/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 import '../old_screens/favorites/favorites_screen.dart';
 import 'package:ski_resorts_app/screens/weather/Screens/weatherScreen.dart';
+import 'map/mappage.dart';
 
+// ignore: must_be_immutable
 class MainPage extends StatefulWidget {
   final String name;
   final String surname;
@@ -33,13 +35,18 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int selectedIconIndex = 2;
 
-  List<Widget> pages = [
-    const StatisticsScreen(),
-    const WeatherScreen(),
-    const HomeScreen(),
+  late List<Widget> pages = [
+    const MapPage(),
+    const MainStats(),
+    HomeScreen(callback: changepage),
+    const MeteoPageScreen(),
     const FavoritesScreen(),
-    const SettingsPage(),
   ];
+  void changepage(int index) {
+    setState(() {
+      selectedIconIndex = index;
+    });
+  }
 
   @override
   void initState() {
@@ -71,9 +78,7 @@ class _MainPageState extends State<MainPage> {
             ? Theme.of(context).cardColor
             : Colors.lightBlue[50]!, // change this to a lighter shade of blue
         onTap: (index) {
-          setState(() {
-            selectedIconIndex = index;
-          });
+          changepage(index);
         },
         animationDuration: const Duration(
           milliseconds: 200,
@@ -89,7 +94,7 @@ class _MainPageState extends State<MainPage> {
                     : Colors.black,
           ),
           Icon(
-            Icons.sunny,
+            Icons.add_chart,
             size: 30,
             color: selectedIconIndex == 1
                 ? Colors.white
@@ -107,7 +112,7 @@ class _MainPageState extends State<MainPage> {
                     : Colors.black,
           ),
           Icon(
-            Icons.favorite_border_outlined,
+            Icons.sunny,
             size: 30,
             color: selectedIconIndex == 3
                 ? Colors.white
@@ -116,7 +121,7 @@ class _MainPageState extends State<MainPage> {
                     : Colors.black,
           ),
           Icon(
-            Icons.settings,
+            Icons.favorite_border_outlined,
             size: 30,
             color: selectedIconIndex == 4
                 ? Colors.white

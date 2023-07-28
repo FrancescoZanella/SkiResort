@@ -8,13 +8,15 @@ class Weather extends StatefulWidget {
   var height;
   var width;
   var title;
-  var route;
+  var index;
+  var callback;
   Weather(
       {super.key,
       required this.height,
       required this.width,
       required this.title,
-      required this.route});
+      required this.index,
+      required this.callback});
   @override
   // ignore: library_private_types_in_public_api
   _WeatherState createState() => _WeatherState();
@@ -54,7 +56,7 @@ class _WeatherState extends State<Weather> {
             });
 
             // Apri una nuova pagina
-            Navigator.pushNamed(context, widget.route);
+            widget.callback(widget.index);
           },
           onTapCancel: () {
             // Funzione chiamata se l'utente annulla la pressione (ad esempio, scorrendo il dito via dal widget)

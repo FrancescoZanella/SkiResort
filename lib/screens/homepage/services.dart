@@ -4,8 +4,10 @@ import 'package:ski_resorts_app/widgets/button.dart';
 import 'package:ski_resorts_app/widgets/card.dart';
 import 'package:ski_resorts_app/widgets/weathercard.dart';
 
+// ignore: must_be_immutable
 class Services extends StatelessWidget {
-  const Services({super.key});
+  Function callback;
+  Services({required this.callback, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,8 @@ class Services extends StatelessWidget {
                   width: 165.0,
                   height: 180.0,
                   image: 'lib/assets/images/Statistics.jpg',
-                  route: '/SkiResortScreen',
+                  index: 0,
+                  callback: callback,
                 )),
             Positioned(
                 top: 20,
@@ -69,7 +72,8 @@ class Services extends StatelessWidget {
                   width: 165.0,
                   height: 210.0,
                   image: 'lib/assets/images/favourites.jpg',
-                  route: '/FavoritesScreen',
+                  index: 4,
+                  callback: callback,
                 )),
             Positioned(
                 top: 210,
@@ -80,7 +84,8 @@ class Services extends StatelessWidget {
                   height: 170.0,
                   image:
                       'lib/assets/images/22702455-statistica-icona-con-colorato-piatto-stile-isolato-su-bianca-sfondo-vettoriale.jpg',
-                  route: '/StatisticsScreen',
+                  index: 1,
+                  callback: callback,
                 )),
             Positioned(
                 top: 244,
@@ -89,6 +94,8 @@ class Services extends StatelessWidget {
                   title: 'Weather',
                   width: 165.0,
                   height: 140.0,
+                  index: 2,
+                  callback: callback,
                   route: '/WeatherScreen',
                 )),
           ],

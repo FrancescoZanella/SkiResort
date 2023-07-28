@@ -13,7 +13,7 @@ class CustomTopNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35, // set the desired height for the navigation bar
+      height: 55, // set the desired height for the navigation bar
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
