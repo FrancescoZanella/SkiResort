@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:ski_resorts_app/old_screens/settings/rate_our_app_screen/user_rating.dart';
+import 'package:ski_resorts_app/screens/settings/rate_our_app_screen/user_rating.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 final url = Uri.https(

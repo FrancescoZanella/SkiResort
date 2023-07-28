@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ski_resorts_app/old_screens/settings/logout_logic/logout_functions.dart';
+import 'package:ski_resorts_app/screens/settings/logout_logic/logout_functions.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;

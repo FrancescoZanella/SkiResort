@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'logout_logic/list_tiles_setting.dart';
 import './single_section_setting.dart';
-import 'package:ski_resorts_app/old_screens/settings/theme_notifier.dart';
+import 'package:ski_resorts_app/screens/settings/theme_notifier.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);

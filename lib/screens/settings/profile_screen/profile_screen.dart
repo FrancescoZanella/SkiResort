@@ -2,9 +2,9 @@
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ski_resorts_app/old_screens/settings/profile_screen/edit_user_data_functions.dart';
+import 'package:ski_resorts_app/screens/settings/profile_screen/edit_user_data_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ski_resorts_app/old_screens/settings/profile_screen/image_profile_handler_function.dart';
+import 'package:ski_resorts_app/screens/settings/profile_screen/image_profile_handler_function.dart';
 
 class ProfilePageScreen extends StatefulWidget {
   const ProfilePageScreen({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
-import 'package:ski_resorts_app/old_screens/settings/profile_screen/functions_for_firebase.dart';
+import 'package:ski_resorts_app/screens/settings/profile_screen/functions_for_firebase.dart';
 
 void editInformation(BuildContext context, String field, String currentValue,
     UserModel userModel, String userId) {

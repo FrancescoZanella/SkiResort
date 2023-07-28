@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../old_screens/statistics/user_statistic_screen.dart';
+import 'package:ski_resorts_app/screens/statistics/main_stats.dart';
 
 // ignore: must_be_immutable
 class Button extends StatelessWidget {
@@ -27,7 +26,7 @@ class Button extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const StatisticsScreen()),
+          MaterialPageRoute(builder: (context) => const MainStats()),
         );
       },
       child: InkWell(
