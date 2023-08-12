@@ -13,7 +13,7 @@ import '../models/dailyWeather.dart';
 import '../models/weather.dart';
 
 class WeatherProvider with ChangeNotifier {
-  String apiKey = 'e0dc173466386edf1e5e90c89f9b2abe';
+  String apiKey = '857494570556acfd02175272d130da65';
   LatLng? currentLocation;
   Weather? weather;
   DailyWeather currentWeather = DailyWeather();
@@ -98,7 +98,7 @@ class WeatherProvider with ChangeNotifier {
 
   Future<void> getCurrentWeather(LatLng location) async {
     Uri url = Uri.parse(
-      'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=$apiKey',
+      'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&units=metric&appid=$apiKey',
     );
     try {
       final response = await http.get(url);
@@ -121,7 +121,7 @@ class WeatherProvider with ChangeNotifier {
     notifyListeners();
 
     Uri dailyUrl = Uri.parse(
-      'https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&units=metric&exclude=minutely,current&appid=$apiKey',
+      'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=857494570556acfd02175272d130da65',
     );
     try {
       final response = await http.get(dailyUrl);

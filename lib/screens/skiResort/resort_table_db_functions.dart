@@ -18,7 +18,12 @@ class GetResorts {
         resort.skiResortId = key;
         resorts.add(resort);
       });
-      return resorts;
+
+      // Sort resorts based on skiResortRating in descending order
+      resorts.sort((a, b) => b.skiResortRating.compareTo(a.skiResortRating));
+
+      // If there are more than 10 resorts, take the top 10. Otherwise, return all resorts.
+      return resorts.length > 10 ? resorts.sublist(0, 10) : resorts;
     } else {
       throw Exception('Failed to load resorts');
     }

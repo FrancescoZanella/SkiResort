@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:ski_resorts_app/screens/favorites/favorite_elements.dart';
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_database/firebase_database.dart';
 
 // Create a global key for the widget; in this way i can get the image of the widget
 
@@ -16,6 +17,8 @@ class FavoriteWidget {
     WidgetsToImageController controller = WidgetsToImageController();
     // Create a random integer for the hero tag
     int heroTag = Random().nextInt(1 << 32);
+    final DatabaseReference favoritesRef =
+        FirebaseDatabase.instance.ref().child('favorites-resort-table');
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
@@ -185,7 +188,22 @@ class FavoriteWidget {
                     ),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Implement your logic here
+                        // Delete the favorite resort from the database
+                        if (favorite.skiResortFavoriteId != null) {
+                          // Assuming each favorite has an 'id'
+                          favoritesRef
+                              .child(favorite.skiResortFavoriteId!)
+                              .remove()
+                              .then((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Removed from favorites!')));
+                          }).catchError((error) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text('Error removing favorite: $error')));
+                          });
+                        }
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(EdgeInsets.zero),

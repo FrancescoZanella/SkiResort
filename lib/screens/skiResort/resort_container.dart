@@ -223,6 +223,28 @@ class _ResortContainerState extends State<ResortContainer>
                     });
                     widget.onFavouriteButtonPressed;
                     _controller.forward();
+
+                    //check if the user already has the resort in favorites, if yes don't add it again
+                    final getResponse = await http.get(url);
+                    if (getResponse.statusCode == 200) {
+                      Map<String, dynamic>? data =
+                          json.decode(getResponse.body);
+
+                      if (data != null && data['resorts'] != null) {
+                        List<dynamic> resorts = data['resorts'];
+
+                        for (var resort in resorts) {
+                          if (resort['userId'] == userId &&
+                              resort['skiResortId'] == widget.skiResortId) {
+                            setState(() {
+                              isFavorite = true;
+                            });
+                            return; // exit the function early to avoid making the post request
+                          }
+                        }
+                      }
+                    }
+
                     // post request to insert the resort into the favorites table
                     final postResponse = await http.post(
                       url,

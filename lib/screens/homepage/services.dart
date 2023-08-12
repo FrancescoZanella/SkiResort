@@ -68,7 +68,7 @@ class Services extends StatelessWidget {
                 top: 20,
                 right: 20,
                 child: MyCard(
-                  title: 'Favourites',
+                  title: 'Favorites',
                   width: 165.0,
                   height: 210.0,
                   image: 'lib/assets/images/favourites.jpg',

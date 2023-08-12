@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -5,13 +6,21 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final url = Uri.https(
+final resortTableUrl = Uri.https(
   'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
   '/resorts-table.json',
 );
 
+final resortReviewsUrl = Uri.https(
+  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+  '/resorts-reviews.json',
+);
+
 class SummaryResort {
+  String? skiResortId;
   final String skiResortName;
   double skiResortRating;
   final String totalSkiSlopes;
@@ -22,6 +31,7 @@ class SummaryResort {
   int numberOfReviews;
 
   SummaryResort({
+    required this.skiResortId,
     required this.skiResortName,
     required this.skiResortRating,
     required this.totalSkiSlopes,
@@ -32,17 +42,26 @@ class SummaryResort {
     required this.numberOfReviews,
   });
 
-  factory SummaryResort.fromJson(Map<String, dynamic> json) {
-    return SummaryResort(
-      skiResortName: json['skiResortName'],
-      skiResortRating: double.parse(json['skiResortRating']),
-      totalSkiSlopes: json['totalSkiSlopes'],
-      skiPassCost: json['skiPassCost'],
-      skiResortElevation: json['skiResortElevation'],
-      skiResortLatitude: double.parse(json['skiResortLatitude']),
-      skiResortLongitude: double.parse(json['skiResortLongitude']),
-      numberOfReviews: json['numberOfReviews'],
-    );
+  factory SummaryResort.fromJson(Map<String, dynamic> json, String id) {
+    try {
+      return SummaryResort(
+        skiResortId: id,
+        skiResortName: json['skiResortName'],
+        skiResortRating: double.parse(json['skiResortRating']),
+        totalSkiSlopes: json['totalSkiSlopes'],
+        skiPassCost: json['skiPassCost'],
+        skiResortElevation: json['skiResortElevation'],
+        skiResortLatitude: double.parse(json['skiResortLatitude']),
+        skiResortLongitude: double.parse(json['skiResortLongitude']),
+        numberOfReviews: json['numberOfReviews'],
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error creating Resort from JSON: $e');
+        print('JSON object was: $json');
+      }
+      rethrow;
+    }
   }
 }
 
@@ -57,6 +76,14 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
   bool _showInfoCard = false;
   SummaryResort? _selectedResort;
   List<SummaryResort>? skiResorts;
+  String? userId;
+
+  // Get the user id from the shared preferences
+  Future<String?> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+    return userId;
+  }
 
   @override
   void initState() {
@@ -64,15 +91,19 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
     getResorts().then((resorts) => setState(() {
           skiResorts = resorts;
         }));
+    getUserId().then((id) => setState(() {
+          userId = id;
+        }));
   }
 
   Future<List<SummaryResort>> getResorts() async {
-    final response = await http.get(url);
+    final response = await http.get(resortTableUrl);
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
       List<SummaryResort> resorts = [];
       jsonResponse.forEach((key, value) {
-        resorts.add(SummaryResort.fromJson(value));
+        SummaryResort resort = SummaryResort.fromJson(value, key);
+        resorts.add(resort);
       });
       return resorts;
     } else {
@@ -83,7 +114,7 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
   @override
   Widget build(BuildContext context) {
     Future<double?> showRatingDialog(BuildContext context) async {
-      double? rating = 0.0;
+      double? skiResortRating = 0.0;
       return showDialog<double>(
         context: context,
         builder: (BuildContext context) {
@@ -101,7 +132,7 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
                 color: Colors.amber,
               ),
               onRatingUpdate: (r) {
-                rating = r;
+                skiResortRating = r;
               },
             ),
             actions: <Widget>[
@@ -113,8 +144,114 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
               ),
               TextButton(
                 child: const Text('Submit'),
-                onPressed: () {
-                  Navigator.of(context).pop(rating);
+                onPressed: () async {
+                  int totalReviews = _selectedResort!.numberOfReviews;
+                  double currentRating = _selectedResort!.skiResortRating;
+                  double newRating = 0.0;
+                  String newRatingString = '';
+                  String reviewId = '';
+
+                  // Create a reference to the specific resort entry
+                  final DatabaseReference resortRefResortTable =
+                      FirebaseDatabase.instance
+                          .ref()
+                          .child('resorts-table')
+                          .child(_selectedResort!.skiResortId!);
+
+                  // Create a reference to the specific review user entry
+                  final DatabaseReference resortRefResortReviews =
+                      FirebaseDatabase.instance
+                          .ref()
+                          .child('resorts-reviews')
+                          .child(reviewId);
+
+                  // control if the user has already reviewed this resort
+                  final response = await http.get(resortReviewsUrl);
+                  if (response.statusCode == 200) {
+                    Map<String, dynamic>? jsonResponse =
+                        json.decode(response.body);
+                    if (jsonResponse != null) {
+                      jsonResponse.forEach((key, value) async {
+                        if (value['userId'] == userId) {
+                          if (value['skiResortId'] ==
+                              _selectedResort!.skiResortId) {
+                            reviewId = key;
+                            // just modify the rating in the resort table
+                            newRating = (currentRating * totalReviews -
+                                    value['skiResortRating'] +
+                                    skiResortRating!) /
+                                totalReviews;
+
+                            // update the rating in the firebase realtime database
+                            await resortRefResortReviews.update({
+                              'skiResortRating': newRating.toStringAsFixed(2),
+                            });
+                          }
+                        } else {
+                          // add a new review made by the user on this resort and modify the rating in the resort table
+                          newRating = (currentRating * totalReviews +
+                                  skiResortRating!) /
+                              (totalReviews + 1);
+
+                          totalReviews++;
+
+                          // create a new review entry in the firebase realtime database with post request
+                          await http.post(
+                            resortReviewsUrl,
+                            headers: {'Content-Type': 'application/json'},
+                            body: json.encode(
+                              {
+                                'userId': userId,
+                                'skiResortId': _selectedResort!.skiResortId,
+                                'skiResortRating': skiResortRating,
+                              },
+                            ),
+                          );
+                        }
+                      });
+                    } else {
+                      // add a new review made by the user on this resort and modify the rating in the resort table
+                      newRating =
+                          (currentRating * totalReviews + skiResortRating!) /
+                              (totalReviews + 1);
+
+                      totalReviews++;
+
+                      // create a new review entry in the firebase realtime database with post request
+                      await http.post(
+                        resortReviewsUrl,
+                        headers: {'Content-Type': 'application/json'},
+                        body: json.encode(
+                          {
+                            'userId': userId,
+                            'skiResortId': _selectedResort!.skiResortId,
+                            'skiResortRating': skiResortRating,
+                          },
+                        ),
+                      );
+                    }
+                  } else {
+                    throw Exception('Failed to load resort ratings');
+                  }
+
+                  newRating = double.parse(newRating.toStringAsFixed(2));
+
+                  // newRating now is a double; must became a string to be stored in the database
+                  newRatingString = newRating.toString();
+
+                  // update the resort entries in the firebase realtime database
+                  await resortRefResortTable
+                      .update({"numberOfReviews": totalReviews});
+                  await resortRefResortTable
+                      .update({"skiResortRating": newRatingString});
+
+                  if (mounted) {
+                    setState(() {
+                      _selectedResort!.numberOfReviews = totalReviews;
+                      _selectedResort!.skiResortRating = newRating;
+                    });
+                    Navigator.of(context).pop(newRating);
+                  }
                 },
               ),
             ],

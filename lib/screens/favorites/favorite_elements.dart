@@ -8,7 +8,7 @@ final favoriteUrl = Uri.https(
 );
 
 class Favorite {
-  String skiResortFavoriteId;
+  String? skiResortFavoriteId;
   final String skiResortUrl;
   final String skiResortName;
   final String skiResortDescription;
@@ -38,14 +38,14 @@ class Favorite {
     required this.skiLiftsNumber,
   });
 
-  factory Favorite.fromJson(Map<String, dynamic> json) {
+  factory Favorite.fromJson(Map<String, dynamic> json, String id) {
     return Favorite(
-      skiResortFavoriteId: json['skiResortFavoriteId'],
-      skiResortUrl: json['skiResortUrl'],
+      skiResortFavoriteId: id,
+      skiResortUrl: json['skiResortLink'],
       skiResortName: json['skiResortName'],
       skiResortDescription: json['skiResortDescription'],
       imageLink: json['imageLink'],
-      skiResortRating: double.parse(json['skiResortRating']),
+      skiResortRating: json['skiResortRating'],
       totalSkiSlopes: json['totalSkiSlopes'],
       blueSkiSlopes: json['blueSkiSlopes'],
       redSkiSlopes: json['redSkiSlopes'],
@@ -60,25 +60,23 @@ class Favorite {
 Future<List<Favorite>> fetchFavorites() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? userId = prefs.getString('userId') ?? '';
-  //print: the user is: $userId
   final response = await http.get(favoriteUrl);
   if (response.statusCode == 200) {
     Map<String, dynamic>? data = json.decode(response.body);
-    if (data == null) {
-      return [];
-    }
     List<Favorite> favorites = [];
 
-    data.forEach((key, value) {
-      if (value['userId'] == userId) {
-        Favorite favorite = Favorite.fromJson(value);
-        favorite.skiResortFavoriteId = key;
-        favorites.add(favorite);
-      }
-    });
-
-    return favorites;
+    if (data != null) {
+      data.forEach((key, value) {
+        if (value['userId'] == userId) {
+          Favorite favorite = Favorite.fromJson(value, key);
+          favorites.add(favorite);
+        }
+      });
+      return favorites;
+    } else {
+      throw Exception('Failed to load favorites');
+    }
   } else {
-    throw Exception('Failed to load favorites');
+    throw Exception('Failed to fetch resorts');
   }
 }

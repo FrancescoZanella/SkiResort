@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_list.dart';
 import 'package:ski_resorts_app/screens/skiResort/resort_table_db_functions.dart';
 
-final url2 = Uri.https(
-  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
-  '/favorites-resort-table.json',
-);
-
 class MostPopularResortPage extends StatefulWidget {
   const MostPopularResortPage({Key? key}) : super(key: key);
 

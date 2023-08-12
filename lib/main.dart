@@ -9,10 +9,21 @@ import 'app_routes.dart';
 import 'package:ski_resorts_app/screens/builder.dart';
 import 'package:ski_resorts_app/screens/check_user_login_status.dart';
 import 'package:ski_resorts_app/screens/weather/provider/weatherProvider.dart';
-import 'package:ski_resorts_app/screens/weather/Screens/hourlyWeatherScreen.dart';
-import 'package:ski_resorts_app/screens/weather/Screens/weeklyWeatherScreen.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 void main() async {
+  AwesomeNotifications().initialize(
+    null, // default icon, can be set here
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests',
+        defaultColor: const Color(0xFF9D50DD),
+        ledColor: Colors.white,
+      ),
+    ],
+  );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -43,11 +54,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'SkiResorts',
-            routes: {
-              ...routes,
-              WeeklyScreen.routeName: (myCtx) => const WeeklyScreen(),
-              HourlyScreen.routeName: (myCtx) => const HourlyScreen(),
-            },
+            routes: routes,
             theme: themeNotifier.darkTheme
                 ? ThemeData(
                     textTheme: const TextTheme(

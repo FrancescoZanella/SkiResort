@@ -26,11 +26,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               },
             );
           } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            return const Center(
+              // Added Center widget here
+              child: Text('There are no favorites yet!'),
+            );
           }
 
           // By default, show a loading spinner.
-          return const CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );
