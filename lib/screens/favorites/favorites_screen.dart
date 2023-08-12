@@ -22,20 +22,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               itemCount: favorites.length,
               itemBuilder: (context, index) {
                 final favorite = favorites[index];
-                return FavoriteWidget.favoriteWidget(favorite, context);
+                return FavoriteWidget.favoriteWidget(favorite, context, () {
+                  setState(() {
+                    favorites.removeAt(
+                        index); // Remove the favorite from the list and update the state
+                  });
+                });
               },
             );
           } else if (snapshot.hasError) {
-            return const Center(
-              // Added Center widget here
-              child: Text('There are no favorites yet!'),
-            );
+            return const Center(child: Text('There are no favorites'));
           }
-
-          // By default, show a loading spinner.
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

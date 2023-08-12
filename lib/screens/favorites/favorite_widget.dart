@@ -12,7 +12,8 @@ import 'package:firebase_database/firebase_database.dart';
 // Create a global key for the widget; in this way i can get the image of the widget
 
 class FavoriteWidget {
-  static Widget favoriteWidget(Favorite favorite, context) {
+  static Widget favoriteWidget(
+      Favorite favorite, BuildContext context, VoidCallback onFavoriteRemoved) {
     // Create an instance of WidgetsToImageController
     WidgetsToImageController controller = WidgetsToImageController();
     // Create a random integer for the hero tag
@@ -198,6 +199,7 @@ class FavoriteWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text('Removed from favorites!')));
+                            onFavoriteRemoved();
                           }).catchError((error) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content:
