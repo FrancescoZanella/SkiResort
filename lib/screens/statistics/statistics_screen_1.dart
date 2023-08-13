@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:location/location.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class RunData {
   final String formattedTime;
