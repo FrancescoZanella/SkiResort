@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/screens/user_data_model.dart';
 
+// ignore: must_be_immutable
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
 
@@ -114,10 +115,20 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   Transform(
                     transform: Matrix4.rotationY(math.pi),
                     alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.sort_rounded,
-                      color: Colors.white,
-                      size: 30.0,
+                    child: GestureDetector(
+                      child: const Icon(
+                        Icons.sort_rounded,
+                        color: Colors.white,
+                        size: 30.0,
+                      ),
+                      onTap: () {
+                        //index
+
+                        Navigator.pushNamed(
+                          context,
+                          '/SettingsPage',
+                        );
+                      },
                     ),
                   )
                 ],

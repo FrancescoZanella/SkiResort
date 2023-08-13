@@ -41,6 +41,7 @@ class Services extends StatelessWidget {
               child: Button(
                   color: ColorConstants.orange,
                   icon: Icons.play_arrow,
+                  callback: callback,
                   key: key),
             ),
           ],
