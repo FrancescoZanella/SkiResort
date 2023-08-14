@@ -117,7 +117,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     alignment: Alignment.center,
                     child: GestureDetector(
                       child: const Icon(
-                        Icons.sort_rounded,
+                        Icons.settings,
                         color: Colors.white,
                         size: 30.0,
                       ),
