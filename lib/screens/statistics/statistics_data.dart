@@ -60,16 +60,17 @@ Future<List<RunData>> getStats(String useriD) async {
       // if the stat is one of the user
       if (stat['userid'] == prefs.getString('userId')) {
         //add the stats to the list
-        List<double> doubles = [];
+        var points = stat['speedPoints'];
         RunData r = RunData(
-            latitude: stat['latitude'],
-            longitude: stat['longitude'],
-            date: stat['date'],
-            formattedTime: stat['duration'],
-            averageSpeed: stat['averageSpeed'],
-            maxSpeed: stat['maxSpeed'],
-            distanceInMeters: stat['distance'],
-            speedDataPoints: doubles);
+          latitude: stat['latitude'],
+          longitude: stat['longitude'],
+          date: stat['date'],
+          formattedTime: stat['duration'],
+          averageSpeed: stat['averageSpeed'],
+          maxSpeed: stat['maxSpeed'],
+          distanceInMeters: stat['distance'],
+          speedDataPoints: List<double>.from(points),
+        );
         list.add(r);
       }
     }
