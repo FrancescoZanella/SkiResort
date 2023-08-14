@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 class RunData {
+  final double? latitude;
+  final double? longitude;
+  final String date;
   final String formattedTime;
   final double averageSpeed;
   final double maxSpeed;
@@ -12,6 +17,9 @@ class RunData {
   final List<double> speedDataPoints;
 
   RunData({
+    required this.latitude,
+    required this.longitude,
+    required this.date,
     required this.formattedTime,
     required this.averageSpeed,
     required this.maxSpeed,
@@ -38,6 +46,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
   double _averageSpeed = 0;
   double _maxSpeed = 0;
   final List<double> _speedDataPoints = [];
+  GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
 
   void _startStopwatch() async {
     setState(() {
@@ -55,9 +64,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
           LocationData currentLocation = await location.getLocation();
           double distanceInMeters =
               await _calculateDistance(_lastLocation!, currentLocation);
-          setState(() {
-            _distanceInMeters += distanceInMeters;
-          });
 
           // Calculate current speed
           double elapsedTimeInSeconds = _stopwatch.elapsed.inSeconds.toDouble();
@@ -80,6 +86,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
           setState(() {
             _averageSpeed = averageSpeed;
             _maxSpeed = currentMaxSpeed;
+            _distanceInMeters += distanceInMeters;
           });
         }
         _lastLocation = await location.getLocation();
@@ -93,9 +100,11 @@ class _StopwatchPageState extends State<StopwatchPage> {
         _isRunning = false;
         _stopwatch.stop();
         _timer?.cancel();
-
         _runDataList.add(
           RunData(
+            latitude: _lastLocation!.latitude,
+            longitude: _lastLocation!.longitude,
+            date: DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now()),
             formattedTime: TimerUtil.formatTime(_stopwatch.elapsed),
             averageSpeed: _averageSpeed,
             maxSpeed: _maxSpeed,
@@ -104,6 +113,8 @@ class _StopwatchPageState extends State<StopwatchPage> {
                 List.from(_speedDataPoints), // Copy the speed data points
           ),
         );
+        //here add the method
+        //savesingletraining();
       });
     } else {
       _resetStopwatch();
@@ -137,6 +148,15 @@ class _StopwatchPageState extends State<StopwatchPage> {
     double distanceInKm = distanceInMeters / 1000;
     double elapsedTimeInHours = elapsedTimeInSeconds / (60 * 60);
     return distanceInKm / elapsedTimeInHours;
+  }
+
+  Future<void> _openInGoogleMaps(double? latitude, double? longitude) async {
+    final availableMaps = await MapLauncher.installedMaps;
+
+    await availableMaps.first.showMarker(
+      coords: Coords(latitude!, longitude!),
+      title: "Location",
+    );
   }
 
   @override
@@ -209,6 +229,19 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                     'Average Speed: ${data.averageSpeed.toStringAsFixed(2)} km/h'),
                                 Text(
                                     'Max Speed: ${data.maxSpeed.toStringAsFixed(2)} km/h'),
+                                Text('Date: ${data.date}'),
+                                const Text("View Position on: "),
+                                GestureDetector(
+                                  onTap: () {
+                                    _openInGoogleMaps(
+                                        data.latitude, data.longitude);
+                                  },
+                                  child: const Text('Google Maps',
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          decoration:
+                                              TextDecoration.underline)),
+                                )
                               ],
                             ),
                             trailing: SizedBox(
