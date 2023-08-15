@@ -188,135 +188,128 @@ class _StopwatchPageState extends State<StopwatchPage> {
           double speedKmPerHour =
               calculateSpeed(_distanceInMeters, elapsedTimeInSeconds);
 
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Stopwatch'),
-            ),
-            body: Container(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    formattedTime,
-                    style: const TextStyle(
-                        fontSize: 48, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Speed: ${speedKmPerHour.toStringAsFixed(2)} km/h',
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  Text(
-                    'Distance: ${(_distanceInMeters.toStringAsFixed(2))} m', // Modified line
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: _isRunning ? null : _startStopwatch,
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue),
-                        child:
-                            const Text('Start', style: TextStyle(fontSize: 18)),
-                      ),
-                      ElevatedButton(
-                        onPressed: _stopStopwatch,
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red),
-                        child: Text(_isRunning ? 'Stop' : 'Reset',
-                            style: const TextStyle(fontSize: 18)),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                  if (_runDataList.isNotEmpty)
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _runDataList.length,
-                        itemBuilder: (context, index) {
-                          var data = _runDataList[index];
-                          return Card(
-                            elevation: 2,
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            child: ExpansionTile(
-                              title: Text(
-                                  'Time: ${data.formattedTime}, Average Speed: ${data.averageSpeed.toStringAsFixed(2)} km/h'),
-                              children: [
-                                ListTile(
-                                  title: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          'Distance: ${data.distanceInMeters.toStringAsFixed(2)} m'),
-                                      Text(
-                                          'Average Speed: ${data.averageSpeed.toStringAsFixed(2)} km/h'),
-                                      Text(
-                                          'Max Speed: ${data.maxSpeed.toStringAsFixed(2)} km/h'),
-                                      Text('Date: ${data.date}'),
-                                      const Text("View Position on: "),
-                                      GestureDetector(
-                                        onTap: () {
-                                          _openInGoogleMaps(
-                                              data.latitude, data.longitude);
-                                        },
-                                        child: const Text('Google Maps',
-                                            style: TextStyle(
-                                                color: Colors.blue,
-                                                decoration:
-                                                    TextDecoration.underline)),
-                                      )
-                                    ],
-                                  ),
-                                  trailing: SizedBox(
-                                    width: 120,
-                                    height: 180,
-                                    child: LineChart(
-                                      LineChartData(
-                                        gridData: const FlGridData(show: false),
-                                        titlesData:
-                                            const FlTitlesData(show: false),
-                                        borderData: FlBorderData(show: true),
-                                        minX: 0,
-                                        maxX: data.speedDataPoints.length
-                                                .toDouble() -
-                                            1,
-                                        minY: -0.01,
-                                        maxY: data.maxSpeed * 1.2,
-                                        lineBarsData: [
-                                          LineChartBarData(
-                                            spots: data.speedDataPoints
-                                                .asMap()
-                                                .entries
-                                                .map((entry) {
-                                              int index = entry.key;
-                                              double speed = entry.value;
-                                              return FlSpot(
-                                                  index.toDouble(), speed);
-                                            }).toList(),
-                                            isCurved: true,
-                                            color: Colors.blue,
-                                            dotData:
-                                                const FlDotData(show: false),
-                                            belowBarData:
-                                                BarAreaData(show: false),
-                                          ),
-                                        ],
-                                      ),
+          return Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  formattedTime,
+                  style: const TextStyle(
+                      fontSize: 48, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Speed: ${speedKmPerHour.toStringAsFixed(2)} km/h',
+                  style: const TextStyle(fontSize: 24),
+                ),
+                Text(
+                  'Distance: ${(_distanceInMeters.toStringAsFixed(2))} m', // Modified line
+                  style: const TextStyle(fontSize: 24),
+                ),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _isRunning ? null : _startStopwatch,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue),
+                      child:
+                          const Text('Start', style: TextStyle(fontSize: 18)),
+                    ),
+                    ElevatedButton(
+                      onPressed: _stopStopwatch,
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      child: Text(_isRunning ? 'Stop' : 'Reset',
+                          style: const TextStyle(fontSize: 18)),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 40),
+                if (_runDataList.isNotEmpty)
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: _runDataList.length,
+                      itemBuilder: (context, index) {
+                        var data = _runDataList[index];
+                        return Card(
+                          elevation: 2,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          child: ExpansionTile(
+                            title: Text(
+                                'Time: ${data.formattedTime}, Average Speed: ${data.averageSpeed.toStringAsFixed(2)} km/h'),
+                            children: [
+                              ListTile(
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        'Distance: ${data.distanceInMeters.toStringAsFixed(2)} m'),
+                                    Text(
+                                        'Average Speed: ${data.averageSpeed.toStringAsFixed(2)} km/h'),
+                                    Text(
+                                        'Max Speed: ${data.maxSpeed.toStringAsFixed(2)} km/h'),
+                                    Text('Date: ${data.date}'),
+                                    const Text("View Position on: "),
+                                    GestureDetector(
+                                      onTap: () {
+                                        _openInGoogleMaps(
+                                            data.latitude, data.longitude);
+                                      },
+                                      child: const Text('Google Maps',
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              decoration:
+                                                  TextDecoration.underline)),
+                                    )
+                                  ],
+                                ),
+                                trailing: SizedBox(
+                                  width: 120,
+                                  height: 180,
+                                  child: LineChart(
+                                    LineChartData(
+                                      gridData: const FlGridData(show: false),
+                                      titlesData:
+                                          const FlTitlesData(show: false),
+                                      borderData: FlBorderData(show: true),
+                                      minX: 0,
+                                      maxX: data.speedDataPoints.length
+                                              .toDouble() -
+                                          1,
+                                      minY: -0.01,
+                                      maxY: data.maxSpeed * 1.2,
+                                      lineBarsData: [
+                                        LineChartBarData(
+                                          spots: data.speedDataPoints
+                                              .asMap()
+                                              .entries
+                                              .map((entry) {
+                                            int index = entry.key;
+                                            double speed = entry.value;
+                                            return FlSpot(
+                                                index.toDouble(), speed);
+                                          }).toList(),
+                                          isCurved: true,
+                                          color: Colors.blue,
+                                          dotData: const FlDotData(show: false),
+                                          belowBarData:
+                                              BarAreaData(show: false),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
           );
         });
