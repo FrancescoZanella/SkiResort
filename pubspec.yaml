@@ -134,6 +134,7 @@ flutter:
     - lib\assets\logo\logo.png
     - lib\assets\logo\facebook_logo.png
     - lib\assets\logo\google_logo.svg.png
+    - lib\assets\icons\output.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
