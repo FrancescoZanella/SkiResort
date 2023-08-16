@@ -75,6 +75,49 @@ Future<List<RunData>> getStats(String useriD) async {
     }
     return list;
   } else {
+    // If the server returns an error, handle i
+    throw Exception("error");
+  }
+}
+
+Future<RunData> getBestStat(String useriD) async {
+  final response = await http.get(url);
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> stats = jsonDecode(response.body);
+    double maxspeed = 0;
+    RunData r = RunData(
+        latitude: 0,
+        longitude: 0,
+        date: "0",
+        formattedTime: "0",
+        averageSpeed: 0,
+        maxSpeed: 0,
+        distanceInMeters: 0,
+        speedDataPoints: []);
+    for (var entry in stats.entries) {
+      var stat = entry.value;
+      // if the stat is one of the user
+      if (stat['userid'] == prefs.getString('userId') &&
+          stat['maxSpeed'] > maxspeed) {
+        //add the stats to the list
+        var points = stat['speedPoints'];
+        r = RunData(
+          latitude: stat['latitude'],
+          longitude: stat['longitude'],
+          date: stat['date'],
+          formattedTime: stat['duration'],
+          averageSpeed: stat['averageSpeed'],
+          maxSpeed: stat['maxSpeed'],
+          distanceInMeters: stat['distance'],
+          speedDataPoints: List<double>.from(points),
+        );
+        maxspeed = stat['maxSpeed'];
+      }
+    }
+    return r;
+  } else {
     // If the server returns an error, handle it
     throw Exception('Failed to load user credentials');
   }

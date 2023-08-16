@@ -28,6 +28,18 @@ class RunData {
     required this.distanceInMeters,
     required this.speedDataPoints,
   });
+
+  String getmaxSpeed() {
+    return maxSpeed.toString();
+  }
+
+  String getTime() {
+    return formattedTime.toString();
+  }
+
+  String getDistance() {
+    return distanceInMeters.toString();
+  }
 }
 
 class TimerUtil {
@@ -359,7 +371,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                             TextStyle(color: Colors.black38)),
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
-                                          0.30,
+                                          0.25,
                                     ),
                                     Text(data.date,
                                         style: const TextStyle(
@@ -390,7 +402,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                     SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.065),
+                                                0.05),
                                     Text(
                                       textAlign: TextAlign.left,
                                       data.formattedTime,
@@ -401,7 +413,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                     SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.065),
+                                                0.045),
                                     Text(
                                       textAlign: TextAlign.left,
                                       "${data.averageSpeed.toStringAsFixed(2)}km/h",
