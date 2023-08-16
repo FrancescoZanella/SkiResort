@@ -228,7 +228,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 120,
+                height: 100,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20.0),
@@ -247,7 +247,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                           width: 10,
                         ),
                         const Text(
-                          "Your training",
+                          "Training",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 22,
@@ -258,23 +258,42 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     )),
               ),
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
-              Text(
-                formattedTime,
-                style:
-                    const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset('lib/assets/icons/clock.png',
+                      color: Colors.blue[50],
+                      height: MediaQuery.of(context).size.height *
+                          0.33), // Replace with your image path
+                  Positioned(
+                    top: 60,
+                    child: Text(
+                      formattedTime,
+                      style: const TextStyle(
+                          fontSize: 40, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Positioned(
+                    top: 115,
+                    child: Text(
+                      'Speed: ${speedKmPerHour.toStringAsFixed(2)} km/h',
+                      style:
+                          const TextStyle(fontSize: 24, color: Colors.black54),
+                    ),
+                  ),
+                  Positioned(
+                    top: 155,
+                    child: Text(
+                      'Distance: ${(_distanceInMeters.toStringAsFixed(2))} km', // Modified line
+                      style:
+                          const TextStyle(fontSize: 24, color: Colors.black54),
+                    ),
+                  )
+                ],
               ),
-              const SizedBox(height: 20),
-              Text(
-                'Speed: ${speedKmPerHour.toStringAsFixed(2)} km/h',
-                style: const TextStyle(fontSize: 24),
-              ),
-              Text(
-                'Distance: ${(_distanceInMeters.toStringAsFixed(2))} km', // Modified line
-                style: const TextStyle(fontSize: 24),
-              ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -283,7 +302,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: const CircleBorder(),
-                      minimumSize: const Size(60, 60),
+                      minimumSize: const Size(55, 55),
                     ),
                     child: const Icon(Icons.play_arrow,
                         size: 30), // Use the play icon
@@ -293,7 +312,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       shape: const CircleBorder(),
-                      minimumSize: const Size(60, 60),
+                      minimumSize: const Size(55, 55),
                     ),
                     child: _isRunning
                         ? const Icon(Icons.pause, size: 30)
