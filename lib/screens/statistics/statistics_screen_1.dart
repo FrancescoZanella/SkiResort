@@ -71,7 +71,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
   @override
   void initState() {
     super.initState();
-    // ogni volta che avvio pagina per la prima volta carico in _runDataList le stats tramite http
     _runDataList = _initializeRunDataList();
   }
 
@@ -143,7 +142,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
         RunData r = RunData(
           latitude: _lastLocation!.latitude,
           longitude: _lastLocation!.longitude,
-          date: DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now()),
+          date: DateFormat.yMMMMd('en_US').format(DateTime.now()),
           formattedTime: TimerUtil.formatTime(_stopwatch.elapsed),
           averageSpeed: _averageSpeed,
           maxSpeed: _maxSpeed,
@@ -180,7 +179,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
       end.latitude!,
       end.longitude!,
     );
-    return distanceInMeters;
+    return distanceInMeters / 1000;
   }
 
   double calculateSpeed(double distanceInMeters, double elapsedTimeInSeconds) {
@@ -229,15 +228,15 @@ class _StopwatchPageState extends State<StopwatchPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 150,
+                height: 120,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0)),
-                  color: Color.fromRGBO(12, 56, 177, 1),
+                  color: Colors.blue,
                 ),
                 child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.only(top: 25.0, left: 20),
                     child: Row(
                       children: [
                         Image.asset(
@@ -249,10 +248,17 @@ class _StopwatchPageState extends State<StopwatchPage> {
                         ),
                         const Text(
                           "Your training",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontFamily: "NotoSansKR",
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
                     )),
+              ),
+              const SizedBox(
+                height: 30,
               ),
               Text(
                 formattedTime,
@@ -265,7 +271,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                 style: const TextStyle(fontSize: 24),
               ),
               Text(
-                'Distance: ${(_distanceInMeters.toStringAsFixed(2))} m', // Modified line
+                'Distance: ${(_distanceInMeters.toStringAsFixed(2))} km', // Modified line
                 style: const TextStyle(fontSize: 24),
               ),
               const SizedBox(height: 40),
@@ -274,20 +280,27 @@ class _StopwatchPageState extends State<StopwatchPage> {
                 children: [
                   ElevatedButton(
                     onPressed: _isRunning ? null : _startStopwatch,
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                    child: const Text('Start', style: TextStyle(fontSize: 18)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: const CircleBorder(),
+                      minimumSize: const Size(60, 60),
+                    ),
+                    child: const Icon(Icons.play_arrow,
+                        size: 30), // Use the play icon
                   ),
                   ElevatedButton(
                     onPressed: _stopStopwatch,
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: Text(_isRunning ? 'Stop' : 'Reset',
-                        style: const TextStyle(fontSize: 18)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      shape: const CircleBorder(),
+                      minimumSize: const Size(60, 60),
+                    ),
+                    child: _isRunning
+                        ? const Icon(Icons.pause, size: 30)
+                        : const Icon(Icons.stop, size: 30),
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
               Expanded(
                 child: ListView.builder(
                   itemCount: (snapshot.data! + _addedList).length,
@@ -295,68 +308,209 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     var data = (snapshot.data! + _addedList)[index];
                     return Card(
                       elevation: 2,
+                      color: Colors.white, //.withOpacity(0.7),
                       margin: const EdgeInsets.symmetric(vertical: 8),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
                       child: ExpansionTile(
-                        title: Text(
-                            'Time: ${data.formattedTime}, Average Speed: ${data.averageSpeed.toStringAsFixed(2)} km/h'),
-                        children: [
-                          ListTile(
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    'Distance: ${data.distanceInMeters.toStringAsFixed(2)} m'),
-                                Text(
-                                    'Average Speed: ${data.averageSpeed.toStringAsFixed(2)} km/h'),
-                                Text(
-                                    'Max Speed: ${data.maxSpeed.toStringAsFixed(2)} km/h'),
-                                Text('Date: ${data.date}'),
-                                const Text("View Position on: "),
-                                GestureDetector(
-                                  onTap: () {
-                                    _openInGoogleMaps(
-                                        data.latitude, data.longitude);
-                                  },
-                                  child: const Text('Google Maps',
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          decoration:
-                                              TextDecoration.underline)),
-                                )
-                              ],
-                            ),
-                            trailing: SizedBox(
-                              width: 120,
-                              height: 180,
-                              child: LineChart(
-                                LineChartData(
-                                  gridData: const FlGridData(show: false),
-                                  titlesData: const FlTitlesData(show: false),
-                                  borderData: FlBorderData(show: true),
-                                  minX: 0,
-                                  maxX: data.speedDataPoints.length.toDouble() -
-                                      1,
-                                  minY: -0.01,
-                                  maxY: data.maxSpeed * 1.2,
-                                  lineBarsData: [
-                                    LineChartBarData(
-                                      spots: data.speedDataPoints
-                                          .asMap()
-                                          .entries
-                                          .map((entry) {
-                                        int index = entry.key;
-                                        double speed = entry.value;
-                                        return FlSpot(index.toDouble(), speed);
-                                      }).toList(),
-                                      isCurved: true,
-                                      color: Colors.blue,
-                                      dotData: const FlDotData(show: false),
-                                      belowBarData: BarAreaData(show: false),
-                                    ),
-                                  ],
+                        title: Row(
+                          children: [
+                            Container(
+                              width: 40,
+                              height: 40,
+                              decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Image.asset(
+                                  'lib/assets/icons/output.png',
+                                  height: 24, // Adjust the image size as needed
                                 ),
                               ),
                             ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.05),
+                                    const Text("Ski",
+                                        style:
+                                            TextStyle(color: Colors.black38)),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.30,
+                                    ),
+                                    Text(data.date,
+                                        style: const TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 15)),
+                                  ],
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.005),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.05),
+                                    Text(
+                                      textAlign: TextAlign.left,
+                                      data.distanceInMeters.toStringAsFixed(2),
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const Text(" km",
+                                        style:
+                                            TextStyle(color: Colors.black54)),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.065),
+                                    Text(
+                                      textAlign: TextAlign.left,
+                                      data.formattedTime,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.065),
+                                    Text(
+                                      textAlign: TextAlign.left,
+                                      "${data.averageSpeed.toStringAsFixed(2)}km/h",
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            height: 180,
+                            child: LineChart(
+                              LineChartData(
+                                gridData: const FlGridData(show: true),
+                                titlesData: const FlTitlesData(
+                                    leftTitles: AxisTitles(
+                                      axisNameWidget: Text("Km/h"),
+                                    ),
+                                    topTitles:
+                                        AxisTitles(axisNameWidget: Text("s"))),
+                                borderData: FlBorderData(show: false),
+                                minX: 0,
+                                maxX: data.speedDataPoints.length.toDouble(),
+                                minY: 0,
+                                maxY: data.maxSpeed * 1.2,
+                                lineBarsData: [
+                                  LineChartBarData(
+                                    spots: data.speedDataPoints
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      int index = entry.key;
+                                      double speed = entry.value;
+                                      return FlSpot(index.toDouble(), speed);
+                                    }).toList(),
+                                    isCurved: true,
+                                    color: Colors.black,
+                                    dotData: const FlDotData(show: false),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.1,
+                              ),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text("Training duration",
+                                        style:
+                                            TextStyle(color: Colors.black54)),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.003),
+                                    Text(data.formattedTime)
+                                  ]),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.03,
+                              ),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text("Average Speed",
+                                        style:
+                                            TextStyle(color: Colors.black54)),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.003),
+                                    Text(
+                                        '${data.averageSpeed.toStringAsFixed(2)} km/h')
+                                  ]),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.03,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text("Max Speed",
+                                      style: TextStyle(color: Colors.black54)),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.003),
+                                  Text(
+                                      '${data.maxSpeed.toStringAsFixed(2)} km/h')
+                                ],
+                              ),
+                            ],
+                            /*
+                              
+                            ],*/
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.003),
+                          Row(
+                            children: [
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.1),
+                              const Text("View Position on: "),
+                              GestureDetector(
+                                onTap: () {
+                                  _openInGoogleMaps(
+                                      data.latitude, data.longitude);
+                                },
+                                child: Image.asset(
+                                  'lib/assets/icons/noun-position-2115343.png',
+                                  height: 35,
+                                  color: Colors.blue,
+                                ),
+                              )
+                            ],
                           ),
                         ],
                       ),
@@ -369,115 +523,3 @@ class _StopwatchPageState extends State<StopwatchPage> {
         });
   }
 }
-
-
-          /**/
-
-
-
-/*
-grafica per il cronometro
-
-Scaffold(
-            backgroundColor: Color.fromRGBO(12, 56, 177, 1),
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Center(
-                      child: Text("Ski Runs",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    const Center(
-                        child: Text("00:00:00",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 82.0,
-                              fontWeight: FontWeight.w600,
-                            ))),
-                    Container(
-                        height: 400.0,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF323F68),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: ListView.builder(
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return const Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Ski run",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                      Text(
-                                        "boh",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                    ]));
-                          },
-                        )),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: RawMaterialButton(
-                            onPressed: () {},
-                            shape: const StadiumBorder(
-                              side: BorderSide(color: Colors.blue),
-                            ),
-                            child: const Text(
-                              "Start",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8.0),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.flag),
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 8.0),
-                        Expanded(
-                          child: RawMaterialButton(
-                            onPressed: () {},
-                            fillColor: Colors.blue,
-                            //shape: const StadiumBorder(),                             ),
-                            child: const Text(
-                              "Reset",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
-*/

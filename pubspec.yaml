@@ -135,6 +135,7 @@ flutter:
     - lib\assets\logo\facebook_logo.png
     - lib\assets\logo\google_logo.svg.png
     - lib\assets\icons\output.png
+    - lib\assets\icons\noun-position-2115343.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
