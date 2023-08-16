@@ -217,10 +217,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
             );
           }
           if (snapshot.hasError) {
-            return const Text("Error");
-          }
-          if (snapshot.data!.isEmpty) {
-            return const Text("Error");
+            return const Text("not found");
           }
 
           return Column(
