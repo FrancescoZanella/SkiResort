@@ -22,7 +22,6 @@ class UserModel extends ChangeNotifier {
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.avatarPath = avatarPath;
-    notifyListeners();
   }
 
   void updateField(String field, String newValue) async {
