@@ -77,10 +77,12 @@ dependencies:
   material_design_icons_flutter: ^6.0.7096
   supercharged: ^2.1.1
   intl: ^0.17.0
+  map_launcher: ^2.5.0+1
 
   line_icons: ^2.0.3
   badges: ^3.1.1
   location: ^4.3.0
+  wear: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -133,6 +135,9 @@ flutter:
     - lib\assets\logo\logo.png
     - lib\assets\logo\facebook_logo.png
     - lib\assets\logo\google_logo.svg.png
+    - lib\assets\icons\output.png
+    - lib\assets\icons\noun-position-2115343.png
+    - lib\assets\icons\clock.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

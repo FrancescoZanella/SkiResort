@@ -968,6 +968,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  map_launcher:
+    dependency: "direct main"
+    description:
+      name: map_launcher
+      sha256: "4db9f2878dd0764f476f613eda671b969084960b6ae81bf578699cfe03e58ce0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0+1"
   matcher:
     dependency: transitive
     description:
@@ -1634,6 +1642,14 @@ packages:
     description:
       name: watcher
       sha256: "3d2ad6751b3c16cf07c7fca317a1413b3f26530319181b37e3b9039b84fc01d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
+  wear:
+    dependency: "direct main"
+    description:
+      name: wear
+      sha256: b8aa77aff3351d301561a665d94416ed929dfa69ab898c5255d19f4a478eb27a
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
