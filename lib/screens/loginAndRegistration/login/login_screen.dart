@@ -1,12 +1,20 @@
 import 'package:flutter/gestures.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ski_resorts_app/screens/builder.dart';
 // ignore: unused_import
 import 'package:ski_resorts_app/screens/loginAndRegistration/login/data_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ski_resorts_app/screens/loginAndRegistration/registration/registration_screen.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../APIloginAndSignin/facebook_auth.dart';
 import '../APIloginAndSignin/google_auth.dart';
+
+final url = Uri.https(
+  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+  '/user-table.json',
+);
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -362,9 +370,68 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
           color: Colors.transparent,
           child: InkWell(
               onTap: () async {
-                /* QUELLO CHE FA QUANDO VIENE SCHIACCIATO IL LOGIN*/
-                // TODO
-                /*QUESTA PARTE VA CORRETTA*/
+                final getResponse = await http.get(url);
+                // Flag to check if the user already exists
+                bool userExists = false;
+
+                //now  i check if there is a user with the same email and password
+                if (getResponse.statusCode == 200) {
+                  final decodedResponse =
+                      json.decode(getResponse.body) as Map<String, dynamic>;
+                  for (var entry in decodedResponse.entries) {
+                    var user = entry.value;
+
+                    if (user['email'] == email &&
+                        user['password'] == password) {
+                      userExists = true;
+                      // Save the user's data to shared preferences
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setBool('isLoggedIn', true);
+                      await prefs.setString(
+                          'userId', jsonDecode(getResponse.body)['name']);
+                      await prefs.setString('name', user['name']);
+                      await prefs.setString('surname', user['surname']);
+                      await prefs.setString('email', user['email']);
+                      await prefs.setString('phoneNumber', user['phoneNumber']);
+                      await prefs.setString('avatarPath', user['avatarPath']);
+                      break;
+                    }
+                  }
+                }
+
+                // get the user's data from shared preferences
+                final prefs = await SharedPreferences.getInstance();
+                if (userExists) {
+                  // Navigate to the home page
+                  if (context.mounted) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          userId: jsonDecode(getResponse.body)['name'],
+                          name: prefs.getString('name')!,
+                          surname: prefs.getString('surname')!,
+                          email: prefs.getString('email')!,
+                          phoneNumber: prefs.getString('phoneNumber')!,
+                          avatarPath: prefs.getString('avatarPath')!,
+                        ),
+                      ),
+                    );
+                  }
+                } else {
+                  if (context.mounted) {
+                    // Show an error message with a snackbar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Incorrect email or password',
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                }
               },
               child: Container(
                 alignment: Alignment.center,

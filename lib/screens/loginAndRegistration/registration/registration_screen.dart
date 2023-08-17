@@ -1,7 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ski_resorts_app/screens/builder.dart';
 import 'package:ski_resorts_app/screens/loginAndRegistration/login/login_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+final url = Uri.https(
+  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+  '/user-table.json',
+);
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -41,20 +51,21 @@ class _RegistrationPageState extends State<RegistrationPage>
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.black,
-        body: SingleChildScrollView(
-          child: buildCard(
-              context,
-              size,
-              _emailController,
-              _passwordController,
-              _nameController,
-              _surnameController,
-              _phoneNumberController,
-              isPressed,
-              _viewPassword,
-              obscure),
-        ));
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: buildCard(
+            context,
+            size,
+            _emailController,
+            _passwordController,
+            _nameController,
+            _surnameController,
+            _phoneNumberController,
+            isPressed,
+            _viewPassword,
+            obscure),
+      ),
+    );
   }
 }
 
@@ -199,8 +210,16 @@ Widget buildCard(
           ),
 
           //sign in button
-          signUpButton(context, size, isPressed, callback, emailController.text,
-              passwordController.text),
+          signUpButton(
+              context,
+              size,
+              isPressed,
+              callback,
+              emailController.text,
+              passwordController.text,
+              nameController.text,
+              surnameController.text,
+              phoneNumberController.text),
           SizedBox(
             height: size.height * 0.02,
           ),
@@ -566,7 +585,7 @@ Widget passwordTextField(Size size, TextEditingController passController,
 }
 
 Widget signUpButton(BuildContext context, size, bool isPressed, var callback,
-    String email, String password) {
+    String email, String password, String name, String surname, String phone) {
   return Container(
       decoration: BoxDecoration(
         color: Colors.blue,
@@ -583,9 +602,93 @@ Widget signUpButton(BuildContext context, size, bool isPressed, var callback,
           color: Colors.transparent,
           child: InkWell(
               onTap: () async {
-                /* QUELLO CHE FA QUANDO VIENE SCHIACCIATO IL SIGN UP*/
-                // TODO
-                /*QUESTA PARTE VA AGGIUNTA*/
+                // Before posting a new user, check if the user already exists
+                final getResponse = await http.get(url);
+
+                final decodedResponse =
+                    json.decode(getResponse.body) as Map<String, dynamic>;
+
+                // Flag to check if the user already exists
+                bool userExists = false;
+
+                for (var entry in decodedResponse.entries) {
+                  var user = entry.value;
+
+                  if (user['email'] == email || user['phoneNumber'] == phone) {
+                    userExists = true;
+                    break; // Exit the loop once a match is found
+                  }
+                }
+
+                if (userExists) {
+                  if (context.mounted) {
+                    // If the user already exists, show a snackbar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'User already exists',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                } else {
+                  // if the user doesn't exist, post the user's data to the database
+
+                  final response = await http.post(
+                    url,
+                    headers: {'Content-Type': 'application/json'},
+                    body: json.encode(
+                      {
+                        'name': name,
+                        'surname': surname,
+                        'email': email,
+                        'phoneNumber': phone,
+                        'password': password,
+                        'avatar': 'lib/assets/images/avatar9.jpg',
+                      },
+                    ),
+                  );
+
+                  if (response.statusCode == 200) {
+                    if (kDebugMode) {
+                      print('User registered successfully');
+                    }
+
+                    // Save the user's data to shared preferences
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('isLoggedIn', true);
+                    await prefs.setString(
+                        'userId', jsonDecode(response.body)['name']);
+                    await prefs.setString('name', name);
+                    await prefs.setString('surname', surname);
+                    await prefs.setString('email', email);
+                    await prefs.setString('phoneNumber', phone);
+                    await prefs.setString(
+                        'avatarPath', 'lib/assets/images/avatar9.jpg');
+
+                    if (context.mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MainPage(
+                            userId: jsonDecode(response.body)['name'],
+                            name: name,
+                            surname: surname,
+                            email: email,
+                            phoneNumber: phone,
+                            avatarPath: 'lib/assets/images/avatar9.jpg',
+                          ),
+                        ),
+                      ); // Redirect to home page
+                    }
+                  } else {
+                    throw Exception('Failed to register user');
+                  }
+                }
               },
               child: Container(
                 alignment: Alignment.center,
