@@ -2,7 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ski_resorts_app/phone/screens/builder.dart';
 import 'package:ski_resorts_app/phone/screens/loginAndRegistration/login/login_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);

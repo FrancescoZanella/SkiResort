@@ -6,10 +6,8 @@ import 'package:ski_resorts_app/phone/screens/loginAndRegistration/registration/
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
-import 'package:ski_resorts_app/phone/screens/builder.dart';
 import 'package:ski_resorts_app/phone/screens/user_data_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
@@ -25,8 +23,6 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = Provider.of<UserModel>(context, listen: false);
-
     return Scaffold(
       appBar: null,
       backgroundColor: Colors.white,
