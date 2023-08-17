@@ -1,7 +1,7 @@
 /*import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
-import 'package:ski_resorts_app/screens/skiResort/resort_container.dart'; // <- Replace with your actual file location
+import 'package:ski_resorts_app/phone/screens/skiResort/resort_container.dart'; // <- Replace with your actual file location
 
 void main() {
   testWidgets('Checks if all important child widgets are present',
