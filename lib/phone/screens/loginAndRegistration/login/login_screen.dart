@@ -388,13 +388,12 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
                       // Save the user's data to shared preferences
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.setBool('isLoggedIn', true);
-                      await prefs.setString(
-                          'userId', jsonDecode(getResponse.body)['name']);
+                      await prefs.setString('userId', entry.key);
                       await prefs.setString('name', user['name']);
                       await prefs.setString('surname', user['surname']);
                       await prefs.setString('email', user['email']);
                       await prefs.setString('phoneNumber', user['phoneNumber']);
-                      await prefs.setString('avatarPath', user['avatarPath']);
+                      await prefs.setString('avatarPath', user['avatar']);
                       break;
                     }
                   }
@@ -409,7 +408,7 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
                       context,
                       MaterialPageRoute(
                         builder: (context) => MainPage(
-                          userId: jsonDecode(getResponse.body)['name'],
+                          userId: prefs.getString('userId')!,
                           name: prefs.getString('name')!,
                           surname: prefs.getString('surname')!,
                           email: prefs.getString('email')!,
