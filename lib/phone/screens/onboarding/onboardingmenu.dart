@@ -35,7 +35,7 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 2.0, top: 8.0),
-                child: skipbutton(context, 'Skip', const RegistrationPage()),
+                child: skipbutton(context, 'Skip', const LoginPage()),
               ),
               /*
               Padding(
