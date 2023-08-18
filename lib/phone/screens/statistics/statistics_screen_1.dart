@@ -250,11 +250,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
     return FutureBuilder(
         future: _runDataList, // Wait for the statistics to be loaded
         builder: (context, snapshot) {
-          // Once the statistics are loaded, build the actual UI
-          /*
-          double elapsedTimeInSeconds = _stopwatch.elapsed.inSeconds.toDouble();
-          double speedKmPerHour =
-              calculateSpeed(_distanceInMeters, elapsedTimeInSeconds);*/
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),

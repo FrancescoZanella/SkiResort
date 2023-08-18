@@ -2,6 +2,8 @@
     package="com.example.ski_resorts_app"
     xmlns:tools = "http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
    <application
         android:label="ski_resorts_app"
