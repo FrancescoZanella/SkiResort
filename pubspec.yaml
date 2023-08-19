@@ -86,6 +86,9 @@ dependencies:
   flutter_blue_plus: ^1.14.11
   flutter_blue: ^0.8.0
   qr_code_scanner: ^1.0.1
+  unique_identifier: ^0.3.0
+  qr_flutter: ^4.1.0
+  
 
 dev_dependencies:
   flutter_test:

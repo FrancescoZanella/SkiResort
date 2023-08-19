@@ -36,25 +36,20 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
       '/pairs-table.json',
     );
 
-    try {
-      final response = await http.get(url);
-      String? key;
+    final response = await http.get(url);
+    String? key;
 
-      final data = json.decode(response.body);
-      for (var entry in data.entries) {
-        var val = entry.value;
-        if (val['userid'] == userid) {
-          key = entry.key;
-          print(key);
-          FirebaseDatabase.instance
-              .ref()
-              .child('pairs-table')
-              .child(key!)
-              .remove();
-        }
+    final data = json.decode(response.body);
+    for (var entry in data.entries) {
+      var val = entry.value;
+      if (val['userid'] == userid) {
+        key = entry.key;
+        FirebaseDatabase.instance
+            .ref()
+            .child('pairs-table')
+            .child(key!)
+            .remove();
       }
-    } catch (e) {
-      print("ERROOOOORE");
     }
   }
 
