@@ -8,20 +8,6 @@ final url = Uri.https(
   '/statistics-table.json',
 );
 
-// this functions add a training stats to the stats table
-/*
-class RunData {
-
-  final double? latitude;
-  final double? longitude;
-  final String date;
-  final String formattedTime;
-  final double averageSpeed;
-  final double maxSpeed;
-  final double distanceInMeters;
-  final List<double> speedDataPoints;
-}
-*/
 //method to save the stat in the db
 void saveStat(RunData r, {http.Client? client}) async {
   client ??= http.Client();

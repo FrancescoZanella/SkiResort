@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ski_resorts_app/phone/screens/settings/connect_smartwatch/barcode_page.dart';
+import 'package:http/http.dart' as http;
 
 class ConnectSmartwatchScreen extends StatefulWidget {
   const ConnectSmartwatchScreen({Key? key}) : super(key: key);
@@ -25,12 +29,43 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
     ));
   }
 
+  Future<void> deletepair(String? userid) async {
+    // Controlla se la coppia userId e result esiste già nel database
+    final url = Uri.https(
+      'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+      '/pairs-table.json',
+    );
+
+    try {
+      final response = await http.get(url);
+      String? key;
+
+      final data = json.decode(response.body);
+      for (var entry in data.entries) {
+        var val = entry.value;
+        if (val['userid'] == userid) {
+          key = entry.key;
+          print(key);
+          FirebaseDatabase.instance
+              .ref()
+              .child('pairs-table')
+              .child(key!)
+              .remove();
+        }
+      }
+    } catch (e) {
+      print("ERROOOOORE");
+    }
+  }
+
   void _disconnectSmartwatch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('paired', false);
+    String? userId = prefs.getString('userId');
     setState(() {
       _isConnected = _initializePaired();
     });
+    await deletepair(userId);
   }
 
   @override

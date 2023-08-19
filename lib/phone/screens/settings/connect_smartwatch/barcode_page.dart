@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 import 'association.dart';
 
@@ -59,21 +62,67 @@ class _QRViewExampleState extends State<QRViewExample> {
     );
   }
 
+  Future<bool> saveAssociation(String? result) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+
+    // Controlla se la coppia userId e result esiste già nel database
+    final url = Uri.https(
+      'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+      '/pairs-table.json',
+    );
+
+    final response = await http.get(url);
+    if (response.statusCode != 200) {
+      return false;
+    }
+    bool existingEntry = false;
+    final data = json.decode(response.body);
+    for (var entry in data.entries) {
+      var val = entry.value;
+      if (val['mac'] == result && val['userid'] == userId) {
+        existingEntry = true;
+        break;
+      }
+    }
+
+    if (existingEntry) {
+      // La coppia userId e result esiste già nel database
+      return false;
+    }
+
+    // La coppia non esiste ancora nel database, quindi esegui il post
+    final postResponse = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'mac': result,
+          'userid': userId,
+        }));
+
+    if (postResponse.statusCode != 200) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   void _onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
     });
-    controller.scannedDataStream.listen((scanData) {
+    controller.scannedDataStream.listen((scanData) async {
       setState(() {
         result = scanData;
       });
       if (result != null) {
-        //TODO
         //add a function to save the association result!.code and sharedprefs.userid in firebase,
         // se la funzione ritorna true allora pusho la pagina resultpage
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => ResultPage(scanResult: result!.code),
-        ));
+        if (await saveAssociation(result!.code)) {
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => ResultPage(scanResult: result!.code),
+          ));
+        }
       }
     });
   }
