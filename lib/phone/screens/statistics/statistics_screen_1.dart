@@ -541,9 +541,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                 ],
                               ),
                             ],
-                            /*
-                              
-                            ],*/
                           ),
                           SizedBox(
                               height:

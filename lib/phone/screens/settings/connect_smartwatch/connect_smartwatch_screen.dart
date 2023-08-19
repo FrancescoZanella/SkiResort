@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ski_resorts_app/phone/screens/settings/connect_smartwatch/barcode_page.dart';
 
 class ConnectSmartwatchScreen extends StatefulWidget {
   const ConnectSmartwatchScreen({Key? key}) : super(key: key);
@@ -11,14 +13,30 @@ class ConnectSmartwatchScreen extends StatefulWidget {
 class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
   late Future<bool> _isConnected;
 
+  Future<bool> _initializePaired() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('paired')!;
+  }
+
+  void _connectSmartwatch() async {
+    //mi apre la pagina del qr code
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => const QRViewExample(),
+    ));
+  }
+
+  void _disconnectSmartwatch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('paired', false);
+    setState(() {
+      _isConnected = _initializePaired();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    _isConnected = _checkifconnectedtosmartwatch();
-  }
-
-  Future<bool> _checkifconnectedtosmartwatch() async {
-    return true;
+    _isConnected = _initializePaired();
   }
 
   @override
@@ -32,12 +50,13 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
             );
           }
           if (snapshot.hasError) {
-            return const Text("Error using bluetooth");
+            return const Text("Error knowing if connected");
           }
+          //se è gia paired
           if (snapshot.data!) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Connect Smartwatch'),
+                title: const Text('Smartwatch is connected'),
               ),
               body: Center(
                 child: Column(
@@ -59,24 +78,32 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
                             50.0), // Increase space between the image and the button
                     ElevatedButton(
                       onPressed: () {
-                        // Implement the logic to connect to the selected device.
+                        // Implement the logic to disconnect to the selected device.
+                        _disconnectSmartwatch();
                       },
-                      child: const Text('Device Connected'),
+                      child: const Text('Disconnect the smartwatch'),
                     ),
                   ],
                 ),
               ),
             );
-            ;
           } else {
-            return Center(child: Text("NON CONNESSO"));
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Connect a Smartwatch'),
+              ),
+              body: Center(
+                  child: TextButton(
+                child: const Text("pair using qr code"),
+                onPressed: () {
+                  _connectSmartwatch();
+                },
+              )),
+            );
           }
         });
   }
 }
-
-
-
 
 /*return Scaffold(
       appBar: AppBar(

@@ -414,6 +414,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_blue:
+    dependency: "direct main"
+    description:
+      name: flutter_blue
+      sha256: f7f76b9b80455b0375693ec96c276fadb01e94d8441fa1740a64980cd1aeda5c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
+  flutter_blue_plus:
+    dependency: "direct main"
+    description:
+      name: flutter_blue_plus
+      sha256: ad6f7076519c7f5c6cb0336ba10e919bb6c228e8f83bad5df275f01d3591a945
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.14.11"
   flutter_facebook_auth:
     dependency: "direct main"
     description:
@@ -1224,6 +1240,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: "01dd9bd0fa02548bf2ceee13545d4a0ec6046459d847b6b061d8a27237108a08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   provider:
     dependency: "direct main"
     description:
@@ -1240,6 +1264,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  qr_code_scanner:
+    dependency: "direct main"
+    description:
+      name: qr_code_scanner
+      sha256: f23b68d893505a424f0bd2e324ebea71ed88465d572d26bb8d2e78a4749591fd
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   quiver:
     dependency: transitive
     description:
@@ -1256,6 +1288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.2"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "2ef8b4e91cb3b55d155e0e34eeae0ac7107974e451495c955ac04ddee8cc21fd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.26.0"
   settings_ui:
     dependency: "direct main"
     description:

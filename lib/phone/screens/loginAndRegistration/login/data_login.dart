@@ -32,6 +32,7 @@ Future<void> checkCredentials(
         await prefs.setString('surname', user['surname']);
         await prefs.setString('phoneNumber', user['phoneNumber']);
         await prefs.setString('avatarPath', user['avatar']);
+        await prefs.setBool('paired', false);
 
         // ignore: use_build_context_synchronously
         Navigator.push(
@@ -104,6 +105,8 @@ Future<void> setPreferences(String id, Map<String, String> user) async {
   await prefs.setString('surname', user['surname']!);
   await prefs.setString('phoneNumber', user['phoneNumber']!);
   await prefs.setString('avatarPath', user['avatar']!);
+  await prefs.setBool('paired', false);
+
   return;
 }
 

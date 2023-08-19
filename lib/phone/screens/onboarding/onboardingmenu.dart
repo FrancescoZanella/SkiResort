@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/phone/screens/loginAndRegistration/login/login_screen.dart';
-import 'package:ski_resorts_app/phone/screens/loginAndRegistration/registration/registration_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
