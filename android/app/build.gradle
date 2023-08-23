@@ -81,5 +81,5 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
 
     //facebook dependencies
-    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation('com.facebook.android:facebook-android-sdk:latest.release')
 }
