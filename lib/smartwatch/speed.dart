@@ -19,12 +19,12 @@ class Speed extends StatelessWidget {
                 const Text("Speed",
                     style: TextStyle(color: Colors.white, fontSize: 19)),
                 const SizedBox(
-                  height: 10,
+                  height: 25,
                 ),
                 Row(
                   children: [
                     const SizedBox(
-                      width: 57,
+                      width: 50,
                     ),
                     const Icon(Icons.speed, color: Colors.green),
                     const SizedBox(
@@ -43,12 +43,12 @@ class Speed extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 19,
                 ),
                 Row(
                   children: [
                     const SizedBox(
-                      width: 55,
+                      width: 50,
                     ),
                     const Icon(Icons.speed_rounded, color: Colors.red),
                     const SizedBox(
