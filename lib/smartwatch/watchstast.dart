@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ski_resorts_app/smartwatch/stats.dart';
+import 'package:ski_resorts_app/smartwatch/trainings.dart';
 
 import '../phone/screens/statistics/statistics_screen_1.dart';
 
@@ -67,14 +69,13 @@ class ProvaState extends State<Prova> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Scaffold(
+                  builder: (context) => const Scaffold(
                       body: Center(child: Text('Contenuto della su pagina')))));
         } else if (details.primaryVelocity! < -10) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Scaffold(
-                    body: Center(child: Text('Contenuto della giu pagina')))),
+                builder: (context) => Stats(userId: widget.userId)),
           );
         }
       },
@@ -82,10 +83,7 @@ class ProvaState extends State<Prova> {
         if (details.primaryVelocity! < -10) {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => Scaffold(
-                    body:
-                        Center(child: Text('Contenuto della destra pagina')))),
+            MaterialPageRoute(builder: (context) => const Training()),
           );
         }
       },
@@ -111,9 +109,8 @@ class ProvaState extends State<Prova> {
                       style: TextStyle(fontSize: 28, color: Colors.white),
                     ),
                   ),
-                  Text("Average Speed (km/h)",
-                      style:
-                          const TextStyle(fontSize: 12, color: Colors.white)),
+                  const Text("Average Speed (km/h)",
+                      style: TextStyle(fontSize: 12, color: Colors.white)),
                   const SizedBox(
                     height: 5,
                   ),
@@ -122,16 +119,16 @@ class ProvaState extends State<Prova> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Column(
+                          const Column(
                             children: [
                               Center(
                                 child: Text(
                                   "0,00",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 28, color: Colors.white),
                                 ),
                               ),
-                              const Text("Max speed (km/h)",
+                              Text("Max speed (km/h)",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.white)),
                             ],
@@ -143,16 +140,16 @@ class ProvaState extends State<Prova> {
                           SizedBox(
                             width: widget.width * 0.05,
                           ),
-                          Column(
+                          const Column(
                             children: [
                               Center(
                                 child: Text(
                                   "0,00",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 28, color: Colors.white),
                                 ),
                               ),
-                              const Text("  Distance (m)",
+                              Text("  Distance (m)",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.white)),
                             ],
@@ -163,7 +160,7 @@ class ProvaState extends State<Prova> {
                   ),
                   Center(
                     child: Text(
-                      TimerUtil.formatTime(stopwatch.elapsed),
+                      "boh",
                       style: const TextStyle(fontSize: 28, color: Colors.white),
                     ),
                   ),
