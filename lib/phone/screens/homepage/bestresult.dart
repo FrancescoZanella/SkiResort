@@ -103,7 +103,7 @@ class _BestResultState extends State<BestResult> {
                                         height: 3,
                                       ),
                                       Text(
-                                        "${double.parse(snapshot.data![0]).toStringAsFixed(2)} Km",
+                                        "${double.parse(snapshot.data![0]).toStringAsFixed(2)} m",
                                         textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.normal,
@@ -171,7 +171,7 @@ class _BestResultState extends State<BestResult> {
                                         height: 3,
                                       ),
                                       Text(
-                                        '${double.parse(snapshot.data![2]).toStringAsFixed(2)} KM/h',
+                                        '${double.parse(snapshot.data![2]).toStringAsFixed(2)} m/s',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.normal,
                                           fontSize: 15,

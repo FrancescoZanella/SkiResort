@@ -7,6 +7,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ski_resorts_app/phone/screens/statistics/statistics_data.dart';
+import 'package:supercharged/supercharged.dart';
 
 class RunData {
   final double? latitude;
@@ -42,18 +43,6 @@ class RunData {
   }
 }
 
-class TimerUtil {
-  static String formatTime(Duration duration) {
-    String hours = duration.inHours.toString().padLeft(2, '0');
-    String minutes =
-        duration.inMinutes.remainder(60).toString().padLeft(2, '0');
-    String seconds =
-        duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-
-    return '$hours:$minutes:$seconds';
-  }
-}
-
 class StopwatchPage extends StatefulWidget {
   const StopwatchPage({super.key});
 
@@ -62,24 +51,86 @@ class StopwatchPage extends StatefulWidget {
 }
 
 class _StopwatchPageState extends State<StopwatchPage> {
-  final Stopwatch _stopwatch = Stopwatch();
-  Timer? _timer;
-
-  bool _isRunning = false;
-  double _distanceInMeters = 0;
-  double _averageSpeed = 0;
-  double _maxSpeed = 0;
-  double _currentSpeed = 0;
-
   Location location = Location();
-  GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
-  LocationData? _lastLocation;
+  final Stopwatch stopwatch = Stopwatch();
+  Timer? timer;
+
+  StreamSubscription<LocationData>? locationSubscription;
+  bool isRunning = false;
+
+  LocationData? previousLocation;
+  double totalDistance = 0.0;
+  List<double> speedData = [];
+  String elapsed = '00:00:00';
+
+  void startstopwatch() {
+    startLocationTracking();
+    stopwatch.start();
+    timer = Timer.periodic(const Duration(milliseconds: 1000), (Timer t) {
+      // Update the UI
+      setState(() {
+        // result in hh:mm:ss format
+        elapsed =
+            '${stopwatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopwatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopwatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
+      });
+    });
+  }
+
+  void startLocationTracking() {
+    locationSubscription =
+        location.onLocationChanged.listen((LocationData newLocation) {
+      handleLocationChange(newLocation);
+    });
+  }
+
+  void stopLocationTracking() {
+    locationSubscription?.cancel();
+    timer?.cancel();
+    stopwatch.stop();
+    stopwatch.reset();
+    setState(() {
+      isRunning = false;
+      RunData r = RunData(
+        latitude: previousLocation!.latitude,
+        longitude: previousLocation!.longitude,
+        date: DateFormat.yMMMMd('en_US').format(DateTime.now()),
+        formattedTime: elapsed,
+        averageSpeed: speedData.averageBy((n) => n)!,
+        maxSpeed: speedData.max()!,
+        distanceInMeters: totalDistance,
+        speedDataPoints: List.from(speedData), // Copy the speed data points
+      );
+      _addedList.add(r);
+      //aggiungo al db
+      saveStat(r);
+      totalDistance = 0;
+      previousLocation = null;
+      elapsed = "00:00:00";
+    });
+  }
+
+  void handleLocationChange(LocationData newLocation) {
+    if (previousLocation != null) {
+      double distance = Geolocator.distanceBetween(
+        previousLocation!.latitude!,
+        previousLocation!.longitude!,
+        newLocation.latitude!,
+        newLocation.longitude!,
+      );
+      setState(() {
+        isRunning = true;
+        totalDistance += distance;
+        speedData.add(newLocation.speed!);
+      });
+    }
+    setState(() {
+      previousLocation = newLocation;
+    });
+  }
 
   //backend caricamento
   late Future<List<RunData>> _runDataList;
   final List<RunData> _addedList = [];
-
-  final List<double> _speedDataPoints = [];
 
   @override
   void initState() {
@@ -94,145 +145,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
     } catch (e) {
       // Handle any errors that might occur during initialization
       throw Exception(e);
-    }
-  }
-
-  void _startStopwatch() async {
-    setState(() {
-      _isRunning = true;
-      _stopwatch.start();
-
-      _distanceInMeters = 0; // Reset the distance when starting a new run
-      _speedDataPoints.clear(); // Clear the previous speed data points
-
-      double currentSpeedSum = 0;
-      double currentMaxSpeed = 0;
-      int numSpeedUpdates = 0;
-
-      _timer = Timer.periodic(const Duration(seconds: 1), (_) async {
-        //non sei all'inizio, allora entra nell'if
-        if (_lastLocation != null) {
-          LocationData currentLocation = await location.getLocation();
-          double distanceInMeters =
-              await _calculateDistance(_lastLocation!, currentLocation);
-
-          // Calculate current speed
-          double currentSpeed = distanceInMeters; /* / elapsedTimeInSeconds;*/
-
-          // Update current average speed
-          currentSpeedSum += currentSpeed;
-          numSpeedUpdates++;
-
-          // Update current max speed
-          if (currentSpeed > currentMaxSpeed) {
-            currentMaxSpeed = currentSpeed;
-          }
-
-          // Update speed data points for the chart
-          _speedDataPoints.add(currentSpeed);
-
-          // Update UI with current average and max speed
-          double averageSpeed = currentSpeedSum / numSpeedUpdates;
-          setState(() {
-            _averageSpeed = averageSpeed;
-            _maxSpeed = currentMaxSpeed;
-            _distanceInMeters += distanceInMeters;
-            _currentSpeed = currentSpeed;
-          });
-        } else {
-          _lastLocation = await location.getLocation();
-          LocationData currentLocation = await location.getLocation();
-          //distanza percorsa nell'intervallo di 1 secondo
-          double distanceInMeters =
-              await _calculateDistance(_lastLocation!, currentLocation);
-          // Calculate current speed
-          //double elapsedTimeInSeconds = _stopwatch.elapsed.inSeconds.toDouble();
-
-          // velocità attuale
-          double currentSpeed = distanceInMeters; // m/s
-
-          // Update current average speed
-          currentSpeedSum += currentSpeed;
-          numSpeedUpdates++;
-
-          // Update current max speed
-          if (currentSpeed > currentMaxSpeed) {
-            currentMaxSpeed = currentSpeed;
-          }
-
-          // Update speed data points for the chart
-          _speedDataPoints.add(currentSpeed);
-
-          // Update UI with current average and max speed
-          double averageSpeed = currentSpeedSum / numSpeedUpdates;
-          setState(() {
-            _averageSpeed = averageSpeed;
-            _maxSpeed = currentMaxSpeed;
-            _distanceInMeters += distanceInMeters;
-            _currentSpeed = currentSpeed;
-          });
-        }
-      });
-    });
-  }
-
-  //ogni volta che stoppo il cronometro
-  void _stopStopwatch() {
-    if (_isRunning) {
-      setState(() {
-        _isRunning = false;
-        _stopwatch.stop();
-        _timer?.cancel();
-        RunData r = RunData(
-          latitude: _lastLocation!.latitude,
-          longitude: _lastLocation!.longitude,
-          date: DateFormat.yMMMMd('en_US').format(DateTime.now()),
-          formattedTime: TimerUtil.formatTime(_stopwatch.elapsed),
-          averageSpeed: _averageSpeed,
-          maxSpeed: _maxSpeed,
-          distanceInMeters: _distanceInMeters,
-          speedDataPoints:
-              List.from(_speedDataPoints), // Copy the speed data points
-        );
-        _addedList.add(r);
-        //aggiungo al db
-        saveStat(r);
-      });
-    } else {
-      _resetStopwatch();
-    }
-  }
-
-  void _resetStopwatch() {
-    setState(() {
-      _isRunning = false;
-      _stopwatch.reset();
-      _timer?.cancel();
-      _distanceInMeters = 0;
-      _averageSpeed = 0;
-      _maxSpeed = 0;
-      _speedDataPoints.clear();
-    });
-  }
-
-  Future<double> _calculateDistance(
-      LocationData start, LocationData end) async {
-    double distanceInMeters = Geolocator.distanceBetween(
-      start.latitude!,
-      start.longitude!,
-      end.latitude!,
-      end.longitude!,
-    );
-    return distanceInMeters;
-  }
-
-  double calculateSpeed(double distanceInMeters, double elapsedTimeInSeconds) {
-    double distanceInKm = distanceInMeters / 1000;
-    double elapsedTimeInHours = elapsedTimeInSeconds / (60 * 60);
-    if (elapsedTimeInHours == 0) {
-      return 0;
-    } else {
-      return distanceInKm / elapsedTimeInHours;
     }
   }
 
@@ -306,7 +218,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   Positioned(
                     top: 60,
                     child: Text(
-                      TimerUtil.formatTime(_stopwatch.elapsed),
+                      TimerUtil.formatTime(stopwatch.elapsed),
                       style: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.bold),
                     ),
@@ -314,7 +226,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   Positioned(
                     top: 115,
                     child: Text(
-                      'Speed: ${(_currentSpeed * 3.6).toStringAsFixed(2)} km/h',
+                      'Speed: ${previousLocation?.speed?.toStringAsFixed(2) ?? "N/A"} m/s',
                       style:
                           const TextStyle(fontSize: 24, color: Colors.black54),
                     ),
@@ -322,7 +234,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   Positioned(
                     top: 155,
                     child: Text(
-                      'Distance: ${((_distanceInMeters).toStringAsFixed(2))} m', // Modified line
+                      'Distance: ${totalDistance.toStringAsFixed(2)} m', // Modified line
                       style:
                           const TextStyle(fontSize: 24, color: Colors.black54),
                     ),
@@ -334,7 +246,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: _isRunning ? null : _startStopwatch,
+                    onPressed: isRunning ? null : startstopwatch,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: const CircleBorder(),
@@ -344,15 +256,13 @@ class _StopwatchPageState extends State<StopwatchPage> {
                         size: 30), // Use the play icon
                   ),
                   ElevatedButton(
-                    onPressed: _stopStopwatch,
+                    onPressed: stopLocationTracking,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       shape: const CircleBorder(),
                       minimumSize: const Size(55, 55),
                     ),
-                    child: _isRunning
-                        ? const Icon(Icons.pause, size: 30)
-                        : const Icon(Icons.stop, size: 30),
+                    child: const Icon(Icons.stop, size: 30),
                   ),
                 ],
               ),
@@ -443,7 +353,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                                 0.045),
                                     Text(
                                       textAlign: TextAlign.left,
-                                      "${data.averageSpeed.toStringAsFixed(2)}km/h",
+                                      "${data.averageSpeed.toStringAsFixed(2)} m/s",
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal),
@@ -463,7 +373,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                 gridData: const FlGridData(show: true),
                                 titlesData: const FlTitlesData(
                                     leftTitles: AxisTitles(
-                                      axisNameWidget: Text("Km/h"),
+                                      axisNameWidget: Text("m/s"),
                                     ),
                                     topTitles:
                                         AxisTitles(axisNameWidget: Text("s"))),
@@ -522,7 +432,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                             MediaQuery.of(context).size.height *
                                                 0.003),
                                     Text(
-                                        '${data.averageSpeed.toStringAsFixed(2)} km/h')
+                                        '${data.averageSpeed.toStringAsFixed(2)} m/s')
                                   ]),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.03,
@@ -537,7 +447,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                           MediaQuery.of(context).size.height *
                                               0.003),
                                   Text(
-                                      '${data.maxSpeed.toStringAsFixed(2)} km/h')
+                                      '${data.maxSpeed.toStringAsFixed(2)} m/s')
                                 ],
                               ),
                             ],
@@ -573,5 +483,17 @@ class _StopwatchPageState extends State<StopwatchPage> {
             ],
           );
         });
+  }
+}
+
+class TimerUtil {
+  static String formatTime(Duration duration) {
+    String hours = duration.inHours.toString().padLeft(2, '0');
+    String minutes =
+        duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    String seconds =
+        duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+
+    return '$hours:$minutes:$seconds';
   }
 }
