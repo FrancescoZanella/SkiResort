@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/smartwatch/stats.dart';
 import 'package:ski_resorts_app/smartwatch/trainings.dart';
 
-import '../phone/screens/statistics/statistics_screen_1.dart';
-
 // ignore: must_be_immutable
 class Prova extends StatefulWidget {
   String userId;
@@ -158,10 +156,10 @@ class ProvaState extends State<Prova> {
                       ),
                     ),
                   ),
-                  Center(
+                  const Center(
                     child: Text(
                       "boh",
-                      style: const TextStyle(fontSize: 28, color: Colors.white),
+                      style: TextStyle(fontSize: 28, color: Colors.white),
                     ),
                   ),
                   const Text("Time",
