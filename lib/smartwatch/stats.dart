@@ -38,29 +38,38 @@ class StatsState extends State<Stats> {
             return const Text("not found");
           }
           if (snapshot.data!.isNotEmpty) {}
-          return Scaffold(
-            backgroundColor: Colors.black,
-            body: Column(
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                // ignore: prefer_const_constructors
-                Text("Training logs",
-                    style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
-                const SizedBox(
-                  height: 15,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        var data = (snapshot.data!)[index];
-                        return StatsItem(data: data);
-                      }),
-                ),
-              ],
+          return GestureDetector(
+            onVerticalDragEnd: (details) {
+              if (details.primaryVelocity! > 10) {
+                Navigator.pop(
+                  context,
+                );
+              }
+            },
+            child: Scaffold(
+              backgroundColor: Colors.black,
+              body: Column(
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  // ignore: prefer_const_constructors
+                  Text("Training logs",
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          var data = (snapshot.data!)[index];
+                          return StatsItem(data: data);
+                        }),
+                  ),
+                ],
+              ),
             ),
           );
         });
