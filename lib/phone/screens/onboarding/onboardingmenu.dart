@@ -5,8 +5,6 @@ import 'package:ski_resorts_app/phone/screens/loginAndRegistration/login/login_s
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ski_resorts_app/constants/text_constants.dart';
 import 'package:ski_resorts_app/constants/path_constants.dart';
-import 'package:ski_resorts_app/phone/screens/user_data_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingMenu extends StatefulWidget {
   const OnboardingMenu({super.key});
@@ -36,23 +34,6 @@ class _OnboardingMenuState extends State<OnboardingMenu> {
                 padding: const EdgeInsets.only(right: 2.0, top: 8.0),
                 child: skipbutton(context, 'Skip', const LoginPage()),
               ),
-              /*
-              Padding(
-                padding: const EdgeInsets.only(right: 2.0, top: 8.0),
-                child: skipLoginbutton(
-                    context,
-                    'Skip Login',
-                    const MainPage(
-                      userId: 'NZD37OAtDRrIrv5HEFP',
-                      name: 'pippo',
-                      surname: 'lacoca',
-                      email: 'pippo@lacoca.com',
-                      phoneNumber: '3203229036',
-                      avatarPath: 'lib/assets/images/avatar9.jpg',
-                    ),
-                    userModel),
-              ),
-              */
             ],
           ),
           SizedBox(
@@ -127,59 +108,6 @@ Widget skipbutton(BuildContext context, String text, Widget pushed) {
             builder: (context) => pushed,
           ),
         );
-      },
-      child: Text(
-        text,
-        style: const TextStyle(
-          decoration: TextDecoration.underline,
-        ),
-      ));
-}
-
-Widget skipLoginbutton(
-    BuildContext context, String text, Widget pushed, UserModel usermodel) {
-  //method to save hardcoded in prefs
-  Future<void> saveUserDetails() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', true);
-    await prefs.setString('userId', 'NZD37OAtDRrIrv5HEFP');
-    await prefs.setString('name', 'pippo');
-    await prefs.setString('surname', 'lacoca');
-    await prefs.setString('email', 'pippo@lacoca.com');
-    await prefs.setString('phoneNumber', '3203229036');
-    await prefs.setString('avatarPath', 'lib/assets/images/avatar9.jpg');
-  }
-
-  return TextButton(
-      style: TextButton.styleFrom(
-        animationDuration: const Duration(milliseconds: 200),
-        minimumSize: const Size(150, 50),
-        foregroundColor: Colors.blue,
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-          Radius.circular(50),
-        )),
-      ),
-      onPressed: () async {
-        // Update the UserModel with the new details
-        usermodel.updateUser(
-          userId: 'NZD37OAtDRrIrv5HEFP',
-          name: 'pippo',
-          surname: 'lacoca',
-          email: 'pippo@lacoca.com',
-          phoneNumber: '3203229036',
-          avatarPath: 'lib/assets/images/avatar9.jpg',
-        );
-        // Save the hardcoded details in shared preferences
-        saveUserDetails().then((_) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => pushed, // Replace with the actual page
-            ),
-          );
-        });
       },
       child: Text(
         text,

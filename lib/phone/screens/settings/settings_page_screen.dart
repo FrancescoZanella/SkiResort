@@ -33,7 +33,7 @@ class SettingsPage extends StatelessWidget {
                       },
                     ),
                   ),
-                  const CustomListTile(
+                  /*const CustomListTile(
                     title: 'Notifications',
                     icon: Icons.notifications,
                     pageName: 'NotificationSettingScreen',
@@ -42,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                     title: "Position",
                     icon: Icons.location_on_outlined,
                     pageName: 'LocationSettingScreen',
-                  ),
+                  ),*/
                   const CustomListTile(
                     title: "Profile",
                     icon: Icons.person_outline_rounded,

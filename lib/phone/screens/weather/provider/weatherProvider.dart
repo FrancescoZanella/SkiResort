@@ -98,7 +98,7 @@ class WeatherProvider with ChangeNotifier {
 
   Future<void> getCurrentWeather(LatLng location) async {
     Uri url = Uri.parse(
-      'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&units=metric&appid=$apiKey',
+      'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=857494570556acfd02175272d130da65',
     );
     try {
       final response = await http.get(url);
@@ -161,7 +161,7 @@ class WeatherProvider with ChangeNotifier {
 
   Future<void> searchWeatherWithLocation(String location) async {
     Uri url = Uri.parse(
-      'https://api.openweathermap.org/data/2.5/weather?q=$location&units=metric&appid=$apiKey',
+      'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=857494570556acfd02175272d130da65',
     );
     try {
       final response = await http.get(url);
