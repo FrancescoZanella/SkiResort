@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ski_resorts_app/smartwatch/qr_page.dart';
+import 'package:ski_resorts_app/smartwatch/watchstast.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:qr_flutter/qr_flutter.dart';
 
 class SmartWatch extends StatefulWidget {
   const SmartWatch({Key? key}) : super(key: key);
@@ -15,19 +16,26 @@ class SmartWatch extends StatefulWidget {
 
 //lo smartwatch retrieva il suo imei e controlla se presente in db
 class SmartWatchState extends State<SmartWatch> {
-  late Future<bool?> ispaired;
+  late Future<bool> ispaired;
   late Future<String?> androidId;
+  late Future<String?> userid;
 
   @override
   void initState() {
     super.initState();
-    ispaired = checkIfPaired();
-    androidId = initializeId();
+    ispaired = checkIfPaired(); // false -- true
+    androidId = initializeId(); // id -- id // null -- francesco
+    userid = initializeId();
   }
 
-  Future<String> initializeId() async {
-    String? identifier = await UniqueIdentifier.serial;
-    return identifier!;
+  // userid is null if not yet paired
+  Future<String?> initializeUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userId');
+  }
+
+  Future<String?> initializeId() async {
+    return await UniqueIdentifier.serial;
   }
 
   Future<bool> checkIfPaired() async {
@@ -66,58 +74,42 @@ class SmartWatchState extends State<SmartWatch> {
     }
   }
 
-  Widget buildqrcode(String? androidId) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          SizedBox(
-              width: MediaQuery.of(context).size.width * 0.7,
-              child: const Center(
-                child: Text(
-                    "Scan this qr with the smartphone app to pair the device"),
-              )),
-          Center(
-            child: QrImageView(data: androidId!, size: 100),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.3,
-            height: MediaQuery.of(context).size.height * 0.1,
-            child: ElevatedButton(child: const Text("Fatto"), onPressed: () {}),
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.wait([ispaired, androidId]),
+        future: Future.wait([ispaired, androidId, userid]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }
-          if (snapshot.hasError) {
-            return const Scaffold(body: Center(child: Text("not found")));
-          }
-          //if it's paired
-          if (snapshot.data != null) {
-            //se
-            if (snapshot.data![0] as bool) {
-              return const Scaffold(
-                  body: Center(
-                child: Text("Hello World"),
-              ));
-            } else {
-              return buildqrcode(snapshot.data?[1] as String);
-            }
           } else {
-            return const Scaffold(body: Center(child: Text("not found")));
+            if (snapshot.hasError) {
+              return const Scaffold(body: Center(child: Text("error")));
+            } else {
+              if (snapshot.hasData) {
+                //if it's paired
+                if (snapshot.data![0] != null && snapshot.data![0] == true) {
+                  var screenSize = MediaQuery.of(context).size;
+                  screenSize = Size(1.4142 * screenSize.width / 2,
+                      1.4142 * screenSize.height / 2);
+                  var screenHeight = screenSize.height;
+                  var screenWidth = screenSize.width;
+                  return Prova(
+                    userId: snapshot.data![2] as String,
+                    width: screenWidth,
+                    height: screenHeight,
+                  );
+                } else {
+                  return QrPage(
+                      androidId: snapshot.data![1] as String,
+                      ispaired: snapshot.data![0] as bool);
+                }
+              } else {
+                return const Scaffold(
+                    body: Center(child: Text("no data loaded")));
+              }
+            }
           }
         });
   }

@@ -9,7 +9,6 @@ import 'package:ski_resorts_app/phone/screens/loginAndRegistration/registration/
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../APIloginAndSignin/facebook_auth.dart';
 import '../APIloginAndSignin/google_auth.dart';
 
 final url = Uri.https(
@@ -488,31 +487,7 @@ Widget buildFooter(Size size, BuildContext context) {
                       ),
                     )),
               ),
-              const SizedBox(width: 16),
               //facebook logo here
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: const Color.fromRGBO(246, 246, 246, 1)),
-                child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () async {},
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 44.0,
-                        height: 44.0,
-                        child: IconButton(
-                          icon: Image.asset(
-                            'lib/assets/logo/facebook_logo.png',
-                          ),
-                          iconSize: 23,
-                          onPressed: () =>
-                              {onFacebookLoginButtonPressed(context)},
-                        ),
-                      ),
-                    )),
-              ),
             ],
           ),
         ),

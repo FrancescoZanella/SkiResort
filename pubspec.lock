@@ -1263,6 +1263,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.11.3"
+  permission_handler_tizen:
+    dependency: transitive
+    description:
+      name: permission_handler_tizen
+      sha256: "23f9907d69265ddcbe953ca4d7e2bfecdc80355d0690e14f19a8228baa0eeef6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   permission_handler_windows:
     dependency: transitive
     description:
@@ -1892,6 +1900,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  workout:
+    dependency: "direct main"
+    description:
+      name: workout
+      sha256: "04f1f25e4fbc4aa1f4a87f6e370f0c77d04c9cb9d8f1932ea9700e7bb6414c3d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.2"
   xdg_directories:
     dependency: transitive
     description:
