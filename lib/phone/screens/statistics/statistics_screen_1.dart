@@ -212,7 +212,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
                 alignment: Alignment.center,
                 children: [
                   Image.asset('lib/assets/icons/clock.png',
-                      color: Colors.blue[50],
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.blueGrey
+                          : Colors.blue[50],
                       height: MediaQuery.of(context).size.height *
                           0.33), // Replace with your image path
                   Positioned(
@@ -227,16 +229,25 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     top: 115,
                     child: Text(
                       'Speed: ${previousLocation?.speed?.toStringAsFixed(2) ?? "N/A"} m/s',
-                      style:
-                          const TextStyle(fontSize: 24, color: Colors.black54),
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black54,
+                      ),
+                      /** */
                     ),
                   ),
                   Positioned(
                     top: 155,
                     child: Text(
                       'Distance: ${totalDistance.toStringAsFixed(2)} m', // Modified line
-                      style:
-                          const TextStyle(fontSize: 24, color: Colors.black54),
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black54,
+                      ),
                     ),
                   )
                 ],
@@ -273,7 +284,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
                     var data = (snapshot.data! + _addedList)[index];
                     return Card(
                       elevation: 2,
-                      color: Colors.white, //.withOpacity(0.7),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Color.fromRGBO(32, 33, 36, 255)
+                          : Colors.white, //.withOpacity(0.7),
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
@@ -303,16 +316,24 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.05),
-                                    const Text("Ski",
-                                        style:
-                                            TextStyle(color: Colors.black38)),
+                                    Text("Ski",
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black38,
+                                        )),
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.25,
                                     ),
                                     Text(data.date,
-                                        style: const TextStyle(
-                                            color: Colors.black38,
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black38,
                                             fontSize: 15)),
                                   ],
                                 ),
@@ -329,13 +350,22 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                     Text(
                                       textAlign: TextAlign.left,
                                       data.distanceInMeters.toStringAsFixed(2),
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500),
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.blue,
+                                      ),
                                     ),
-                                    const Text("  m",
-                                        style:
-                                            TextStyle(color: Colors.black54)),
+                                    Text("  m",
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black38,
+                                        )),
                                     SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
@@ -343,9 +373,13 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                     Text(
                                       textAlign: TextAlign.left,
                                       data.formattedTime,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 16,
-                                          fontWeight: FontWeight.normal),
+                                          fontWeight: FontWeight.normal,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.blue),
                                     ),
                                     SizedBox(
                                         width:
@@ -354,9 +388,13 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                     Text(
                                       textAlign: TextAlign.left,
                                       "${data.averageSpeed.toStringAsFixed(2)} m/s",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 16,
-                                          fontWeight: FontWeight.normal),
+                                          fontWeight: FontWeight.normal,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.blue),
                                     ),
                                   ],
                                 )
@@ -393,7 +431,10 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                       return FlSpot(index.toDouble(), speed);
                                     }).toList(),
                                     isCurved: true,
-                                    color: Colors.black,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black38,
                                     dotData: const FlDotData(show: false),
                                   ),
                                 ],
@@ -409,9 +450,13 @@ class _StopwatchPageState extends State<StopwatchPage> {
                               Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Training duration",
-                                        style:
-                                            TextStyle(color: Colors.black54)),
+                                    Text("Training duration",
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black38,
+                                        )),
                                     SizedBox(
                                         height:
                                             MediaQuery.of(context).size.height *
@@ -424,9 +469,13 @@ class _StopwatchPageState extends State<StopwatchPage> {
                               Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Average Speed",
-                                        style:
-                                            TextStyle(color: Colors.black54)),
+                                    Text("Average Speed",
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black38,
+                                        )),
                                     SizedBox(
                                         height:
                                             MediaQuery.of(context).size.height *
@@ -440,8 +489,13 @@ class _StopwatchPageState extends State<StopwatchPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text("Max Speed",
-                                      style: TextStyle(color: Colors.black54)),
+                                  Text("Max Speed",
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black38,
+                                      )),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
