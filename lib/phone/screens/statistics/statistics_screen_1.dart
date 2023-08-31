@@ -356,7 +356,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                         color: Theme.of(context).brightness ==
                                                 Brightness.dark
                                             ? Colors.white
-                                            : Colors.blue,
+                                            : Colors.black54,
                                       ),
                                     ),
                                     Text("  m",
@@ -364,7 +364,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? Colors.white
-                                              : Colors.black38,
+                                              : Colors.black54,
                                         )),
                                     SizedBox(
                                         width:
@@ -379,7 +379,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? Colors.white
-                                              : Colors.blue),
+                                              : Colors.black54),
                                     ),
                                     SizedBox(
                                         width:
@@ -394,7 +394,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                                           color: Theme.of(context).brightness ==
                                                   Brightness.dark
                                               ? Colors.white
-                                              : Colors.blue),
+                                              : Colors.black54),
                                     ),
                                   ],
                                 )

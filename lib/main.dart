@@ -8,7 +8,6 @@ import 'package:ski_resorts_app/phone/screens/user_data_model.dart';
 import 'package:ski_resorts_app/phone/app_routes.dart';
 import 'package:ski_resorts_app/phone/screens/builder.dart';
 import 'package:ski_resorts_app/phone/screens/check_user_login_status.dart';
-import 'package:ski_resorts_app/phone/screens/weather/provider/weatherProvider.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:ski_resorts_app/smartwatch/home.dart';
 
@@ -47,12 +46,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<UserModel>(
           create: (_) => UserModel(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => WeatherProvider(),
-        ),
       ],
-      child: Consumer3<ThemeNotifier, UserModel, WeatherProvider>(
-          builder: (context, themeNotifier, userModel, weatherProvider, child) {
+      child: Consumer2<ThemeNotifier, UserModel>(
+          builder: (context, themeNotifier, userModel, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'SkiResorts',

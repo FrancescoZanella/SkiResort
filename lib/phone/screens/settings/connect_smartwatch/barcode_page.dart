@@ -6,10 +6,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import 'association.dart';
-
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+  const QRViewExample({super.key});
 
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
@@ -32,13 +30,14 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-        ],
-      ),
+    return /*Scaffold(
+      body: */
+        Column(
+      children: <Widget>[
+        Expanded(flex: 4, child: _buildQrView(context)),
+      ],
     );
+    //);
   }
 
   Widget _buildQrView(BuildContext context) {
@@ -119,9 +118,11 @@ class _QRViewExampleState extends State<QRViewExample> {
         // se la funzione ritorna true allora pusho la pagina resultpage
         if (await saveAssociation(result!.code)) {
           // ignore: use_build_context_synchronously
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => ResultPage(scanResult: result!.code),
-          ));
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool('paired', true);
+
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pop(context);
         }
       }
     });

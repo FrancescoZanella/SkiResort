@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:ski_resorts_app/smartwatch/stats.dart';
 import 'package:ski_resorts_app/smartwatch/trainings.dart';
 
@@ -23,10 +24,16 @@ class Prova extends StatefulWidget {
 class ProvaState extends State<Prova> {
   final Stopwatch stopwatch = Stopwatch();
   Timer? _timer;
+  StreamSubscription<LocationData>? locationSubscription;
+  Location location = Location();
 
   bool _isRunning = false;
 
   void _startStopwatch() async {
+    locationSubscription =
+        location.onLocationChanged.listen((LocationData newLocation) {
+      print(newLocation.altitude);
+    });
     setState(() {
       _isRunning = true;
       stopwatch.start();
@@ -74,14 +81,6 @@ class ProvaState extends State<Prova> {
             context,
             MaterialPageRoute(
                 builder: (context) => Stats(userId: widget.userId)),
-          );
-        }
-      },
-      onHorizontalDragEnd: (details) {
-        if (details.primaryVelocity! < -10) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Training()),
           );
         }
       },
@@ -156,9 +155,9 @@ class ProvaState extends State<Prova> {
                       ),
                     ),
                   ),
-                  const Center(
+                  Center(
                     child: Text(
-                      "boh",
+                      stopwatch.elapsed.toString(),
                       style: TextStyle(fontSize: 28, color: Colors.white),
                     ),
                   ),

@@ -9,7 +9,6 @@ import 'package:ski_resorts_app/phone/screens/loginAndRegistration/registration/
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../APIloginAndSignin/facebook_auth.dart';
 import '../APIloginAndSignin/google_auth.dart';
 
 final url = Uri.https(

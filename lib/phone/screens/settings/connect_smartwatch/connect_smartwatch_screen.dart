@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ski_resorts_app/phone/screens/settings/connect_smartwatch/barcode_page.dart';
 import 'package:http/http.dart' as http;
 
 class ConnectSmartwatchScreen extends StatefulWidget {
@@ -24,9 +23,9 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
 
   void _connectSmartwatch() async {
     //mi apre la pagina del qr code
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => const QRViewExample(),
-    ));
+    Navigator.of(context).pushNamed('/QrPage').then((value) => setState(() {
+          _isConnected = _initializePaired();
+        }));
   }
 
   Future<void> deletepair(String? userid) async {
@@ -84,11 +83,11 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
           }
           //se è gia paired
           if (snapshot.data!) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Smartwatch is connected'),
-              ),
-              body: Center(
+            return Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black54
+                  : Colors.white,
+              child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment
                       .start, // Align children to the start of the column's main axis
@@ -118,17 +117,40 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
               ),
             );
           } else {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Connect a Smartwatch'),
+            return Container(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black54
+                  : Colors.white,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment
+                      .start, // Align children to the start of the column's main axis
+                  children: [
+                    SizedBox(
+                      width: 200,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 50.0), // Add padding to move the image higher up
+                      child: Image.asset(
+                        'lib/assets/images/smartWatchImage.png', // Replace with your image url
+                        width: 300,
+                        height: 300,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(
+                        height:
+                            50.0), // Increase space between the image and the button
+                    ElevatedButton(
+                      onPressed: () {
+                        _connectSmartwatch();
+                      },
+                      child: const Text('Connect the smartwatch with Qr Code'),
+                    ),
+                  ],
+                ),
               ),
-              body: Center(
-                  child: TextButton(
-                child: const Text("pair using qr code"),
-                onPressed: () {
-                  _connectSmartwatch();
-                },
-              )),
             );
           }
         });
