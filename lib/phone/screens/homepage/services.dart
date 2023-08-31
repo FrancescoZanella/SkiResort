@@ -91,11 +91,12 @@ class Services extends StatelessWidget {
             Positioned(
                 top: 244,
                 right: 20,
-                child: Weather(
-                  title: 'Weather',
+                child: MyCard(
+                  title: 'Smartwatch',
                   width: 165.0,
                   height: 140.0,
-                  index: 2,
+                  index: 3,
+                  image: "lib/assets/images/smartwatch.jpg",
                   callback: callback,
                 )),
           ],
