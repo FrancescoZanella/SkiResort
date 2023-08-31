@@ -230,8 +230,8 @@ class _ResortContainerState extends State<ResortContainer>
                       Map<String, dynamic>? data =
                           json.decode(getResponse.body);
 
-                      if (data != null && data['resorts'] != null) {
-                        List<dynamic> resorts = data['resorts'];
+                      if (data != null) {
+                        List<dynamic> resorts = data.values.toList();
 
                         for (var resort in resorts) {
                           if (resort['userId'] == userId &&

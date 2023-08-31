@@ -19,11 +19,23 @@ final resortReviewsUrl = Uri.https(
   '/resorts-reviews.json',
 );
 
+final url = Uri.https(
+  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+  '/favorites-resort-table.json',
+);
+
 class SummaryResort {
   String? skiResortId;
+  final String skiResortLink;
   final String skiResortName;
+  final String skiResortDescription;
+  final String imageLink;
   double skiResortRating;
   final String totalSkiSlopes;
+  final String blueSkiSlopes;
+  final String redSkiSlopes;
+  final String blackSkiSlopes;
+  final String skiLiftsNumber;
   final String skiPassCost;
   final String skiResortElevation;
   final double skiResortLatitude;
@@ -32,11 +44,18 @@ class SummaryResort {
 
   SummaryResort({
     required this.skiResortId,
+    required this.skiResortLink,
     required this.skiResortName,
+    required this.skiResortDescription,
+    required this.imageLink,
     required this.skiResortRating,
     required this.totalSkiSlopes,
+    required this.blueSkiSlopes,
+    required this.redSkiSlopes,
+    required this.blackSkiSlopes,
     required this.skiPassCost,
     required this.skiResortElevation,
+    required this.skiLiftsNumber,
     required this.skiResortLatitude,
     required this.skiResortLongitude,
     required this.numberOfReviews,
@@ -46,11 +65,18 @@ class SummaryResort {
     try {
       return SummaryResort(
         skiResortId: id,
+        skiResortLink: json['skiResortLink'],
         skiResortName: json['skiResortName'],
+        skiResortDescription: json['skiResortDescription'],
+        imageLink: json['imageLink'],
         skiResortRating: double.parse(json['skiResortRating']),
         totalSkiSlopes: json['totalSkiSlopes'],
+        blueSkiSlopes: json['blueSkiSlopes'],
+        redSkiSlopes: json['redSkiSlopes'],
+        blackSkiSlopes: json['blackSkiSlopes'],
         skiPassCost: json['skiPassCost'],
         skiResortElevation: json['skiResortElevation'],
+        skiLiftsNumber: json['skiLiftsNumber'],
         skiResortLatitude: double.parse(json['skiResortLatitude']),
         skiResortLongitude: double.parse(json['skiResortLongitude']),
         numberOfReviews: json['numberOfReviews'],
@@ -77,6 +103,7 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
   SummaryResort? _selectedResort;
   List<SummaryResort>? skiResorts;
   String? userId;
+  bool isFavorite = false;
 
   // Get the user id from the shared preferences
   Future<String?> getUserId() async {
@@ -392,13 +419,73 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
                               style: const TextStyle(fontSize: 20)),
                           IconButton(
                             icon: const Icon(Icons.favorite_border),
-                            /*favorites.contains(_selectedResort)
-                            ? Icon(Icons.favorite, color: Colors.red)
-                            : Icon(Icons.favorite_border),*/
-                            onPressed: () {
-                              //favorites.contains(_selectedResort)
-                              //? removeFromFavorites(_selectedResort!)
-                              //: addToFavorites(_selectedResort!);
+                            //if the resort is already in favorites, i want to show the filled heart icon: a red heart
+                            color: isFavorite ? Colors.red : null,
+
+                            onPressed: () async {
+                              setState(() {
+                                isFavorite = !isFavorite;
+                              });
+
+                              //check if the user already has the resort in favorites, if yes don't add it again
+                              final getResponse = await http.get(url);
+                              if (getResponse.statusCode == 200) {
+                                Map<String, dynamic>? data =
+                                    json.decode(getResponse.body);
+
+                                if (data != null) {
+                                  List<dynamic> resorts = data.values.toList();
+
+                                  for (var resort in resorts) {
+                                    if (resort['userId'] == userId &&
+                                        resort['skiResortId'] ==
+                                            _selectedResort!.skiResortId) {
+                                      setState(() {
+                                        isFavorite = true;
+                                      });
+                                      return; // exit the function early to avoid making the post request
+                                    }
+                                  }
+                                }
+                              }
+
+                              // post request to insert the resort into the favorites table
+                              final postResponse = await http.post(
+                                url,
+                                body: json.encode({
+                                  'userId': userId,
+                                  'skiResortId': _selectedResort!.skiResortId,
+                                  'skiResortLink':
+                                      _selectedResort!.skiResortLink,
+                                  'skiResortName':
+                                      _selectedResort!.skiResortName,
+                                  'skiResortDescription':
+                                      _selectedResort!.skiResortDescription,
+                                  'imageLink': _selectedResort!.imageLink,
+                                  'skiResortRating':
+                                      _selectedResort!.skiResortRating,
+                                  'totalSkiSlopes':
+                                      _selectedResort!.totalSkiSlopes,
+                                  'blueSkiSlopes':
+                                      _selectedResort!.blueSkiSlopes,
+                                  'redSkiSlopes': _selectedResort!.redSkiSlopes,
+                                  'blackSkiSlopes':
+                                      _selectedResort!.blackSkiSlopes,
+                                  'skiPassCost': _selectedResort!.skiPassCost,
+                                  'skiResortElevation':
+                                      _selectedResort!.skiResortElevation,
+                                  'skiLiftsNumber':
+                                      _selectedResort!.skiLiftsNumber,
+                                  'skiResortLatitude':
+                                      _selectedResort!.skiResortLatitude,
+                                  'skiResortLongitude':
+                                      _selectedResort!.skiResortLongitude,
+                                }),
+                              );
+                              if (postResponse.statusCode != 200) {
+                                throw Exception(
+                                    'Failed to register user: ${postResponse.body}');
+                              }
                             }, //() => addToFavorites(_selectedResort!),
                           ),
                         ],

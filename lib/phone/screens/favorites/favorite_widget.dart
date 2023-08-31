@@ -72,8 +72,7 @@ class FavoriteWidget {
                               final directory =
                                   (await getApplicationDocumentsDirectory())
                                       .path;
-                              File imgFile =
-                                  File('$directory/phone/screenshot.png');
+                              File imgFile = File('$directory/screenshot.png');
                               await imgFile.writeAsBytes(bytes);
 
                               // ignore: deprecated_member_use
