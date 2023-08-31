@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:ski_resorts_app/smartwatch/stats.dart';
-import 'package:ski_resorts_app/smartwatch/trainings.dart';
 
 // ignore: must_be_immutable
 class Prova extends StatefulWidget {
@@ -31,9 +30,7 @@ class ProvaState extends State<Prova> {
 
   void _startStopwatch() async {
     locationSubscription =
-        location.onLocationChanged.listen((LocationData newLocation) {
-      print(newLocation.altitude);
-    });
+        location.onLocationChanged.listen((LocationData newLocation) {});
     setState(() {
       _isRunning = true;
       stopwatch.start();
@@ -158,7 +155,7 @@ class ProvaState extends State<Prova> {
                   Center(
                     child: Text(
                       stopwatch.elapsed.toString(),
-                      style: TextStyle(fontSize: 28, color: Colors.white),
+                      style: const TextStyle(fontSize: 28, color: Colors.white),
                     ),
                   ),
                   const Text("Time",

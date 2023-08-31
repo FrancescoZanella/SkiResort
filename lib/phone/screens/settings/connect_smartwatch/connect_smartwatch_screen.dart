@@ -126,7 +126,7 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
                   mainAxisAlignment: MainAxisAlignment
                       .start, // Align children to the start of the column's main axis
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 200,
                     ),
                     Padding(
