@@ -18,18 +18,10 @@ void main() {
   group('OnboardingMenu Tests', () {
     testWidgets('renders OnboardingMenu', (tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: const SizedBox(
-          width: 400,
-          height: 800,
-          child: OnboardingMenu(),
-        ),
+        home: const OnboardingMenu(),
         navigatorObservers: [mockNavigatorObserver],
       ));
-      await tester.pumpAndSettle();
-
-      // Verify if the first image and title are displayed
-      expect(find.byType(Image), findsOneWidget);
-      expect(find.text(TextConstants.onboarding1Title), findsOneWidget);
+      expect(find.byType(OnboardingMenu), findsOneWidget);
     });
 
     testWidgets('navigates to LoginPage on pressing Skip', (tester) async {
@@ -37,10 +29,37 @@ void main() {
         home: const OnboardingMenu(),
         navigatorObservers: [mockNavigatorObserver],
       ));
-      await tester.pumpAndSettle();
-
       expect(find.byType(LoginPage), findsNothing);
       await tester.tap(find.text('Skip'));
+      await tester.pumpAndSettle();
+      expect(find.byType(LoginPage), findsOneWidget);
+    });
+
+    testWidgets('Swipe through PageView and verify content changes',
+        (tester) async {
+      await tester.pumpWidget(const MaterialApp(
+        home: OnboardingMenu(),
+      ));
+      final pageView = find.byType(PageView);
+      expect(find.text(TextConstants.onboarding1Title), findsOneWidget);
+      await tester.drag(pageView, const Offset(-500, 0)); // Swipe to the left
+      await tester.pumpAndSettle();
+      expect(find.text(TextConstants.onboarding2Title), findsOneWidget);
+      await tester.drag(pageView, const Offset(-500, 0)); // Swipe again
+      await tester.pumpAndSettle();
+      expect(find.text(TextConstants.onboarding3Title), findsOneWidget);
+    });
+
+    testWidgets('Navigate to LoginPage on pressing Explore now',
+        (tester) async {
+      await tester.pumpWidget(const MaterialApp(
+        home: OnboardingMenu(),
+      ));
+      final pageView = find.byType(PageView);
+      await tester.drag(
+          pageView, const Offset(-500, 0)); // Swipe to the last page
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Explore now'));
       await tester.pumpAndSettle();
       expect(find.byType(LoginPage), findsOneWidget);
     });

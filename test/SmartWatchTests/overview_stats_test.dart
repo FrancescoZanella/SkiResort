@@ -1,3 +1,4 @@
+//tests ok
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ski_resorts_app/phone/screens/statistics/statistics_screen_1.dart';
