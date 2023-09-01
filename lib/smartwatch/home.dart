@@ -25,7 +25,7 @@ class SmartWatchState extends State<SmartWatch> {
     super.initState();
     ispaired = checkIfPaired(); // false -- true
     androidId = initializeId(); // id -- id // null -- francesco
-    userid = initializeId();
+    userid = initializeUserId();
   }
 
   // userid is null if not yet paired

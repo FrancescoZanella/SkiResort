@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/constants/color_constants.dart';
 import 'package:ski_resorts_app/phone/widgets/button.dart';
 import 'package:ski_resorts_app/phone/widgets/card.dart';
-import 'package:ski_resorts_app/phone/widgets/weathercard.dart';
 
 // ignore: must_be_immutable
 class Services extends StatelessWidget {

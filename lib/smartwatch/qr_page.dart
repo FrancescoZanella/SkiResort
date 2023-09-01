@@ -9,7 +9,7 @@ import 'package:wear/wear.dart';
 
 // ignore: must_be_immutable
 class QrPage extends StatefulWidget {
-  String androidId;
+  String? androidId;
   bool ispaired;
 
   QrPage({super.key, required this.androidId, required this.ispaired});
@@ -92,7 +92,7 @@ class QrPageState extends State<QrPage> {
                 ),
                 Center(
                     child: QrImageView(
-                  data: widget.androidId,
+                  data: widget.androidId!,
                   size: 100,
                 )),
                 SizedBox(
