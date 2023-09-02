@@ -295,8 +295,8 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
               )
             : FlutterMap(
                 options: MapOptions(
-                  center: const LatLng(45.477859, 9.1900),
-                  zoom: 5.2,
+                  center: const LatLng(45.477859, 9.8900),
+                  zoom: 6.3,
                 ),
                 nonRotatedChildren: [
                   RichAttributionWidget(
@@ -331,7 +331,7 @@ class _SkiResortMapPageState extends State<SkiResortMapPage> {
                                 },
                                 child: Icon(
                                   Icons.location_pin,
-                                  color: Colors.blue,
+                                  color: Colors.grey,
                                   size: 10.0 + (resort.skiResortRating * 10),
                                 ),
                               ),

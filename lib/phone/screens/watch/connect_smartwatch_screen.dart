@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'barcode_page.dart';
 
 class ConnectSmartwatchScreen extends StatefulWidget {
-  const ConnectSmartwatchScreen();
+  const ConnectSmartwatchScreen({super.key});
 
   @override
   State<ConnectSmartwatchScreen> createState() =>
@@ -118,36 +118,45 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
           }
           //se è gia paired
           if (_backendValue == 0) {
-            return Container(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.black54
-                  : Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment
-                      .start, // Align children to the start of the column's main axis
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 50.0), // Add padding to move the image higher up
-                      child: Image.asset(
-                        'lib/assets/images/smartWatchImage.png', // Replace with your image url
-                        width: 300,
-                        height: 300,
-                        fit: BoxFit.cover,
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Disconnect the smartwatch"),
+              ),
+              body: Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black54
+                    : Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment
+                        .start, // Align children to the start of the column's main axis
+                    children: [
+                      const SizedBox(
+                        height: 100,
                       ),
-                    ),
-                    const SizedBox(
-                        height:
-                            50.0), // Increase space between the image and the button
-                    ElevatedButton(
-                      onPressed: () {
-                        // Implement the logic to disconnect to the selected device.
-                        _disconnectSmartwatch();
-                      },
-                      child: const Text('Disconnect the smartwatch'),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top:
+                                50.0), // Add padding to move the image higher up
+                        child: Image.asset(
+                          'lib/assets/images/smartWatchImage.png', // Replace with your image url
+                          width: 300,
+                          height: 300,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(
+                          height:
+                              50.0), // Increase space between the image and the button
+                      ElevatedButton(
+                        onPressed: () {
+                          // Implement the logic to disconnect to the selected device.
+                          _disconnectSmartwatch();
+                        },
+                        child: const Text('Disconnect the smartwatch'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -157,38 +166,42 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
               callback: changepage,
             );
           } else {
-            return Container(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.black54
-                  : Colors.white,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment
-                      .start, // Align children to the start of the column's main axis
-                  children: [
-                    const SizedBox(
-                      width: 200,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 50.0), // Add padding to move the image higher up
-                      child: Image.asset(
-                        'lib/assets/images/smartWatchImage.png', // Replace with your image url
-                        width: 300,
-                        height: 300,
-                        fit: BoxFit.cover,
+            return Scaffold(
+              appBar: AppBar(title: const Text("Connect your smartphone !")),
+              body: Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black54
+                    : Colors.white,
+                child: Center(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 100,
                       ),
-                    ),
-                    const SizedBox(
-                        height:
-                            50.0), // Increase space between the image and the button
-                    ElevatedButton(
-                      onPressed: () {
-                        _connectSmartwatch();
-                      },
-                      child: const Text('Connect the smartwatch with Qr Code'),
-                    ),
-                  ],
+
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top:
+                                50.0), // Add padding to move the image higher up
+                        child: Image.asset(
+                          'lib/assets/images/smartWatchImage.png', // Replace with your image url
+                          width: 300,
+                          height: 300,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(
+                          height:
+                              50.0), // Increase space between the image and the button
+                      ElevatedButton(
+                        onPressed: () {
+                          _connectSmartwatch();
+                        },
+                        child:
+                            const Text('Connect the smartwatch with Qr Code'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

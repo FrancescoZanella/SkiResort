@@ -32,7 +32,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int selectedIconIndex = 2;
+  int selectedIconIndex = 0;
 
   late List<Widget> pages = [
     const SkiResortScreen(),

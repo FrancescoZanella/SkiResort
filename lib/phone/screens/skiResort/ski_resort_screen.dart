@@ -28,6 +28,9 @@ class _SkiResortScreenState extends State<SkiResortScreen> {
                 // used just to leave space between the top of the screen and the top of the app bar
                 top: 20),
           ),
+          const SizedBox(
+            height: 15,
+          ),
           CustomTopNavigationBar(
             selectedIndex: _selectedPageIndex,
             onItemTapped: _selectPage,
