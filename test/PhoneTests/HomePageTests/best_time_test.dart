@@ -15,9 +15,9 @@ void main() {
 
       expect(find.byType(Stack), findsNWidgets(7));
       expect(find.byType(Column), findsNWidgets(2));
-      expect(find.byType(Container), findsNWidgets(9));
+      expect(find.byType(Container), findsNWidgets(8));
       expect(find.byType(Services), findsOneWidget);
-      expect(find.byType(Positioned), findsNWidgets(14));
+      expect(find.byType(Positioned), findsNWidgets(11));
       expect(find.byType(BestResult), findsOneWidget);
     });
 
