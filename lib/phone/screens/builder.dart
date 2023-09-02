@@ -32,14 +32,16 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int selectedIconIndex = 0;
+  int selectedIconIndex = 2;
 
   late List<Widget> pages = [
     const SkiResortScreen(),
     const MainStats(),
     HomeScreen(callback: changepage),
     const ConnectSmartwatchScreen(),
-    const FavoritesScreen(),
+    FavoritesScreen(
+      callback: changepage,
+    ),
   ];
   void changepage(int index) {
     setState(() {
