@@ -370,67 +370,34 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
           color: Colors.transparent,
           child: InkWell(
               onTap: () async {
-                final getResponse = await http.get(url);
-                // Flag to check if the user already exists
-                bool userExists = false;
-
-                //now  i check if there is a user with the same email and password
-                if (getResponse.statusCode == 200) {
-                  final decodedResponse =
-                      json.decode(getResponse.body) as Map<String, dynamic>;
-                  for (var entry in decodedResponse.entries) {
-                    var user = entry.value;
-
-                    if (user['email'] == email &&
-                        user['password'] == password) {
-                      userExists = true;
-                      // Save the user's data to shared preferences
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.setBool('isLoggedIn', true);
-                      await prefs.setString('userId', entry.key);
-                      await prefs.setString('name', user['name']);
-                      await prefs.setString('surname', user['surname']);
-                      await prefs.setString('email', user['email']);
-                      await prefs.setString('phoneNumber', user['phoneNumber']);
-                      await prefs.setString('avatarPath', user['avatar']);
-
-                      break;
-                    }
-                  }
-                }
-
-                // get the user's data from shared preferences
-                final prefs = await SharedPreferences.getInstance();
-                if (userExists) {
-                  // Navigate to the home page
-                  if (context.mounted) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MainPage(
-                          userId: prefs.getString('userId')!,
-                          name: prefs.getString('name')!,
-                          surname: prefs.getString('surname')!,
-                          email: prefs.getString('email')!,
-                          phoneNumber: prefs.getString('phoneNumber')!,
-                          avatarPath: prefs.getString('avatarPath')!,
-                        ),
+                print(email);
+                print(password);
+                if (await login(context, email, password)) {
+                  final prefs = await SharedPreferences.getInstance();
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MainPage(
+                        userId: prefs.getString('userId')!,
+                        name: prefs.getString('name')!,
+                        surname: prefs.getString('surname')!,
+                        email: prefs.getString('email')!,
+                        phoneNumber: prefs.getString('phoneNumber')!,
+                        avatarPath: prefs.getString('avatarPath')!,
                       ),
-                    );
-                  }
+                    ),
+                  );
                 } else {
-                  if (context.mounted) {
-                    // Show an error message with a snackbar
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Incorrect email or password',
-                          textAlign: TextAlign.center,
-                        ),
-                        backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Incorrect email or password',
+                        textAlign: TextAlign.center,
                       ),
-                    );
-                  }
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               },
               child: Container(

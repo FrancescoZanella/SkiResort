@@ -108,7 +108,30 @@ Future<void> setPreferences(String id, Map<String, String> user) async {
   return;
 }
 
-//dato un id mi retrieva l'User
+Future<bool> login(BuildContext context, String email, String password) async {
+  final getResponse = await http.get(url);
 
+  //now  i check if there is a user with the same email and password
+  if (getResponse.statusCode == 200) {
+    final decodedResponse =
+        json.decode(getResponse.body) as Map<String, dynamic>;
+    for (var entry in decodedResponse.entries) {
+      var user = entry.value;
 
+      if (user['email'] == email && user['password'] == password) {
+        // Save the user's data to shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
+        await prefs.setString('userId', entry.key);
+        await prefs.setString('name', user['name']);
+        await prefs.setString('surname', user['surname']);
+        await prefs.setString('email', user['email']);
+        await prefs.setString('phoneNumber', user['phoneNumber']);
+        await prefs.setString('avatarPath', user['avatar']);
 
+        return true;
+      }
+    }
+  }
+  return false;
+}
