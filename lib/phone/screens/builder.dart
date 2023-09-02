@@ -6,7 +6,7 @@ import 'package:ski_resorts_app/phone/screens/homepage/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ski_resorts_app/phone/screens/user_data_model.dart';
 import 'package:ski_resorts_app/phone/screens/favorites/favorites_screen.dart';
-import 'package:ski_resorts_app/phone/screens/settings/connect_smartwatch/connect_smartwatch_screen.dart';
+import 'package:ski_resorts_app/phone/screens/watch/connect_smartwatch_screen.dart';
 
 // ignore: must_be_immutable
 class MainPage extends StatefulWidget {

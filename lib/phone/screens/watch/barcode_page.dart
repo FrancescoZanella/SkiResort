@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:ski_resorts_app/phone/screens/settings/connect_smartwatch/connect_smartwatch_screen.dart';
 
 class QRViewExample extends StatefulWidget {
   const QRViewExample({required this.callback});

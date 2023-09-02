@@ -10,7 +10,6 @@ import 'package:ski_resorts_app/phone/screens/loginAndRegistration/login/login_s
 import 'package:ski_resorts_app/phone/screens/onboarding/onboardingmenu.dart';
 import 'package:ski_resorts_app/phone/screens/settings/report_bug_screen/report_bug_screen.dart';
 import 'package:ski_resorts_app/phone/screens/settings/rate_our_app_screen/rate_our_app_screen.dart';
-import 'package:ski_resorts_app/phone/screens/settings/connect_smartwatch/connect_smartwatch_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/AboutUsPage': (BuildContext context) => const AboutUsPage(),
@@ -23,7 +22,4 @@ final Map<String, WidgetBuilder> routes = {
   '/OnboardingMenu': (BuildContext context) => const OnboardingMenu(),
   '/ReportBugScreen': (BuildContext context) => const ReportBugScreen(),
   '/RateOurAppScreen': (BuildContext context) => const RateOurAppScreen(),
-  '/ConnectSmartwatchScreen': (BuildContext context) =>
-      const ConnectSmartwatchScreen(),
-  //'/QrPage': (BuildContext context) => const QRViewExample(),
 };
