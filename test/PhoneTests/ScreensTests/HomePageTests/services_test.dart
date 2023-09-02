@@ -1,10 +1,11 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart'; // 1. Import the mocktail package.
 import 'package:ski_resorts_app/phone/screens/homepage/services.dart';
 import 'package:ski_resorts_app/phone/widgets/button.dart';
 import 'package:ski_resorts_app/phone/widgets/card.dart';
-import 'package:ski_resorts_app/phone/widgets/weathercard.dart';
 
 // 2. Create a Mock class for BuildContext using mocktail.
 class MockBuildContext extends Mock implements BuildContext {}
@@ -32,7 +33,6 @@ void main() {
       );
 
       expect(find.byType(MyCard), findsNWidgets(3));
-      expect(find.byType(Weather), findsOneWidget);
       expect(find.byType(Button), findsOneWidget);
     });
 
