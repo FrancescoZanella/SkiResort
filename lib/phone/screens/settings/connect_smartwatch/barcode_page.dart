@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:ski_resorts_app/phone/screens/settings/connect_smartwatch/connect_smartwatch_screen.dart';
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({super.key});
+  const QRViewExample({required this.callback});
+  final Function callback;
 
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
@@ -118,11 +120,9 @@ class _QRViewExampleState extends State<QRViewExample> {
         // se la funzione ritorna true allora pusho la pagina resultpage
         if (await saveAssociation(result!.code)) {
           // ignore: use_build_context_synchronously
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setBool('paired', true);
+          widget.callback(0);
 
           // ignore: use_build_context_synchronously
-          Navigator.of(context).pop(context);
         }
       }
     });

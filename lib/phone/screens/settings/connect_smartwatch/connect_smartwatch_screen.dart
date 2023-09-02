@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'barcode_page.dart';
+
 class ConnectSmartwatchScreen extends StatefulWidget {
-  const ConnectSmartwatchScreen({Key? key}) : super(key: key);
+  const ConnectSmartwatchScreen();
 
   @override
   State<ConnectSmartwatchScreen> createState() =>
@@ -14,18 +16,46 @@ class ConnectSmartwatchScreen extends StatefulWidget {
 }
 
 class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
-  late Future<bool> _isConnected;
+  int _backendValue = 0;
 
-  Future<bool> _initializePaired() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('paired')!;
+  Future<int> _isPaired() async {
+    //leggo da firebase in tabella se c'è association
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+
+    // Controlla se la coppia userId e result esiste già nel database
+    final url = Uri.https(
+      'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+      '/pairs-table.json',
+    );
+
+    final response = await http.get(url);
+    if (response.statusCode != 200) {
+      return 2;
+    }
+    final data = json.decode(response.body);
+    for (var entry in data.entries) {
+      var val = entry.value;
+      if (val['userid'] == userId) {
+        return 0;
+      }
+    }
+
+    return 2;
+  }
+
+  void changepage(int index) {
+    setState(() {
+      _backendValue = index;
+    });
   }
 
   void _connectSmartwatch() async {
     //mi apre la pagina del qr code
-    Navigator.of(context).pushNamed('/QrPage').then((value) => setState(() {
-          _isConnected = _initializePaired();
-        }));
+    setState(() {
+      _backendValue = 1;
+    });
   }
 
   Future<void> deletepair(String? userid) async {
@@ -54,24 +84,29 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
 
   void _disconnectSmartwatch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('paired', false);
     String? userId = prefs.getString('userId');
-    setState(() {
-      _isConnected = _initializePaired();
-    });
     await deletepair(userId);
+    setState(() {
+      _backendValue = 2;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    _isConnected = _initializePaired();
+    _isPaired().then((value) {
+      setState(() {
+        _backendValue = value;
+      });
+    });
   }
 
+  // 0 se è gia connesso
+  // 2 se non è connesso
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _isConnected,
+        future: _isPaired(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -82,7 +117,7 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
             return const Text("Error knowing if connected");
           }
           //se è gia paired
-          if (snapshot.data!) {
+          if (_backendValue == 0) {
             return Container(
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.black54
@@ -115,6 +150,11 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
                   ],
                 ),
               ),
+            );
+          }
+          if (_backendValue == 1) {
+            return QRViewExample(
+              callback: changepage,
             );
           } else {
             return Container(
@@ -156,36 +196,3 @@ class _ConnectSmartwatchScreenState extends State<ConnectSmartwatchScreen> {
         });
   }
 }
-
-/*return Scaffold(
-      appBar: AppBar(
-        title: const Text('Connect Smartwatch'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment
-              .start, // Align children to the start of the column's main axis
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 50.0), // Add padding to move the image higher up
-              child: Image.asset(
-                'lib/assets/images/smartWatchImage.png', // Replace with your image url
-                width: 300,
-                height: 300,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(
-                height:
-                    50.0), // Increase space between the image and the button
-            ElevatedButton(
-              onPressed: () {
-                // Implement the logic to connect to the selected device.
-              },
-              child: const Text('Device Connected'),
-            ),
-          ],
-        ),
-      ),
-    );*/

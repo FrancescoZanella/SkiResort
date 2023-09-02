@@ -29,5 +29,5 @@ final Map<String, WidgetBuilder> routes = {
   '/RateOurAppScreen': (BuildContext context) => const RateOurAppScreen(),
   '/ConnectSmartwatchScreen': (BuildContext context) =>
       const ConnectSmartwatchScreen(),
-  '/QrPage': (BuildContext context) => const QRViewExample(),
+  //'/QrPage': (BuildContext context) => const QRViewExample(),
 };

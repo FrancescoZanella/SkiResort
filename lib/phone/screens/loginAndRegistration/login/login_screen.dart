@@ -393,7 +393,6 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
                       await prefs.setString('email', user['email']);
                       await prefs.setString('phoneNumber', user['phoneNumber']);
                       await prefs.setString('avatarPath', user['avatar']);
-                      await prefs.setBool('paired', false);
 
                       break;
                     }

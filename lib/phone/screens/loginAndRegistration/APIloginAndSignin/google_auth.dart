@@ -53,7 +53,6 @@ Future<void> signInWithGoogle(BuildContext context) async {
     await prefs.setString('email', user?['email'] ?? '');
     await prefs.setString('phoneNumber', user?['phoneNumber'] ?? '');
     await prefs.setString('avatarPath', user?['avatar'] ?? '');
-    await prefs.setBool('paired', false);
 
     if (context.mounted) {
       Navigator.push(
