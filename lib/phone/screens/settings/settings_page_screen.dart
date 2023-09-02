@@ -33,16 +33,6 @@ class SettingsPage extends StatelessWidget {
                       },
                     ),
                   ),
-                  /*const CustomListTile(
-                    title: 'Notifications',
-                    icon: Icons.notifications,
-                    pageName: 'NotificationSettingScreen',
-                  ),
-                  const CustomListTile(
-                    title: "Position",
-                    icon: Icons.location_on_outlined,
-                    pageName: 'LocationSettingScreen',
-                  ),*/
                   const CustomListTile(
                     title: "Profile",
                     icon: Icons.person_outline_rounded,
@@ -50,6 +40,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
+              /*
               const SingleSection(
                 title: "Devices",
                 children: [
@@ -59,7 +50,7 @@ class SettingsPage extends StatelessWidget {
                     pageName: 'ConnectSmartwatchScreen',
                   ),
                 ],
-              ),
+              ),*/
               const Divider(),
               const SingleSection(
                 title: "Support",

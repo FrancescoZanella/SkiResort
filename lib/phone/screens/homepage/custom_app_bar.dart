@@ -91,27 +91,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
               Row(
                 children: [
-                  Stack(
-                    children: [
-                      const Icon(
-                        Icons.notifications_none_rounded,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30.0)),
-                        child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text(
-                            '5',
-                            style: TextStyle(color: Colors.black, fontSize: 8),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
                   Transform(
                     transform: Matrix4.rotationY(math.pi),
                     alignment: Alignment.center,

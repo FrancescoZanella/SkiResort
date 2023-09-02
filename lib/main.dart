@@ -8,22 +8,9 @@ import 'package:ski_resorts_app/phone/screens/user_data_model.dart';
 import 'package:ski_resorts_app/phone/app_routes.dart';
 import 'package:ski_resorts_app/phone/screens/builder.dart';
 import 'package:ski_resorts_app/phone/screens/check_user_login_status.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:ski_resorts_app/smartwatch/home.dart';
 
 void main() async {
-  AwesomeNotifications().initialize(
-    null, // default icon, can be set here
-    [
-      NotificationChannel(
-        channelKey: 'basic_channel',
-        channelName: 'Basic notifications',
-        channelDescription: 'Notification channel for basic tests',
-        defaultColor: const Color(0xFF9D50DD),
-        ledColor: Colors.white,
-      ),
-    ],
-  );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
