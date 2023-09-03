@@ -368,7 +368,9 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
           color: Colors.transparent,
           child: InkWell(
               onTap: () async {
-                if (await login(context, email, password)) {
+                print(email);
+                print(password);
+                if (await DataLogin.login(context, email, password)) {
                   final prefs = await SharedPreferences.getInstance();
                   // ignore: use_build_context_synchronously
                   Navigator.push(

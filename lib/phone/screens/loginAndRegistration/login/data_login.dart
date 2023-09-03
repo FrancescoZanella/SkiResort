@@ -4,134 +4,103 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ski_resorts_app/phone/screens/user_data_model.dart';
 
-import '../../builder.dart';
-
 //FUNZIONI CHE SERVONO PER ACCEDERE AL DB.
 
+class DataLogin {
 //url to use to in order to have a connection with the db.
-final url = Uri.https(
-  'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
-  '/user-table.json',
-);
-/* QUESTA FUNZIONA MA VA MODIFICATA*/
-Future<void> checkCredentials(
-    BuildContext context, String email, String password) async {
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    Map<String, dynamic> data = jsonDecode(response.body);
-    for (var entry in data.entries) {
-      var id = entry.key; // The unique Firebase ID
-      var user = entry.value;
-      if (user['email'] == email && user['password'] == password) {
-        // If credentials are found in the database, save them to the device
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('isLoggedIn', true);
-        await prefs.setString('userId', id); // Save the unique Firebase ID
-        await prefs.setString('email', user['email']);
-        await prefs.setString('name', user['name']);
-        await prefs.setString('surname', user['surname']);
-        await prefs.setString('phoneNumber', user['phoneNumber']);
-        await prefs.setString('avatarPath', user['avatar']);
+  final url = Uri.https(
+    'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+    '/user-table.json',
+  );
 
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MainPage(
-              userId: id, // Pass the unique Firebase ID
-              name: user['name'],
-              surname: user['surname'],
-              email: user['email'],
-              phoneNumber: user['phoneNumber'],
-              avatarPath: user['avatar'],
-            ),
-          ), // Redirect to home page
-        );
-        return;
-      }
-    }
-  } else {
-    // If the server returns an error, handle it
-    throw Exception('Failed to load user credentials');
+  final http.Client client;
+  DataLogin(this.client);
+
+//given a user and an id set the preferences to this user
+  static Future<void> setPreferences(
+      String id, Map<String, String> user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    await prefs.setString('userId', id); // Save the unique Firebase ID
+    await prefs.setString('email', user['email']!);
+    await prefs.setString('name', user['name']!);
+    await prefs.setString('surname', user['surname']!);
+    await prefs.setString('phoneNumber', user['phoneNumber']!);
+    await prefs.setString('avatarPath', user['avatar']!);
+
+    return;
   }
-}
 
-// funzione che dato una mail e una password ritorna vero o falso se l'utente esiste e ha pw corretta
-// ignore: non_constant_identifier_names
-Future<bool> checkCredentials_TODO(String email, String password) async {
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    Map<String, dynamic> data = jsonDecode(response.body);
-    for (var entry in data.entries) {
-      var user = entry.value;
-      if (user['email'] == email && user['password'] == password) {
-        return true;
+  static Future<bool> login(
+      BuildContext context, String email, String password) async {
+    final url = Uri.https(
+      'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+      '/user-table.json',
+    );
+    final getResponse = await http.get(url);
+
+    //now  i check if there is a user with the same email and password
+    if (getResponse.statusCode == 200) {
+      final decodedResponse =
+          json.decode(getResponse.body) as Map<String, dynamic>;
+      for (var entry in decodedResponse.entries) {
+        var user = entry.value;
+
+        if (user['email'] == email && user['password'] == password) {
+          // Save the user's data to shared preferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isLoggedIn', true);
+          await prefs.setString('userId', entry.key);
+          await prefs.setString('name', user['name']);
+          await prefs.setString('surname', user['surname']);
+          await prefs.setString('email', user['email']);
+          await prefs.setString('phoneNumber', user['phoneNumber']);
+          await prefs.setString('avatarPath', user['avatar']);
+
+          return true;
+        }
       }
     }
     return false;
-  } else {
-    throw Exception('Failed to load user credentials');
   }
-}
 
-//given an email and password return the user
-Future<UserModel> returnUser(String email, String password) async {
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    Map<String, dynamic> data = jsonDecode(response.body);
-    for (var entry in data.entries) {
-      var user = entry.value;
-      if (user['email'] == email && user['password'] == password) {
-        return user;
-      } else {
-        continue;
+  Future<UserModel> fetchUser() async {
+    final response = await client.get(Uri.https(
+      'dimaproject2023-default-rtdb.europe-west1.firebasedatabase.app',
+      '/user-table.json',
+    ));
+
+    UserModel myuser = UserModel();
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+
+      final decodedResponse =
+          json.decode(response.body) as Map<String, dynamic>;
+
+      for (var entry in decodedResponse.entries) {
+        var user = entry.value;
+
+        if (user['email'] == "franco@gmail.it" && user['password'] == "prova") {
+          // Save the user's data to shared preferences
+          myuser.updateUser(
+              userId: "-NdLHBijRYLHWqt_mFhA",
+              name: "franco",
+              surname: "battiato",
+              email: "franco@prova.it",
+              phoneNumber: "3345674564",
+              avatarPath: "lib/assets/images/avatar9.jpg");
+
+          return myuser;
+        }
       }
-    }
-    UserModel user = UserModel();
-    return user;
-  } else {
-    throw Exception('Failed to load user credentials');
-  }
-}
 
-//given a user and an id set the preferences to this user
-Future<void> setPreferences(String id, Map<String, String> user) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('isLoggedIn', true);
-  await prefs.setString('userId', id); // Save the unique Firebase ID
-  await prefs.setString('email', user['email']!);
-  await prefs.setString('name', user['name']!);
-  await prefs.setString('surname', user['surname']!);
-  await prefs.setString('phoneNumber', user['phoneNumber']!);
-  await prefs.setString('avatarPath', user['avatar']!);
-
-  return;
-}
-
-Future<bool> login(BuildContext context, String email, String password) async {
-  final getResponse = await http.get(url);
-
-  //now  i check if there is a user with the same email and password
-  if (getResponse.statusCode == 200) {
-    final decodedResponse =
-        json.decode(getResponse.body) as Map<String, dynamic>;
-    for (var entry in decodedResponse.entries) {
-      var user = entry.value;
-
-      if (user['email'] == email && user['password'] == password) {
-        // Save the user's data to shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('isLoggedIn', true);
-        await prefs.setString('userId', entry.key);
-        await prefs.setString('name', user['name']);
-        await prefs.setString('surname', user['surname']);
-        await prefs.setString('email', user['email']);
-        await prefs.setString('phoneNumber', user['phoneNumber']);
-        await prefs.setString('avatarPath', user['avatar']);
-
-        return true;
-      }
+      return myuser;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
     }
   }
-  return false;
 }
