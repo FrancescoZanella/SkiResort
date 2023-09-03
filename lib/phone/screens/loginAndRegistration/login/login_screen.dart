@@ -6,8 +6,6 @@ import 'package:ski_resorts_app/phone/screens/loginAndRegistration/login/data_lo
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ski_resorts_app/phone/screens/loginAndRegistration/registration/registration_screen.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import '../APIloginAndSignin/google_auth.dart';
 
@@ -372,7 +370,7 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
               onTap: () async {
                 print(email);
                 print(password);
-                if (await login(context, email, password)) {
+                if (await DataLogin.login(context, email, password)) {
                   final prefs = await SharedPreferences.getInstance();
                   // ignore: use_build_context_synchronously
                   Navigator.push(
