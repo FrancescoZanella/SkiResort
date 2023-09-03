@@ -10,6 +10,7 @@
 .svn/
 migrate_working_dir/
 *generated_plugin_registrant.cc
+converage/*
 
 # IntelliJ related
 *.iml
