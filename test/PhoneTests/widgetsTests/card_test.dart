@@ -1,42 +1,65 @@
+//tests ok
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ski_resorts_app/phone/widgets/card.dart';
 
 void main() {
-  testWidgets('MyCard displays correct details and handles interactions',
-      (tester) async {
-    bool callbackCalled = false;
-    int? callbackIndex;
-
-    void cardCallback(int index) {
-      callbackCalled = true;
-      callbackIndex = index;
-    }
+  testWidgets('MyCard should display the correct image and title',
+      (WidgetTester tester) async {
+    const image = 'lib/assets/images/smartwatch.jpg';
+    const title = 'My Card Title';
+    const height = 200.0;
+    const width = 150.0;
+    const index = 0;
 
     await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: MyCard(
-          height: 200,
-          width: 150,
-          image:
-              'assets/test_image.jpg', // Replace with a valid asset image in your app
-          title: 'TestTitle',
-          index: 5,
-          callback: cardCallback,
-        ),
+      home: MyCard(
+        image: image,
+        title: title,
+        height: height,
+        width: width,
+        index: index,
+        callback: (int index) {},
       ),
     ));
 
-    // Verify image and title display
-    expect(find.byType(Image), findsOneWidget);
-    expect(find.text('TestTitle'), findsOneWidget);
+    final imageFinder = find.descendant(
+      of: find.byType(MyCard),
+      matching: find.byType(Image),
+    );
+    expect(imageFinder, findsOneWidget);
+    expect((imageFinder.evaluate().first.widget as Image).image,
+        const AssetImage(image));
 
-    // Simulate pressing down on the card
-    await tester.tap(find.byType(GestureDetector));
-    await tester.pump();
+    final titleFinder = find.descendant(
+      of: find.byType(MyCard),
+      matching: find.text(title),
+    );
+    expect(titleFinder, findsOneWidget);
+  });
 
-    // Check if the callback was triggered with the correct index
-    expect(callbackCalled, true);
-    expect(callbackIndex, 5);
+  testWidgets('MyCard should call the callback when tapped',
+      (WidgetTester tester) async {
+    var index = -1;
+    const height = 200.0;
+    const width = 150.0;
+    const image = 'lib/assets/images/smartwatch.jpg';
+    const title = 'My Card Title';
+
+    await tester.pumpWidget(MaterialApp(
+      home: MyCard(
+        image: image,
+        title: title,
+        height: height,
+        width: width,
+        index: 0,
+        callback: (int i) {
+          index = i;
+        },
+      ),
+    ));
+
+    await tester.tap(find.byType(MyCard));
+    expect(index, 0);
   });
 }

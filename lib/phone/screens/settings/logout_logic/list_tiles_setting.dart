@@ -47,10 +47,6 @@ class CustomListTile extends StatelessWidget {
                           // The user signed in with Google
                           await logoutGoogleUser();
                           break;
-                        case 'facebook.com':
-                          // The user signed in with Facebook
-                          await logoutFacebookUser();
-                          break;
                         default:
                           // The user signed in with email and password
                           await logoutUser();

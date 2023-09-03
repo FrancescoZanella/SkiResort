@@ -1,10 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import './favorite_widget.dart';
 import 'favorite_elements.dart';
 
 class FavoritesScreen extends StatefulWidget {
   Function callback;
-  FavoritesScreen({required this.callback});
+  FavoritesScreen({super.key, required this.callback});
 
   @override
   State<FavoritesScreen> createState() => _FavoritesScreenState();

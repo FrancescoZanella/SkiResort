@@ -6,8 +6,6 @@ import 'package:ski_resorts_app/phone/screens/loginAndRegistration/login/data_lo
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ski_resorts_app/phone/screens/loginAndRegistration/registration/registration_screen.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import '../APIloginAndSignin/google_auth.dart';
 
@@ -370,8 +368,6 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
           color: Colors.transparent,
           child: InkWell(
               onTap: () async {
-                print(email);
-                print(password);
                 if (await login(context, email, password)) {
                   final prefs = await SharedPreferences.getInstance();
                   // ignore: use_build_context_synchronously
@@ -389,15 +385,17 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
                     ),
                   );
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Incorrect email or password',
-                        textAlign: TextAlign.center,
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Incorrect email or password',
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: Colors.red,
                       ),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
+                    );
+                  }
                 }
               },
               child: Container(
