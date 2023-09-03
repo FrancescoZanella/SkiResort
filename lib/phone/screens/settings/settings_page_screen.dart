@@ -40,7 +40,6 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              /*
               const SingleSection(
                 title: "Devices",
                 children: [
@@ -50,7 +49,7 @@ class SettingsPage extends StatelessWidget {
                     pageName: 'ConnectSmartwatchScreen',
                   ),
                 ],
-              ),*/
+              ),
               const Divider(),
               const SingleSection(
                 title: "Support",

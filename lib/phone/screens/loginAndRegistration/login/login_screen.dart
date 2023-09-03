@@ -387,15 +387,17 @@ Widget signInButton(BuildContext context, size, bool isPressed, var callback,
                     ),
                   );
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Incorrect email or password',
-                        textAlign: TextAlign.center,
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Incorrect email or password',
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: Colors.red,
                       ),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
+                    );
+                  }
                 }
               },
               child: Container(

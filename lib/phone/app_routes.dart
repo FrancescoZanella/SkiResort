@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:ski_resorts_app/phone/screens/settings/settings_page_screen.dart';
 import 'package:ski_resorts_app/phone/screens/settings/about_us_screen/about_us_screen.dart';
-import 'package:ski_resorts_app/phone/screens/settings/position_handler_screen/position_handler_screen.dart';
 import 'package:ski_resorts_app/phone/screens/settings/profile_screen/profile_screen.dart';
 import 'package:ski_resorts_app/phone/screens/skiResort/ski_resort_screen.dart';
 import 'package:ski_resorts_app/phone/screens/loginAndRegistration/login/login_screen.dart';
@@ -13,8 +12,6 @@ import 'package:ski_resorts_app/phone/screens/settings/rate_our_app_screen/rate_
 
 final Map<String, WidgetBuilder> routes = {
   '/AboutUsPage': (BuildContext context) => const AboutUsPage(),
-  '/LocationSettingScreen': (BuildContext context) =>
-      const LocationSettingScreen(),
   '/ProfilePageScreen': (BuildContext context) => const ProfilePageScreen(),
   '/SettingsPage': (BuildContext context) => const SettingsPage(),
   '/SkiResortScreen': (BuildContext context) => const SkiResortScreen(),
