@@ -58,5 +58,28 @@ void main() {
       final favoriteAddedIndicatorFinder = find.text('Added to Favorites');
       expect(favoriteAddedIndicatorFinder, findsOneWidget);
     });
+
+    testWidgets('Share Resort from Favorites Test',
+        (WidgetTester tester) async {
+      // Start your app
+      runApp(const MyApp());
+
+      // Navigate to Favorites page
+      final favoritesPageButtonFinder =
+          find.byKey(const Key('navigateToFavoritesPageButton'));
+      await tester.tap(favoritesPageButtonFinder);
+      await tester.pumpAndSettle();
+
+      // Find the share button for the first resort (assuming a list of favorite resorts)
+      final shareResortButtonFinder =
+          find.byKey(const Key('shareResortButton0'));
+      await tester.tap(shareResortButtonFinder);
+      await tester.pumpAndSettle();
+
+      // You can then validate if sharing was invoked, maybe by checking a shared count or a toast message
+      // This depends on your app's logic. For this example, let's assume you show a toast message.
+      final toastMessageFinder = find.text('Resort shared successfully!');
+      expect(toastMessageFinder, findsOneWidget);
+    });
   });
 }
