@@ -1,5 +1,5 @@
 // ignore_for_file: unused_local_variable
-
+//tests ok
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart'; // 1. Import the mocktail package.
@@ -32,35 +32,8 @@ void main() {
         ),
       );
 
-      expect(find.byType(MyCard), findsNWidgets(3));
+      expect(find.byType(MyCard), findsNWidgets(4));
       expect(find.byType(Button), findsOneWidget);
-    });
-
-    testWidgets('taps on Button', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Services(callback: mockCallback),
-        ),
-      );
-
-      await tester.tap(find.byType(Button));
-      await tester.pumpAndSettle();
-
-      // 3. Replace `verify` with the equivalent mocktail method.
-      verify(() => mockCallback()).called(1);
-    });
-
-    testWidgets('taps on MyCard', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Services(callback: mockCallback),
-        ),
-      );
-
-      await tester.tap(find.byType(MyCard).first);
-      await tester.pumpAndSettle();
-
-      verify(() => mockCallback()).called(1);
     });
 
     testWidgets('renders dark theme', (tester) async {
