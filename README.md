@@ -115,7 +115,11 @@ Here are a demo of the SkiResort application to give you a glimpse of its user i
 
 
 
-https://github.com/FrancescoZanella/DimaProject/assets/64276252/1c925c65-12c6-4a7f-9856-6ab8a46e4fb8
+
+
+
+
+https://github.com/FrancescoZanella/DimaProject/assets/64276252/a7397f61-19ff-4918-9984-cb5d7afbb13a
 
 
 
