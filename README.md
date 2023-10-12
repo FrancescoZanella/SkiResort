@@ -30,11 +30,14 @@ a complete training history.
 
 Before you begin with the installation, make sure you have the following prerequisites in place:
 
-- **Java Development Kit (JDK)**
-  - You'll need to have Java JDK installed on your system. If you don't have it installed, you can download and install it from [Oracle's JDK](https://www.oracle.com/java/technologies/javase-downloads.html) or [OpenJDK](https://openjdk.java.net/install/) based on your preference.
+- **Flutter and Dart SDK**
+  - You'll need to have Flutter JDK installed on your system. If you don't have it installed, you can download and install it from [Flutter SDK](https://docs.flutter.dev/get-started/install).
 
 - **Git**
   - Git is required to clone the repository and manage the source code. If you don't have Git installed, you can download it from [Git Downloads](https://git-scm.com/downloads).
+
+- **Android Studio**
+  - Android studio is needed to run the emulator.
 
 Make sure these prerequisites are properly installed and configured on your system before proceeding with the installation.
 
@@ -45,14 +48,14 @@ To get started, follow these simple steps:
   - Begin by cloning the project's repository to your local machine. You can do this by running the following command in your terminal:
 
     ```
-    git clone https://github.com/FrancescoZanella/F1_oop.git
+    git clone https://github.com/FrancescoZanella/DimaProject.git
     ```
 
 2. **Run the Application**
-  - After having cloned the application, you can run it using the following command:
+  - After having cloned the application, you can run it using the following command from the repository folder:
 
     ```
-    java -jar F1_oop.jar
+    flutter run
     ```
 
 ## 4. Features implemented
@@ -108,7 +111,13 @@ performance is highlighted in the home page.
 ## 6. How it works[DEMO and screenshots]
 ### Smartphone DEMO
 Here are a demo of the SkiResort application to give you a glimpse of its user interface and features of the smartphone:
-![Create League](screenshots/cr.png)
+
+
+
+https://github.com/FrancescoZanella/DimaProject/assets/64276252/1c925c65-12c6-4a7f-9856-6ab8a46e4fb8
+
+
+
 
 
 
@@ -120,19 +129,23 @@ immersive user experience during training sessions, ensuring that users have ins
 to their data without the need to constantly check their phones.
 The whole process of connection and data exchange is managed through firebase.
 #### Connection Page
-![Create League](screenshots/cr.png)
+![Qr page](screenshots/qr.png)
+
+
 The Connection Page displays a QR code for users to scan. Once scanned using a phone, it
 establishes a pairing with that device. This connection is maintained until the user voluntarily
 disconnects, either from the phone or the watch itself.
 
 #### HomePage
-![Create League](screenshots/cr.png)
+![Create League](screenshots/home.png)
+
 
 The Home Page offers a straightforward menu, showcasing the name and icon of the app. It
 features two buttons - one for disconnecting the paired device and another that navigates to
 the Training Page
 #### Training Page
-![Create League](screenshots/cr.png)
+![Create League](screenshots/training.png)
+
 
 On the Training Page, users can view all their training sessions. A list presents these
 sessions, and for each training entry, users can access statistics such as speed, date, and
