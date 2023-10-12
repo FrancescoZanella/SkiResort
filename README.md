@@ -105,13 +105,38 @@ performance is highlighted in the home page.
   - **Firebase Authentication + Google Sign-In**
   - **OpenStreetMaps API**
 
-## 6. How it works[DEMO]
+## 6. How it works[DEMO and screenshots]
+### Smartphone DEMO
+Here are a demo of the SkiResort application to give you a glimpse of its user interface and features of the smartphone:
+![Create League](screenshots/cr.png)
 
-Here are a demo of the SkiResort application to give you a glimpse of its user interface and features both for smartwatch and smartphone:
 
 
 
 
+### Smartwatch UI
+We decided to add smartwatch layout support because in our opinion this provides a more
+immersive user experience during training sessions, ensuring that users have instant access
+to their data without the need to constantly check their phones.
+The whole process of connection and data exchange is managed through firebase.
+#### Connection Page
+![Create League](screenshots/cr.png)
+The Connection Page displays a QR code for users to scan. Once scanned using a phone, it
+establishes a pairing with that device. This connection is maintained until the user voluntarily
+disconnects, either from the phone or the watch itself.
+
+#### HomePage
+![Create League](screenshots/cr.png)
+
+The Home Page offers a straightforward menu, showcasing the name and icon of the app. It
+features two buttons - one for disconnecting the paired device and another that navigates to
+the Training Page
+#### Training Page
+![Create League](screenshots/cr.png)
+
+On the Training Page, users can view all their training sessions. A list presents these
+sessions, and for each training entry, users can access statistics such as speed, date, and
+duration of the training, among others.
 
 
 ## 7. Contributors
