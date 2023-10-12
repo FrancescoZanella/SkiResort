@@ -14,7 +14,8 @@ SkiResort is a crossplatform (IOS and Android) + smartwatch (Wear OS) integratio
   - [4.6 Comprehensive Training Statistics](#4.6-results)
 - [5. External Services](#5.-external)
 - [6. How it works? DEMO](#6.)
-- [7. Contributors](#6.-contributors)
+- [7. Report](#7.)
+- [8. Contributors](#6.-contributors)
 
 
 ## SkiResort goal
@@ -151,8 +152,9 @@ On the Training Page, users can view all their training sessions. A list present
 sessions, and for each training entry, users can access statistics such as speed, date, and
 duration of the training, among others.
 
-
-## 7. Contributors
+## 7. Report[Design Document]
+For all the details about the model you can read the [report](https://github.com/FrancescoZanella/DimaProject/blob/master/SkiSageDD.pdf), where everyting is explained in detail.
+## 8. Contributors
 
 This is a side project made for University Course of Design and Implementation of Mobile Application at Polimi. 
 
